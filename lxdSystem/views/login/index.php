@@ -1,18 +1,16 @@
 <div class="login-wrapper">
-    <a href="index.html">
+    <a href="#">
         <img class="logo" src="<?php echo base_url('source/img/logo-white.png');?>">
     </a>
 
     <div class="box">
         <div class="content-wrap">
-            <h6>Log in</h6>
+            <h6>登录</h6>
             <form id="login_form">
-                <input class="form-control" type="text" placeholder="E-mail address" name="username">
-                <input class="form-control" type="password" placeholder="Your password" name="password">
+                <input class="form-control" type="text" placeholder="请输入你的用户名" name="username">
+                <input class="form-control" type="password" placeholder="请输入你的密码" name="password">
             </form>
             <div class="remember">
-                <input id="remember-me" type="checkbox">
-                <label for="remember-me">Remember me</label>
             </div>
             <a class="btn-glow primary login" href="javascript:void(0)">登录</a>
         </div>
@@ -27,7 +25,7 @@
             'data' : data,
             'success' : function(msg){
                 if(msg.code==1){
-                    location.href = '<?php echo site_url('index/index');?>';
+                    location.href = '<?php echo site_url('Welcome/index');?>';
                 }else{
                     alert(msg.msg);
                 }

@@ -24,6 +24,12 @@ class Login extends MY_Controller {
         }
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-        echo json_encode(array('code'=>0,'msg'=>$username.$password));
+
+        $this->load->model('user_model');
+        $res = $this->user_model->checkUser($username,$password);
+        if($res){
+            $this->jsonMsg(array('code'=>1));
+        }
+        $this->jsonMsg(array('code'=>0,'msg'=>'账号或者密码错误'));
     }
 }
