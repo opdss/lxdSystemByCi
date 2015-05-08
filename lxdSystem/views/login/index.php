@@ -1,6 +1,6 @@
 <div class="login-wrapper">
     <a href="index.html">
-        <img class="logo" src="source/img/logo-white.png">
+        <img class="logo" src="<?php echo base_url('source/img/logo-white.png');?>">
     </a>
 
     <div class="box">
