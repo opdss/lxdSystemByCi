@@ -9,6 +9,6 @@ class Welcome extends MY_Controller {
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->view('welcome_message');
 	}
 }

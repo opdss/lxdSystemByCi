@@ -11,9 +11,14 @@ class MY_Controller extends CI_Controller {
 
     protected $style = array(
         'css' => array(
+            'bootstrap/bootstrap.css',
+            'bootstrap/bootstrap-overrides.css',
             'compiled/layout.css',
             'compiled/elements.css',
-            'compiled/icons.css'
+            'compiled/icons.css',
+            'compiled/signin.css',
+            'compiled/layout.css',
+            'lib/font-awesome.css',
         ),
         'js' => array(
             'bootstrap.min.js',
@@ -40,6 +45,7 @@ class MY_Controller extends CI_Controller {
             'title' => isset($data['title']) ? $data['title'] : 'title'
         );
         $this->load->view('public/header', $head);
+        $this->load->view('public/menu', array('menu'=>$this->MENU));
         $this->load->view($page, $data);
         $this->load->view('public/footer');
     }

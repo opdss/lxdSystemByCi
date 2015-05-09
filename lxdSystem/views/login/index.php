@@ -25,7 +25,7 @@
             'data' : data,
             'success' : function(msg){
                 if(msg.code==1){
-                    location.href = '<?php echo site_url('Welcome/index');?>';
+                    location.href = '<?php echo site_url('welcome/index');?>';
                 }else{
                     alert(msg.msg);
                 }
