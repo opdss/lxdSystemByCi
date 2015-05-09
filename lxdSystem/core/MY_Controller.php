@@ -45,7 +45,9 @@ class MY_Controller extends CI_Controller {
             'title' => isset($data['title']) ? $data['title'] : 'title'
         );
         $this->load->view('public/header', $head);
-        $this->load->view('public/menu', array('menu'=>$this->MENU));
+        if(isset($this->MENU)) {
+            $this->load->view('public/menu', array('menu' => $this->MENU));
+        }
         $this->load->view($page, $data);
         $this->load->view('public/footer');
     }
