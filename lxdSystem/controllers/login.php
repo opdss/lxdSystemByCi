@@ -27,9 +27,11 @@ class Login extends MY_Controller {
 
         $this->load->model('user_model');
         $res = $this->user_model->checkUser($username,$password);
-        if($res){
-            $this->jsonMsg(array('code'=>1));
+        if(empty($res)){
+            $this->jsonMsg(0,'账号或者密码错误');
         }
-        $this->jsonMsg(array('code'=>0,'msg'=>'账号或者密码错误'));
+        $this->session->set_userdata('USER_INFO',$res);
+        $this->session->set_userdata('uid',$res['id']);
+        $this->jsonMsg(1);
     }
 }

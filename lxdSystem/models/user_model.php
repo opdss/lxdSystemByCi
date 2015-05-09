@@ -15,7 +15,7 @@ class User_model extends CI_Model {
             $row = $query->row_array();
             if(md5($password) === $row['pwd']){
                 //$this->update_login_user($row['id']);
-                return $type ? $row['id'] : $row;
+                return !$type ? $row['id'] : $row;
             }
         }
         return false;

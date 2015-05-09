@@ -7,6 +7,8 @@
  */
 class MY_Controller extends CI_Controller {
 
+    protected $_U = array();
+
     protected $style = array(
         'css' => array(
             'compiled/layout.css',
@@ -30,7 +32,6 @@ class MY_Controller extends CI_Controller {
 
     protected function view($page,$data=null){
         if ( ! file_exists(VIEWPATH.$page.'.php')){
-            // 页面不存在
             show_404();
         }
         $head = array(
@@ -43,18 +44,16 @@ class MY_Controller extends CI_Controller {
         $this->load->view('public/footer');
     }
 
-    protected function jsonMsg(array $param,$type=false){
-        $param = array_merge(array('code'=>1,'msg'=>'','data'=>array()),$param);
+    public function jsonMsg($code,$data_msg='',$type=false){
         $msg = array(
             -1 => 'please login',
             0 => 'system error',
             1 => 'success',
+            2 => 'permission denied',
         );
-        $data['code'] = $param['code'];
-        $data['msg'] = $param['msg'] ? $param['msg'] : (isset($msg[$param['code']]) ? $msg[$param['code']] : 'error');
-        if($param['code']==1){
-            $data['data'] = $param['data'];
-        }
+        $data['code'] = $code;
+        $data['msg'] = $code==1 ? 'success' : (!empty($data_msg) ? (string)$data_msg : (isset($msg[$code]) ? $msg[$code] : 'error'));
+        $code!=1 || $data['data']=$data_msg;
         if($type){
             return $data;
         }else{
