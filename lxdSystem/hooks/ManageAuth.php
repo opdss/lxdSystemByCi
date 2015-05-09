@@ -13,22 +13,32 @@ class ManageAuth {
     }
     /**     * 权限认证  */
     public function auth() {
-        $class = $this->CI->router->class;
-        $method = $this->CI->router->method;
-        if($class=='login' || $class == 'noAuth'){
-            return;
+        $class = strtolower($this->CI->router->class);
+        $method = strtolower($this->CI->router->method);
+        /*
+        $this->CI->load->config('manageAuth');
+        $manageAuth = $this->CI->config->item('manage_auth');
+        $p = array();
+        foreach($manageAuth as $k=>$v){
+            $p[] = $k;
         }
+        echo serialize($p);exit;
+        */
         $ajax = $this->CI->input->is_ajax_request();
         $_U = $this->CI->session->userdata('USER_INFO');
         if(empty($_U)){
             $ajax ? $this->CI->jsonMsg(-1) : redirect('login');
         }
-        if(!in_array(strtolower($class.'/'.$method),$_U['privileges'])){
-            $ajax ? $this->CI->jsonMsg(2) : redirect('noAuth');
+        if($class=='login'){
+            return;
         }
-        $this->CI->load->config('manageAuth');
-        $manageAuth = $this->CI->config->item('manageAuth');
         $this->createMenu($_U['privileges']);
+        if($class == 'welcome'){
+            return;
+        }
+        if(!in_array(strtolower($class.'/'.$method),$_U['privileges'])){
+            $ajax ? $this->CI->jsonMsg(2) : exit('no auth');
+        }
     }
 
     public function createMenu(array $privileges){

@@ -9,6 +9,8 @@ class MY_Controller extends CI_Controller {
 
     protected $_U = array();
 
+    protected $pageSize = 15;
+
     protected $style = array(
         'css' => array(
             'bootstrap/bootstrap.css',
