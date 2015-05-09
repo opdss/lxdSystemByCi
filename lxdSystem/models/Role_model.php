@@ -22,4 +22,8 @@ class Role_model extends MY_Model {
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+
+    public function add($data){
+        return $this->db->insert('role',$data);
+    }
 }

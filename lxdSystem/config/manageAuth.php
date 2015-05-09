@@ -7,15 +7,23 @@
  */
 $config['manage_auth'] = array(
 
-    'user' => '员工管理',
-    'user/index' => '全部员工',
-    'user/info' => '员工详情',
-    'user/edit' => '修改信息',
-    'user/add' => '添加员工',
+    'user' => array(
+        'name' => '员工管理',
+        'sub' => array(
+            'user/index' => '全部员工',
+            'user/info' => '员工详情',
+            'user/edit' => '修改信息',
+            'user/add' => '添加员工',
+        )
+    ),
 
-    'role' => '员工管理',
-    'role/index' => '角色列表',
-    'role/del' => '角色删除',
-    'role/edit' => '角色修改',
-    'role/add' => '角色添加',
+    'role' => array(
+        'name' => '角色管理',
+        'sub' => array(
+            'role/index' => '角色列表',
+            'role/del' => '角色删除',
+            'role/edit' => '角色修改',
+            'role/add' => '角色添加',
+        )
+    ),
 );

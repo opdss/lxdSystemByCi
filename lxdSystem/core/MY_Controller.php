@@ -19,11 +19,12 @@ class MY_Controller extends CI_Controller {
             'compiled/elements.css',
             'compiled/icons.css',
             'compiled/signin.css',
-            'compiled/layout.css',
             'lib/font-awesome.css',
+            'compiled/form-showcase.css'
         ),
         'js' => array(
             'bootstrap.min.js',
+            'jquery.uniform.min.js',
             'theme.js'
         )
     );
@@ -39,7 +40,8 @@ class MY_Controller extends CI_Controller {
 
     protected function view($page,$data=null){
         if ( ! file_exists(VIEWPATH.$page.'.php')){
-            show_404();
+            exit('no template');
+            //show_404();
         }
         $head = array(
             'css' => array_merge($this->style['css'],$this->restyle['css']),
