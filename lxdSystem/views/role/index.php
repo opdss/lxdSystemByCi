@@ -13,7 +13,7 @@
 
             <div class="row filter-block">
                 <div class="pull-right">
-                    <input type="text" name="kw" class="search" <?=(empty($kw)?'placeholder="搜索..."':"value='{$kw}'");?> onkeydown="if(event.keyCode==13){location.href='/User/Role/Index?kw='+this.value}" />
+                    <input type="text" name="kw" class="search" <?php echo (empty($kw)?'placeholder="搜索..."':"value='{$kw}'");?> onkeydown="if(event.keyCode==13){location.href='/User/Role/Index?kw='+this.value}" />
                     <a class="btn-flat success new-product" href="/User/Role/Add">+ 添加用户组</a>
                 </div>
             </div>
@@ -49,13 +49,13 @@
                     if(!empty($list)){
                         foreach($list as $val){
                             ?>
-                            <tr <?=($i == 0 ? 'class="first"' : '');?>>
-                                <td><?=$val['id'];?></td>
+                            <tr <?php echo ($i == 0 ? 'class="first"' : '');?>>
+                                <td><?php echo $val['id'];?></td>
                                 <td>
-                                    <?=$val['role_name'];?>
+                                    <?php echo $val['role_name'];?>
                                 </td>
                                 <td>
-                                    <?=$val['role_desc'];?>
+                                    <?php echo $val['role_desc'];?>
                                 </td>
                                 <td>
                                     <?php if($val['enabled'] == 1){?>
@@ -65,12 +65,12 @@
                                     <?php }?>
                                 </td>
                                 <td>
-                                    <?=date('Y-m-d H:i',$val['create_time'])?>
+                                    <?php echo date('Y-m-d H:i',$val['create_time'])?>
                                 </td>
                                 <td class="align-right">
                                     <ul class="actions" style=" float: left;">
-                                        <a href="/User/Role/Edit?id=<?=$val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
-                                        <a href="javascript:void(0);" title="删除" onclick="del(<?=$val['id'];?>);"><li class="last icon-remove"></li></a>
+                                        <a href="/User/Role/Edit?id=<?php echo $val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
+                                        <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
                                     </ul>
                                 </td>
                             </tr>
