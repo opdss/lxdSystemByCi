@@ -8,7 +8,20 @@
 class Role extends MY_Controller {
 
     public function index(){
-        $this->view('role/index');
+        $kw = $this->input->get('kw');
+        $p = (int)$this->input->get('p');
+        $p = $p ? $p : 1;
+        $this->load->model('role_model');
+        $count = $this->role_model->getTotal($kw);
+        $offset = ($p-1)*$this->pageSize;
+
+        $data['list'] = $this->role_model->getList($offset,$this->pageSize,$kw);
+
+        $this->load->library('page',array('total'=>$count,'pageSize'=>$this->pageSize));
+        $data['page_show'] = $this->page->pageShow();
+        $data['kw'] = $kw;
+
+        $this->view('role/index',$data);
     }
 
     public function checkAuth(){
