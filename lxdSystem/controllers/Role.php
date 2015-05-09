@@ -29,22 +29,23 @@ class Role extends MY_Controller {
             $this->load->config('manageAuth');
             $manauth = $this->config->item('manage_auth');
             $this->view('role/add',array('privileges'=>$manauth));
+        }else {
+            $res = $this->input->post('data');
+            parse_str($res, $data);
+            if (empty($data['role_name'])) {
+                $this->jsonMsg(0, '请输入角色名字');
+            }
+            if (empty($data['role_desc'])) {
+                $this->jsonMsg(0, '请输入角色介绍');
+            }
+            if (empty($data['privileges'])) {
+                $this->jsonMsg(0, '请选择权限');
+            }
+            $data['role_privileges'] = serialize($data['privileges']);
+            unset($data['privileges']);
+            $this->load->model('role_model');
+            $res = (int)$this->role_model->add($data);
+            $this->jsonMsg($res);
         }
-        $res = $this->input->post('data');
-        parse_str($res,$data);
-        if(empty($data['role_name'])){
-            $this->jsonMsg(0,'请输入角色名字');
-        }
-        if(empty($data['role_desc'])){
-            $this->jsonMsg(0,'请输入角色介绍');
-        }
-        if(empty($data['privileges'])){
-            $this->jsonMsg(0,'请选择权限');
-        }
-        $data['role_privileges'] = serialize($data['privileges']);
-        unset($data['privileges']);
-        $this->load->model('role_model');
-        $res = (int)$this->role_model->add($data);
-        $this->jsonMsg($res);
     }
 }
