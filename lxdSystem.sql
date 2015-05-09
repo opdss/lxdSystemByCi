@@ -11,7 +11,7 @@
  Target Server Version : 50621
  File Encoding         : utf-8
 
- Date: 05/07/2015 20:02:34 PM
+ Date: 05/09/2015 15:24:48 PM
 */
 
 SET NAMES utf8;
@@ -68,7 +68,14 @@ CREATE TABLE `t_role` (
   `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
   `role_privileges` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_role`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_role` VALUES ('1', '管理员', '最高权限', '42314324', 'a:2:{i:0;s:4:\"user\";i:1;s:9:\"user/edit\";}'), ('2', '厂长', '高级权限', '234232343', 'a:4:{i:0;s:4:\"user\";i:1;s:9:\"user/info\";i:2;s:7:\"welcome\";i:3;s:13:\"welcome/index\";}');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_user`
@@ -94,7 +101,14 @@ CREATE TABLE `t_user` (
   `isdel` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1为离职，0为在值',
   `bothday` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_user` VALUES ('1', 'GD0001', 'changzhang', '96e79218965eb72c92a549dd5a330112', '厂长', '1', '32', '1', '1234546', null, null, '0', null, null, null, null, '0', null);
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_user_process`
@@ -121,7 +135,14 @@ CREATE TABLE `t_user_role` (
   `role_id` int(11) DEFAULT NULL COMMENT '角色编号',
   `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_user_role`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_user_role` VALUES ('1', '1', '1', '431253345'), ('2', '1', '2', '234352345');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_user_salary`
