@@ -26,11 +26,11 @@ class ManageAuth {
         */
         $ajax = $this->CI->input->is_ajax_request();
         $_U = $this->CI->session->userdata('USER_INFO');
-        if(empty($_U)){
-            $ajax ? $this->CI->jsonMsg(-1) : redirect('login');
-        }
         if($class=='login'){
             return;
+        }
+        if(empty($_U)){
+            $ajax ? $this->CI->jsonMsg(-1) : redirect('login');
         }
         $this->createMenu($_U['privileges']);
         if($class == 'welcome'){
