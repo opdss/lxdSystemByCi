@@ -15,7 +15,10 @@ class ManageAuth {
     public function auth() {
         $class = strtolower($this->CI->router->class);
         $method = strtolower($this->CI->router->method);
-
+        if($class=='login'){
+            $this->CI->session->unset_userdata('USER_INFO');
+            return;
+        }
         $this->CI->load->config('manageAuth');
         $manageAuth = $this->CI->config->item('manage_auth');
         $p = array();
@@ -28,13 +31,11 @@ class ManageAuth {
             }
         }
         $_U = $this->CI->session->userdata('USER_INFO');
-        !isset($_U['privileges']) || $this->createMenu($_U['privileges']);
         $ajax = $this->CI->input->is_ajax_request();
-
-        if(empty($_U) && $class!='login'){
+        if(empty($_U)){
             $ajax ? $this->CI->jsonMsg(-1) : redirect('login');
         }
-
+        $this->createMenu($_U['privileges']);
         if(!in_array($class.'/'.$method,$p)){
             return;
         }
