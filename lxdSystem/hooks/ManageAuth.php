@@ -15,33 +15,37 @@ class ManageAuth {
     public function auth() {
         $class = strtolower($this->CI->router->class);
         $method = strtolower($this->CI->router->method);
-        /*
+
         $this->CI->load->config('manageAuth');
         $manageAuth = $this->CI->config->item('manage_auth');
         $p = array();
         foreach($manageAuth as $k=>$v){
             $p[] = $k;
+            if(isset($v['sub']) && !empty($v['sub'])){
+                foreach($v['sub'] as $_k=>$_v){
+                    $p[] = $_k;
+                }
+            }
         }
-        echo serialize($p);exit;
-        */
-        $ajax = $this->CI->input->is_ajax_request();
         $_U = $this->CI->session->userdata('USER_INFO');
-        if($class=='login'){
-            return;
-        }
-        if(empty($_U)){
+        !isset($_U['privileges']) || $this->createMenu($_U['privileges']);
+        $ajax = $this->CI->input->is_ajax_request();
+
+        if(empty($_U) && $class!='login'){
             $ajax ? $this->CI->jsonMsg(-1) : redirect('login');
         }
-        $this->createMenu($_U['privileges']);
-        if($class == 'welcome'){
+
+        if(!in_array($class.'/'.$method,$p)){
             return;
         }
-        if(!in_array(strtolower($class.'/'.$method),$_U['privileges'])){
+
+        if(!in_array($class.'/'.$method,$_U['privileges'])){
             $ajax ? $this->CI->jsonMsg(2) : exit('no auth');
         }
     }
 
     public function createMenu(array $privileges){
+        if(empty($privileges)){return false;}
         $this->CI->load->config('menu');
         $menu = $this->CI->config->item('manage_menu');
         $M = array();

@@ -16,7 +16,15 @@ $config['manage_auth'] = array(
             'user/add' => '添加员工',
         )
     ),
-
+    'department' => array(
+        'name' => '部门管理',
+        'sub' => array(
+            'user/index' => '部门列表',
+            'user/info' => '部门详情',
+            'user/edit' => '部门信息',
+            'user/add' => '添加部门',
+        )
+    ),
     'role' => array(
         'name' => '角色管理',
         'sub' => array(
