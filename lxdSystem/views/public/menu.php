@@ -128,7 +128,7 @@
 <div id="sidebar-nav">
     <ul id="dashboard-menu">
         <li>
-            <a href="index.html">
+            <a href="<?php echo site_url('welcome/index');?>">
                 <i class="icon-home"></i>
                 <span>Home</span>
             </a>
