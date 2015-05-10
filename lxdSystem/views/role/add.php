@@ -53,15 +53,12 @@
 <!-- end main container -->
 <script>
     $('input.check_all').change(function(){
-        if($(this).is(':checked')){
-            $(this).parent('div.selectAll').find('input.check_one').attr('checked',true);
-        }else{
-            $(this).parent('div.selectAll').find('input.check_one').attr('checked',false);
-        }
+        $(this).parent('div.selectAll').find('input.check_one:checkbox').attr('checked',$(this).is(':checked'));
+
     });
     $('input.check_one').change(function(){
         if($(this).is(':checked')){
-            $(this).parent('div.selectAll').find('input.check_all').attr('checked',true);
+            $(this).parent('div.selectAll').find('input.check_all:checkbox').attr('checked',true);
         }
     });
     $('#add_btn').click(function(){

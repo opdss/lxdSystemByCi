@@ -41,11 +41,32 @@ class Role extends MY_Controller {
             if (empty($data['privileges'])) {
                 $this->jsonMsg(0, '请选择权限');
             }
+            $data['create_time'] = TIMESTAMP;
             $data['role_privileges'] = serialize($data['privileges']);
             unset($data['privileges']);
             $this->load->model('role_model');
             $res = (int)$this->role_model->add($data);
             $this->jsonMsg($res);
         }
+    }
+
+    public function edit(){
+        //访问页面
+        if(!$this->input->is_ajax_request()){
+
+        }
+        //ajax提交数据
+        else{
+
+        }
+    }
+
+    public function del(){
+        if(!$this->input->is_ajax_request()){
+            //删除没有页面
+            return false;
+        }
+        //删除操作
+
     }
 }
