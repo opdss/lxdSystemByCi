@@ -117,7 +117,7 @@
             </a>
         </li>
         <li class="settings hidden-xs hidden-sm">
-            <a href="signin.html" role="button">
+            <a href="<?php echo site_url('login/loginOut');?>" role="button">
                 <i class="icon-share-alt"></i>
             </a>
         </li>
