@@ -75,7 +75,7 @@ if (!empty($list)) {
 		}?></td>
 		                    <td class="align-right">
 		                        <ul class="actions" style=" float: left;">
-		                        <a href="/User/Role/Edit?id=<?php echo $val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
+		                        <a href="<?php echo site_url('user/edit');?>?id=<?php echo $val['id']?>" title="编辑"><li class="icon-wrench"></li></a>
 		                        <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
 		                        </ul>
 		                    </td>
@@ -102,7 +102,7 @@ if (!empty($list)) {
     function del(id){
         if(confirm('确定要删除吗？')){
             $.ajax({
-                url: '/User/Role/Del',
+                url: '<?php echo site_url('user/del');?>',
                 type: "post",
                 dataType: 'json',
                 timeout: 50000,

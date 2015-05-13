@@ -10,9 +10,7 @@ $config['manage_auth'] = array(
     'user' => array(
         'name' => '员工管理',
         'sub' => array(
-            'user/index' => '全部员工',
-            'user/info' => '员工详情',
-            'user/edit' => '修改信息',
+            'user/index' => '全部员工',            
             'user/add' => '添加员工',
         )
     ),

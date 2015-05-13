@@ -65,4 +65,48 @@ class User_model extends MY_Model {
 		}
 		return $userList;
 	}
+
+	/**
+	 * username唯一
+	 */
+	public function checkUserIsOneByUserName($username) {
+		$this->db->select('*');
+		$this->db->where('username', $username);
+		$query = $this->db->get('user');
+		if ($query->num_rows() > 0) {
+			return false;
+		}
+		return true;
+	}
+
+    public function makeUserNo()
+    {
+        $sql = 'select * from '.$this->db->dbprefix('user').' order by id desc limit 0,1';
+        $query    = $this->db->query($sql);
+        $user = $query->row_array();
+        if($user){
+            $pos = strrpos($user['no'], '0');
+            $newNo = intval(substr($user['no'],$pos))+1;
+            $newNo = substr($user['no'],0,$pos+1).$newNo;
+            return $newNo;
+        }else{
+            return 'GD0001';
+        }
+    }
+
+    public function add($data){
+        $this->db->insert('user',$data);
+        return $this->db->insert_id();
+    }
+
+
+    public function getRow($where){
+    	if(empty($where)){
+    		return false;
+    	}
+    	$sql = 'select * from '.$this->db->dbprefix('user').' where '.$where.' order by id desc limit 0,1';
+        $query    = $this->db->query($sql);
+        $user = $query->row_array();
+        return $user;
+    }
 }
