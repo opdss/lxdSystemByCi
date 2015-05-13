@@ -14,7 +14,7 @@ class ManageAuth {
     /**     * 权限认证  */
     public function auth() {
         $class = strtolower($this->CI->router->class);
-        $method = strtolower($this->CI->router->method);
+        $method = $this->CI->router->method;
         if($class=='login'){
             $this->CI->session->unset_userdata('USER_INFO');
             return;
