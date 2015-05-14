@@ -61,25 +61,25 @@ $i = 0;
 if (!empty($list)) {
 	foreach ($list as $val) {
 		?>
-						<tr <?php echo ($i == 0?'class="first"':'');?>>
-							<td><?php echo $val['id'];?></td>
-		                    <td><?php echo $val['truename'];?></td>
-		                    <td><?php echo $val['sex'] == 1?'男':'女';?></td>
-					        <td><?php echo $val['age'];?></td>
-		                    <td><?php echo $val['dept_name'];?></td>
-		                    <td><?php echo date('Y-m-d H:i', $val['begin_work_time']);?></td>
-		                    <td><?php echo $val['mobile'];?></td>
-		                    <td><?php echo $val['isdel']?'在职':'离职';?></td>
-		                    <td><?php foreach ($val['role_name'] as $k => $v) {
+										<tr <?php echo ($i == 0?'class="first"':'');?>>
+											<td><?php echo $val['id'];?></td>
+						                    <td><?php echo $val['truename'];?></td>
+						                    <td><?php echo $val['sex'] == 1?'男':'女';?></td>
+									        <td><?php echo $val['age'];?></td>
+						                    <td><?php echo $val['dept_name'];?></td>
+						                    <td><?php echo date('Y-m-d H:i', $val['begin_work_time']);?></td>
+						                    <td><?php echo $val['mobile'];?></td>
+						                    <td><?php echo $val['isdel']?'在职':'离职';?></td>
+						                    <td><?php foreach ($val['role_name'] as $k => $v) {
 			echo $v['role_name'].'　';
 		}?></td>
-		                    <td class="align-right">
-		                        <ul class="actions" style=" float: left;">
-		                        <a href="<?php echo site_url('user/edit');?>?id=<?php echo $val['id']?>" title="编辑"><li class="icon-wrench"></li></a>
-		                        <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
-		                        </ul>
-		                    </td>
-		                </tr>
+						                    <td class="align-right">
+						                        <ul class="actions" style=" float: left;">
+						                        <a href="<?php echo site_url('user/edit');?>?id=<?php echo $val['id']?>" title="编辑"><li class="icon-wrench"></li></a>
+						                        <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
+						                        </ul>
+						                    </td>
+						                </tr>
 		<?php
 		$i++;
 	}
@@ -109,7 +109,8 @@ if (!empty($list)) {
                 data:{'id':id},
                 success: function (rs) {
                     if(rs == 1){
-                        window.location.href = window.location.href;
+                        alert("删除成功");
+                        window.location.href = "<?php echo site_url('user/index');?>";
                     }else{
                         alert(rs);
                     }

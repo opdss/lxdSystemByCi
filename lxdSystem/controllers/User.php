@@ -46,10 +46,12 @@ class User extends MY_Controller {
 		//ajax提交数据
 		 else {
 			$data = $this->input->post();
-			$msg = '';
+			$msg  = '';
 			$this->load->model('user_model');
-			if(!$this->user_model->checkUserIsOneByUserName($data['username'])){
-				$msg .= '用户名要唯一\r\n';
+			if (empty($data['id'])) {
+				if (!$this->user_model->checkUserIsOneByUserName($data['username'])) {
+					$msg .= '用户名要唯一\r\n';
+				}
 			}
 			if (preg_match("/^\s*$/", $data['truename'])) {$msg .= '请填写真实名称\r\n';}
 			if (preg_match("/^\s*$/", $data['sex'])) {$msg .= '请选择性别\r\n';}
@@ -57,32 +59,48 @@ class User extends MY_Controller {
 			if (preg_match("/^\s*$/", $data['dept_id'])) {$msg .= '请选择部门\r\n';}
 			if (!preg_match("/^(\d{2})\/(\d{2})\/(\d{4})$/", $data['begin_work_time'])) {$msg .= '时间格式不正确\r\n';}
 			if (preg_match("/^\s*$/", $data['mobile'])) {$msg .= '请填写手机号\r\n';}
-			if (preg_match("/^\s*$/", $data['role_id'])) {$msg .= '请选择角色\r\n';}
+			if (preg_match("/^\s*$/", implode(',', $data['role_id']))) {$msg .= '请选择角色\r\n';}
 			if (preg_match("/^\s*$/", $data['isdel'])) {$msg .= '请选择是否在职\r\n';}
 
-			if(!empty($msg)){
+			if (!empty($msg)) {
 				$this->jsonMsg(0, $msg);
 			}
-			
-			$data['no'] = $this->user_model->makeUserNo();			
-			$data['create_time']     = TIMESTAMP;
-			$data['pwd'] = md5($data['pwd']);
-			$data['begin_work_time'] = strtotime($data['begin_work_time']);
-			$data['end_work_time'] = $data['end_work_time'] ? strtotime($data['end_work_time']) : 0;
-			$role_id = $data['role_id'];
-			unset($data['role_id']);
-			$insertId = (int)$this->user_model->add($data);						
-			$this->load->model('user_role_model');
-			$data2['user_id'] = $insertId;
-			$data2['role_id'] = $role_id;
-			$data2['create_time'] = TIMESTAMP;
 
-			$res = (int) $this->user_role_model->add($data2);
-			$this->jsonMsg($res);
+			$data['no']              = $this->user_model->makeUserNo();
+			$data['create_time']     = TIMESTAMP;
+			$data['pwd']             = md5($data['pwd']);
+			$data['begin_work_time'] = strtotime($data['begin_work_time']);
+			$data['end_work_time']   = $data['end_work_time']?strtotime($data['end_work_time']):0;
+			$role_id                 = $data['role_id'];
+			unset($data['role_id']);
+			$this->load->model('user_role_model');
+			if (empty($data['id'])) {
+				unset($data['id']);
+				$insertId = (int) $this->user_model->add($data);
+				foreach ($role_id as $key => $value) {
+					$data2['user_id']     = $insertId;
+					$data2['role_id']     = $value;
+					$data2['create_time'] = TIMESTAMP;
+
+					$res = (int) $this->user_role_model->add($data2);
+				}
+
+				$this->jsonMsg($res);
+			} else {
+				$id = $data['id'];
+				unset($data['id']);
+				$this->user_model->edit($id, $data);
+				foreach ($role_id as $key => $value) {
+					$data2 = array('role_id' => $value);
+					$res   = (int) $this->user_role_model->edit($id, $data2);
+				}
+
+				$this->jsonMsg($res);
+			}
 		}
 	}
 
-	public function edit(){
+	public function edit() {
 
 		$this->load->model('department_model');
 		$count            = $this->department_model->getTotal();
@@ -93,9 +111,20 @@ class User extends MY_Controller {
 		$data['role_list'] = $this->role_model->getList(0, $count2);
 
 		$this->load->model('user_model');
-		$id = $this->input->get('id');
+		$id                = $this->input->get('id');
 		$data['user_info'] = $this->user_model->getRow('id='.$id);
+
 		$this->view('user/add', $data);
+	}
+
+	public function del() {
+
+		$id = $this->input->post('id');
+		$this->db->where('id', $id);
+		$this->db->delete('user');
+		$this->db->where('user_id', $id);
+		$this->db->delete('user_role');
+		echo 1;
 	}
 }
 

@@ -7,8 +7,12 @@
  */
 class User_role_model extends MY_Model {
 
+	public function add($data) {
+		return $this->db->insert('user_role', $data);
+	}
 
-    public function add($data){
-        return $this->db->insert('user_role',$data);
-    }
+	public function edit($id, $data) {
+		$this->db->where('user_id', $id);
+		return $this->db->update('user_role', $data);
+	}
 }

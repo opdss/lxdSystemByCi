@@ -79,34 +79,47 @@ class User_model extends MY_Model {
 		return true;
 	}
 
-    public function makeUserNo()
-    {
-        $sql = 'select * from '.$this->db->dbprefix('user').' order by id desc limit 0,1';
-        $query    = $this->db->query($sql);
-        $user = $query->row_array();
-        if($user){
-            $pos = strrpos($user['no'], '0');
-            $newNo = intval(substr($user['no'],$pos))+1;
-            $newNo = substr($user['no'],0,$pos+1).$newNo;
-            return $newNo;
-        }else{
-            return 'GD0001';
-        }
-    }
+	public function makeUserNo() {
+		$sql   = 'select * from '.$this->db->dbprefix('user').' order by id desc limit 0,1';
+		$query = $this->db->query($sql);
+		$user  = $query->row_array();
+		if ($user) {
+			$pos   = strrpos($user['no'], '0');
+			$newNo = intval(substr($user['no'], $pos))+1;
+			$newNo = substr($user['no'], 0, $pos+1).$newNo;
+			return $newNo;
+		} else {
+			return 'GD0001';
+		}
+	}
 
-    public function add($data){
-        $this->db->insert('user',$data);
-        return $this->db->insert_id();
-    }
+	public function add($data) {
+		$this->db->insert('user', $data);
+		return $this->db->insert_id();
+	}
 
+	public function getRow($where) {
+		$role_arr = array();
+		if (empty($where)) {
+			return false;
+		}
+		$sql            = 'select * from '.$this->db->dbprefix('user').' where '.$where.' order by id desc limit 0,1';
+		$query          = $this->db->query($sql);
+		$user           = $query->row_array();
+		$sql2           = 'select * from '.$this->db->dbprefix('user_role').' where user_id='.$user['id'];
+		$query          = $this->db->query($sql2);
+		$user_role_list = $query->result_array();
+		if (!empty($user_role_list)) {
+			foreach ($user_role_list as $key => $value) {
+				$role_arr[] = $value['role_id'];
+			}
+		}
+		$user['role_id'] = $role_arr;
+		return $user;
+	}
 
-    public function getRow($where){
-    	if(empty($where)){
-    		return false;
-    	}
-    	$sql = 'select * from '.$this->db->dbprefix('user').' where '.$where.' order by id desc limit 0,1';
-        $query    = $this->db->query($sql);
-        $user = $query->row_array();
-        return $user;
-    }
+	public function edit($id, $data) {
+		$this->db->where('id', $id);
+		return $this->db->update('user', $data);
+	}
 }

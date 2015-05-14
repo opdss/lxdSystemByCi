@@ -58,8 +58,7 @@
                                 <select name="dept_id">
                                     <option value="">--请选择--</option>
 <?php foreach ($dep_list as $k => $v):?>
-                                    <option value="<?php echo $v['id']?>" <?php if (isset($user_info['dept_id'])) {echo $v['id'] == $user_info['dept_id']?'checked':''?>><?php echo $v['dept_name'];
-}
+                                    <option value="<?php echo $v['id']?>" <?php if (isset($user_info['dept_id'])) {echo $v['id'] == $user_info['dept_id']?'checked':'';}?>><?php echo $v['dept_name'];
 ?></option>
 <?php endforeach;?>
 </select>
@@ -115,30 +114,30 @@
                             <div class="col-md-12 field-box">
                                 <label>所属角色:</label>
 
-                                    <select name="role_id">
-                                        <option value="">--请选择--</option>
 <?php foreach ($role_list as $k => $v):?>
-                                        <option value="<?php echo $v['id']?>"><?php echo $v['role_name'];?></option>
+                                        <input type="checkbox" name="role_id[]" value="<?php echo $v['id']?>" <?php if (isset($user_info['role_id'])) {echo in_array($v['id'], $user_info['role_id'])?'checked':'';}?>><?php echo $v['role_name'];
+?>
 <?php endforeach;?>
-</select>
                                     <span style="color:red" class="field_message"></span>
                             </div>
 
                             <div class="col-md-11 field-box actions">
-                                <input type="button" class="btn-glow primary" value="Create user" onclick="submitBtn('sava')">
-                                <span>OR</span>
-                                <input type="reset" value="Cancel" class="reset">
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                            <input type="hidden" name="id" value="<?php if (isset($user_info['id'])) {echo $user_info['id'];}?>">
+	                                <input type="button" class="btn-glow primary" value="Create user" onclick="submitBtn('sava')">
+	                                <span>OR</span>
+	                                <input type="reset" value="Cancel" class="reset">
+	                            </div>
+	                        </form>
+	                    </div>
+	                </div>
 
 
-            </div>
-        </div>
-    </div>
-    <!-- end main container -->
-<script type="text/javascript" src="<?php echo base_url('source/js/jquery.validate.js');?>"></script>
+	            </div>
+	        </div>
+	    </div>
+	    <!-- end main container -->
+	<script type="text/javascript" src="<?php echo base_url('source/js/jquery.validate.js');
+?>"></script>
 <script type="text/javascript" src="<?php echo base_url('source/js/jquery-form.js');?>"></script>
 <script src="<?php echo base_url('source/js/bootstrap.datepicker.js');?>"></script>
 <script type="text/javascript">
