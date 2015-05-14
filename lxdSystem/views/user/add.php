@@ -25,28 +25,32 @@
                         <form class="new_user_form" action="" method="post" id="new_user_form">
                             <div class="col-md-12 field-box">
                                 <label>userName:</label>
-                                <input class="form-control" type="text" name="username" value="<?php echo $user_info['username']?>"/>
+                                <input class="form-control" type="text" name="username" value="<?php echo isset($user_info['username'])?$user_info['username']:''?>"/>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>realName:</label>
-                                <input class="form-control" type="text" name="truename" value="<?php echo $user_info['username']?>"/>
+                                <input class="form-control" type="text" name="truename" value="<?php echo isset($user_info['truename'])?$user_info['truename']:'';?>"/>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>password:</label>
-                                <input class="form-control" type="password" name="pwd" value="<?php echo $user_info['username']?>"/>
+                                <input class="form-control" type="password" name="pwd" value="<?php echo isset($user_info['pwd'])?$user_info['pwd']:'';?>"/>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>sex:</label>
-                                <input type="radio" name="sex" value='1' <?php echo $user_info['sex']==1 ? 'checked' : '';?>/>男
-                                <input type="radio" name="sex" value='0' <?php echo $user_info['sex']==0 ? 'checked' : '';?>/>女
+                                <input type="radio" name="sex" value='1' <?php if (isset($user_info['sex'])) {echo $user_info['sex'] == 1?'checked':'';
+}
+?>/>男
+                                <input type="radio" name="sex" value='0' <?php if (isset($user_info['sex'])) {echo $user_info['sex'] == 0?'checked':'';
+}
+?>/>女
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>age:</label>
-                                <input class="form-control" type="text" name="age" value="<?php echo $user_info['age']?>"/>
+                                <input class="form-control" type="text" name="age" value="<?php echo isset($user_info['age'])?$user_info['age']:'';?>"/>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
@@ -54,53 +58,59 @@
                                 <select name="dept_id">
                                     <option value="">--请选择--</option>
 <?php foreach ($dep_list as $k => $v):?>
-                                    <option value="<?php echo $v['id']?>" <?php echo $v['id']==$user_info['dept_id'] ? 'checked' : ''?>><?php echo $v['dept_name'];?></option>
+                                    <option value="<?php echo $v['id']?>" <?php if (isset($user_info['dept_id'])) {echo $v['id'] == $user_info['dept_id']?'checked':''?>><?php echo $v['dept_name'];
+}
+?></option>
 <?php endforeach;?>
 </select>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>begin_work_time:</label>
-                                <input class="form-control input-datepicker1" type="text" name="begin_work_time" value="<?php echo date('d/m/Y',$user_info['begin_work_time']);?>"/>
+                                <input class="form-control input-datepicker1" type="text" name="begin_work_time" value="<?php echo isset($user_info['begin_work_time'])?date('d/m/Y', $user_info['begin_work_time']):'';?>"/>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>end_work_time:</label>
-                                <input class="form-control input-datepicker2" type="text" name="end_work_time" value="<?php echo date('d/m/Y',$user_info['end_work_time']);?>"/>
+                                <input class="form-control input-datepicker2" type="text" name="end_work_time" value="<?php echo isset($user_info['end_work_time'])?date('d/m/Y', $user_info['end_work_time']):'';?>"/>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>idcard:</label>
-                                <input class="form-control" type="text" name="idcard" value="<?php echo $user_info['idcard']?>"/>
+                                <input class="form-control" type="text" name="idcard" value="<?php echo isset($user_info['idcard'])?$user_info['idcard']:'';?>"/>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>mobile:</label>
-                                <input class="form-control" type="text" name="mobile" value="<?php echo $user_info['mobile']?>"/>
+                                <input class="form-control" type="text" name="mobile" value="<?php echo isset($user_info['mobile'])?$user_info['mobile']:'';?>"/>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>address:</label>
-                                <input class="form-control" type="text" name="address" value="<?php echo $user_info['address']?>"/>
+                                <input class="form-control" type="text" name="address" value="<?php echo isset($user_info['address'])?$user_info['address']:''?>"/>
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>qq:</label>
-                                <input class="form-control" type="text" name="qq" value="<?php echo $user_info['qq']?>"/>
+                                <input class="form-control" type="text" name="qq" value="<?php echo isset($user_info['qq'])?$user_info['qq']:''?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>weixin:</label>
-                                <input class="form-control" type="text" name="weixin" value="<?php echo $user_info['weixin']?>"/>
+                                <input class="form-control" type="text" name="weixin" value="<?php echo isset($user_info['weixin'])?$user_info['weixin']:''?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>isdel:</label>
-                                <input type="radio" name="isdel" value='1' <?php echo $user_info['isdel']==1 ? 'checked' : '';?>/>在职
-                                <input type="radio" name="isdel" value='0' <?php echo $user_info['isdel']==1 ? 'checked' : '';?>/>离职
+                                <input type="radio" name="isdel" value='1' <?php if (isset($user_info['isdel'])) {echo $user_info['isdel'] == 1?'checked':'';
+}
+?>/>在职
+                                <input type="radio" name="isdel" value='0' <?php if (isset($user_info['isdel'])) {echo $user_info['isdel'] == 1?'checked':'';
+}
+?>/>离职
                                 <span style="color:red" class="field_message"></span>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>bothday:</label>
-                                <input class="form-control" type="text" name="bothday" value="<?php echo $user_info['bothday']?>"/>
+                                <input class="form-control" type="text" name="bothday" value="<?php echo isset($user_info['bothday'])?$user_info['bothday']:'';?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>所属角色:</label>
