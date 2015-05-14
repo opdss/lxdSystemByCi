@@ -10,17 +10,39 @@ $config['manage_auth'] = array(
     'user' => array(
         'name' => '员工管理',
         'sub' => array(
-            'user/index' => '全部员工',            
+            'user/index' => '全部员工',
+            'user/info' => '员工详情',
+            'user/edit' => '修改信息',
             'user/add' => '添加员工',
+        )
+    ),
+    'order' => array(
+        'name'  => '部门管理',
+        'sub' => array(
+            'order/index' => '订单列表',
+            'order/info' => '订单详情',
+            'order/edit' => '修改订单信息',
+            'order/add' => '添加订单',
+            'order/del' => '删除订单',
+        )
+    ),
+    'proces' => array(
+        'name'  => '工序管理',
+        'sub' => array(
+            'proces/index' => '工序列表',
+            'proces/edit' => '修改工序信息',
+            'proces/add' => '添加工序',
+            'proces/del' => '删除工序',
         )
     ),
     'department' => array(
         'name' => '部门管理',
         'sub' => array(
-            'user/index' => '部门列表',
-            'user/info' => '部门详情',
-            'user/edit' => '部门信息',
-            'user/add' => '添加部门',
+            'department/index' => '部门列表',
+            'department/info' => '部门详情',
+            'department/edit' => '部门信息',
+            'department/add' => '添加部门',
+            'department/del' => '删除部门',
         )
     ),
     'role' => array(

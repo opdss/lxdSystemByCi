@@ -30,6 +30,7 @@ class ManageAuth {
                 }
             }
         }
+
         $_U = $this->CI->session->userdata('USER_INFO');
         $ajax = $this->CI->input->is_ajax_request();
         if(empty($_U)){
