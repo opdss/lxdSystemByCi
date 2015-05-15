@@ -51,7 +51,7 @@ class User_model extends MY_Model {
 
 	public function getList($offset, $number, $kw = null) {
 		$filter = ' 1 ';
-		$filter .= $kw?' and username like "%'.$kw.'%" ':'';
+		$filter .= $kw?' and username like "%'.$kw.'%" or truename like "%'.$kw.'%" ':'';
 		$sql      = "select a.id,a.no,a.username,a.truename,a.age,a.sex,a.dept_id,a.begin_work_time,a.idcard,a.mobile,a.address,a.qq,a.weixin,a.isdel,a.bothday,b.dept_no,b.dept_name from ".$this->db->dbprefix('user')." as a left join ".$this->db->dbprefix('department')." as b on a.dept_id=b.id where $filter order by a.id asc limit $offset,$number";
 		$query    = $this->db->query($sql);
 		$userList = $query->result_array();
