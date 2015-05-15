@@ -34,4 +34,8 @@ class Login extends MY_Controller {
         $this->session->set_userdata('uid',$res['id']);
         $this->jsonMsg(1);
     }
+
+    public function checkOut(){
+        redirect('login');
+    }
 }

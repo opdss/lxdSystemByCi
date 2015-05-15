@@ -7,8 +7,7 @@
  */
 class Welcome extends MY_Controller {
 
-	public function index()
-	{
+	public function index() {
 		$this->view('public/index');
 	}
 }
