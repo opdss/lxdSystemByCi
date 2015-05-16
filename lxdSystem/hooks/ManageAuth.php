@@ -36,12 +36,12 @@ class ManageAuth {
         if(empty($_U)){
             $ajax ? $this->CI->jsonMsg(-1) : redirect('login');
         }
-        $this->createMenu($_U['privileges']);
+        $this->createMenu($_U['role_privileges']);
         if(!in_array($class.'/'.$method,$p)){
             return;
         }
 
-        if(!in_array($class.'/'.$method,$_U['privileges'])){
+        if(!in_array($class.'/'.$method,$_U['role_privileges'])){
             $ajax ? $this->CI->jsonMsg(2) : exit('no auth');
         }
     }

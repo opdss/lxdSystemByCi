@@ -49,7 +49,7 @@ class MY_Controller extends CI_Controller {
 		$head = array(
 			'css'   => array_merge($this->style['css'], $this->restyle['css']),
 			'js'    => array_merge($this->style['js'], $this->restyle['js']),
-			'title' => isset($data['title'])?$data['title']:'title'
+			'title' => isset($data['title'])?$data['title']:($this->MENU[$this->router->class]['submenu'][$this->router->method].'-隆鑫达后台管理系统')
 		);
 		$this->load->view('public/header', $head);
 		if (isset($this->MENU)) {

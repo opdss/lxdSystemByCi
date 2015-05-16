@@ -13,8 +13,8 @@
 
             <div class="row filter-block">
                 <div class="pull-right">
-                    <input type="text" name="kw" class="search" <?php echo (empty($kw)?'placeholder="搜索..."':"value='{$kw}'");?> onkeydown="if(event.keyCode==13){location.href='/User/Role/Index?kw='+this.value}" />
-                    <a class="btn-flat success new-product" href="/User/Role/Add">+ 添加用户组</a>
+                    <input type="text" name="kw" class="search" <?php echo (empty($kw)?'placeholder="搜索..."':"value='{$kw}'");?> onkeydown="if(event.keyCode==13){location.href='<?php echo site_url('role/index')?>?kw='+this.value}" />
+                    <a class="btn-flat success new-product" href="<?php echo site_url('role/add')?>">+ 添加用户组</a>
                 </div>
             </div>
 
