@@ -15,7 +15,8 @@ class Login extends MY_Controller {
             'compiled/layout.css',
             'lib/font-awesome.css',
         );
-        $this->view('login/index');
+        $data['title'] = '隆鑫达后台系统登录';
+        $this->view('login/index',$data);
     }
 
     public function checkAuth(){

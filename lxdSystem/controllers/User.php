@@ -124,7 +124,7 @@ class User extends MY_Controller {
 		$this->db->delete('user');
 		$this->db->where('user_id', $id);
 		$this->db->delete('user_role');
-		echo 1;
+		$this->jsonMsg(1);
 	}
 }
 
