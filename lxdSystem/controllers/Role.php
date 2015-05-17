@@ -41,12 +41,12 @@ class Role extends MY_Controller {
             if (empty($data['role_desc'])) {
                 $this->jsonMsg(0, '请输入角色介绍');
             }
-            if (empty($data['privileges'])) {
+            if (empty($data['role_privileges'])) {
                 $this->jsonMsg(0, '请选择权限');
             }
             $data['create_time'] = TIMESTAMP;
-            $data['role_privileges'] = serialize($data['privileges']);
-            unset($data['privileges']);
+            $data['enabled'] = 0;
+            $data['role_privileges'] = serialize($data['role_privileges']);
             $this->load->model('role_model');
             $res = (int)$this->role_model->add($data);
             $this->jsonMsg($res);
@@ -55,12 +55,40 @@ class Role extends MY_Controller {
 
     public function edit(){
         //访问页面
+        $this->load->model('role_model');
         if(!$this->input->is_ajax_request()){
-
+            if(!($id = (int)$this->input->get('id'))){
+                exit('no this product');
+            }
+            $this->load->config('manageAuth');
+            $data['privileges'] = $this->config->item('manage_auth');
+            $data['role_info'] = $this->role_model->getRoleInfo($id);
+            $data['role_info']['role_privileges'] = unserialize($data['role_info']['role_privileges']);
+            $this->view('role/edit',$data);
         }
         //ajax提交数据
         else{
-
+            $res = $this->input->post('data');
+            parse_str($res, $data);
+            if(!$data['id']){
+                $this->jsonMsg(0);
+            }
+            $id = $data['id'];
+            unset($data['id']);
+            if (empty($data['role_name'])) {
+                $this->jsonMsg(0, '请输入角色名字');
+            }
+            if (empty($data['role_desc'])) {
+                $this->jsonMsg(0, '请输入角色介绍');
+            }
+            if (empty($data['role_privileges'])) {
+                $this->jsonMsg(0, '请选择权限');
+            }
+            $data['create_time'] = TIMESTAMP;
+            $data['role_privileges'] = serialize($data['role_privileges']);
+            $this->load->model('role_model');
+            $res = (int)$this->role_model->edit($id,$data);
+            $this->jsonMsg($res);
         }
     }
 
@@ -71,7 +99,7 @@ class Role extends MY_Controller {
                 $this->jsonMsg(0);
             }
             $this->load->model('role_model');
-            $res = (int)$this->role_model->edit($id, array('enabled'=>1));
+            $res = (int)$this->role_model->del($id);
             $this->jsonMsg($res);
         }
     }

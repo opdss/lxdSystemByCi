@@ -29,11 +29,11 @@
                     <legend> 可访问资源</legend>
                     <?php foreach($privileges as $k=>$v){ ?>
                     <div class="selectAll" >
-                        <input type = "checkbox"  class="check_all" name = "privileges[]" value ="<?php echo $k;?>" /><?php echo $v['name'];?><br/>
+                        <input type = "checkbox"  class="check_all" name = "role_privileges[]" value ="<?php echo $k;?>" /><?php echo $v['name'];?><br/>
                         <?php if(isset($v['sub']) && !empty($v['sub'])){?>
                         <div style="padding-left:30px;" class="check_one_div">
                             <?php foreach($v['sub'] as $_k=>$_v){?>
-                            <input type="checkbox" name="privileges[]" class="check_one" value="<?php echo $_k;?>" /><?php echo $_v;?>
+                            <input type="checkbox" name="role_privileges[]" class="check_one" value="<?php echo $_k;?>" /><?php echo $_v;?>
                             <?php }?>
                         </div>
                         <?php }?>
@@ -63,19 +63,7 @@
     });
     $('#add_btn').click(function(){
         var data = $(this).parents('form').serialize();
-        $.ajax({
-            'type':'post',
-            'url' : '<?php echo site_url('role/add');?>',
-            'data' : {'data':data},
-            'success' : function(msg){
-                if(msg.code==1){
-                    location.href = '<?php echo site_url('role/index');?>';
-                }else{
-                    alert(msg.msg);
-                }
-            },
-            'dataType' : 'json'
-        });
+        W.ajax({'data':data},'<?php echo site_url('role/add');?>');
     });
 
 

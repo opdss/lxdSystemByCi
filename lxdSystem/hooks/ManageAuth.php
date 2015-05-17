@@ -46,8 +46,8 @@ class ManageAuth {
         }
     }
 
-    public function createMenu(array $privileges){
-        if(empty($privileges)){return false;}
+    public function createMenu($privileges){
+        if(empty($privileges)){$this->CI->MENU = array();return;}
         $this->CI->load->config('menu');
         $menu = $this->CI->config->item('manage_menu');
         $M = array();

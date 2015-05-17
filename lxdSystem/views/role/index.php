@@ -67,10 +67,10 @@
                                 <td>
                                     <?php echo date('Y-m-d H:i',$val['create_time'])?>
                                 </td>
-                                <td class="align-right">
+                                <td class="align-right" data-id="<?php echo $val['id'];?>">
                                     <ul class="actions" style="float: left;">
-                                        <a href="<?php echo site_url('role/edit');?>?id=<?php echo $val['id'];?>" title="修改"><li class="icon-wrench"></li></a>
-                                        <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
+                                        <a href="javascript:void(0);" title="修改" class="edit"><li class="icon-wrench"></li></a>
+                                        <a href="javascript:void(0);" title="删除" class="delete"><li class="last icon-remove"></li></a>
                                     </ul>
                                 </td>
                             </tr>
@@ -93,5 +93,12 @@
 
 <!-- scripts -->
 <script type="text/javascript">
-    //W.ajax({id:3},'<?php echo site_url('role/del');?>');
+    $('a.delete').click(function(){
+        var id = $(this).parents('td').attr('data-id');
+        W.del({'id':id},'<?php echo site_url('role/del');?>');
+    });
+    $('a.edit').click(function(){
+        var id = $(this).parents('td').attr('data-id');
+        location.href = "<?php echo site_url('role/edit');?>?id="+id;
+    });
 </script>
