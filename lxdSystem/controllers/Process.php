@@ -34,29 +34,11 @@ class Process extends MY_Controller {
 		} else {
 			$res = $this->input->post('data');
 			parse_str($res, $data);
-            $errno = array();
-            $this->load->model('process_model');
-            foreach($data['process_desc'] as $k=>$v){
-                $process_arr['process_desc'] = trim($v);
-                $process_arr['process_name'] = trim($data['process_name'][$k]);
-                $process_arr['process_price'] = (float)$data['process_price'][$k];
-                if(empty($process_arr['process_name']) || $process_arr['process_price']<=0){
-                    $errno[] = $k+1;
-                    continue;
-                }
-                $process_arr['create_time'] = TIMESTAMP;
-                $process_arr['sign'] = md5($process_arr['process_name'].$process_arr['process_price']);
-                $process_arr['process_isdel'] = 0;
-                $where = "sign='".$process_arr['sign']."'";
-                $info = $this->process_model->getRow($where);
-                if(empty($info)){
-                    $this->process_model->add($process_arr) || $errno[]=$k+1;
-                }else{
-                    $info['process_isdel']==0 || $this->process_model->edit($info['id'],array('process_isdel'=>0,'process_desc'=>$process_arr['process_desc'])) || $errno[]=$k+1;
-                }
-            }
-            $status = count($data['process_desc'])==count($errno) ? 0 : 1;
-			$this->jsonMsg($status,(empty($errno)?'':'工序'.implode(',',$errno).'出错'));
+            //开始处理工序
+            $this->load->library('process');
+            $count = $this->process->createProcess($data);
+            $status = $count==count($this->process->errProcess) ? 0 : 1;
+			$this->jsonMsg($status,(empty($this->process->errProcess)?'':'工序'.implode(',',$this->process->errProcess).'出错'));
 		}
 	}
 
