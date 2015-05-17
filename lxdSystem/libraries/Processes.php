@@ -5,7 +5,7 @@
  * @date 2015 15/5/17 下午7:57
  * @copyright 7659.com
  */
-class Process{
+class Processes{
 
     private $CI;
     public $errProcess=null;
