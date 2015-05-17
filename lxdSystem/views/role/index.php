@@ -58,18 +58,18 @@
                                     <?php echo $val['role_desc'];?>
                                 </td>
                                 <td>
-                                    <?php if($val['enabled'] == 1){?>
-                                        <i class="icon-unlock" title="可用"></i>
+                                    <?php if($val['enabled'] == 0){?>
+                                        <i class="icon-unlock" title="有效"></i>
                                     <?php }else{?>
-                                        <i class="icon-lock" title="不可用"></i>
+                                        <i class="icon-lock" title="禁用"></i>
                                     <?php }?>
                                 </td>
                                 <td>
                                     <?php echo date('Y-m-d H:i',$val['create_time'])?>
                                 </td>
                                 <td class="align-right">
-                                    <ul class="actions" style=" float: left;">
-                                        <a href="/User/Role/Edit?id=<?php echo $val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
+                                    <ul class="actions" style="float: left;">
+                                        <a href="<?php echo site_url('role/edit');?>?id=<?php echo $val['id'];?>" title="修改"><li class="icon-wrench"></li></a>
                                         <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
                                     </ul>
                                 </td>
@@ -93,25 +93,5 @@
 
 <!-- scripts -->
 <script type="text/javascript">
-    function del(id){
-        if(confirm('确定要删除吗？')){
-            $.ajax({
-                url: '/User/Role/Del',
-                type: "post",
-                dataType: 'json',
-                timeout: 50000,
-                data:{'id':id},
-                success: function (rs) {
-                    if(rs == 1){
-                        window.location.href = window.location.href;
-                    }else{
-                        alert(rs);
-                    }
-                },
-                error: function(xhr){
-                    alert("出现未知错误");
-                }
-            });
-        }
-    }
+    //W.ajax({id:3},'<?php echo site_url('role/del');?>');
 </script>

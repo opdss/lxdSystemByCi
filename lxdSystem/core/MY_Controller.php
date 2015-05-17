@@ -29,6 +29,7 @@ class MY_Controller extends CI_Controller {
 			'jquery.uniform.min.js',
 			'theme.js',
 			'jquery.min.js',
+            'lxd.js'
 		)
 	);
 
