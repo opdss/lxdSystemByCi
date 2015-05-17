@@ -26,10 +26,10 @@ class MY_Controller extends CI_Controller {
             'compiled/new-user.css'
 		),
 		'js' => array(
+            'jquery.min.js',
 			'bootstrap.min.js',
 			'jquery.uniform.min.js',
 			'theme.js',
-			'jquery.min.js',
             'code.lates.js',
             'lxd.js'
 		)

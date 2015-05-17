@@ -11,7 +11,6 @@
             }
         }
     ?>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <?php
         if(!empty($js)){
             foreach ($js as $k=>$v) {

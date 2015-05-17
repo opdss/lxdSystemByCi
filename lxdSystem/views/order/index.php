@@ -12,9 +12,9 @@
             </div>
 
             <div class="row filter-block">
-                <div class="pull-right">
-                    <input type="text" name="kw" class="search" <?php echo (empty($kw)?'placeholder="搜索..."':"value='{$kw}'");?>onkeydown="if(event.keyCode==13){location.href='/User/Role/Index?kw='+this.value}" />
-
+                <div class="pull-right" style="margin: 10px">
+                    <input type="text" name="kw" class="search" <?php echo (empty($kw)?'placeholder="搜索..."':"value='{$kw}'");?> onkeydown="if(event.keyCode==13){location.href='<?php echo site_url('order/index')?>?kw='+this.value}" />
+                    <a class="btn-flat success new-product" href="<?php echo site_url('order/add')?>">添加订单</a>
                 </div>
             </div>
 
@@ -23,19 +23,31 @@
                     <thead>
                     <tr>
                         <th class="col-md-1">
-                            ID
-                        </th>
-                        <th class="col-md-2">
                             <span class="line"></span>订单编号
                         </th>
-                        <th class="col-md-3">
+                        <th class="col-md-1">
                             <span class="line"></span>订单名称
                         </th>
-                        <th>
+                        <th class="col-md-1">
+                            <span class="line"></span>订单委托商
+                        </th>
+                        <th class="col-md-1">
+                            <span class="line"></span>订单金额
+                        </th>
+                        <th class="col-md-1">
+                            <span class="line"></span>订单预估成本
+                        </th>
+                        <th class="col-md-1">
+                            <span class="line"></span>订单工序数
+                        </th>
+                        <th class="col-md-1">
                             <span class="line"></span>订单简介
                         </th>
-                        <th class="col-md-2">
+                        <th class="col-md-1">
                             <span class="line"></span>添加时间
+                        </th>
+                        <th class="col-md-1">
+                            <span class="line"></span>预计完成日期
                         </th>
                         <th class="col-md-1">
                             <span class="line"></span>操作
@@ -50,19 +62,31 @@ if (!empty($list)) {
 	foreach ($list as $val) {
 		?>
 				                            <tr <?php echo ($i == 0?'class="first"':'');?>>
-				                                <td><?php echo $val['id'];?></td>
-				                                <td>
-		<?php echo $val['order_no'];?>
-		</td>
+				                                <td><?php echo $val['order_no'];?></td>
 				                                <td>
 		<?php echo $val['order_name'];?>
 		</td>
 				                                <td>
-		<?php echo $val['order_desc'];?>
+		<?php echo $val['order_jiafang'];?>
 		</td>
 				                                <td>
-		<?php echo date('Y-m-d H:i', $val['create_time'])?>
+		<?php echo $val['order_amount'];?>
+		</td>
+                                                <td>
+                                                    <?php echo $val['order_mate_amount'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $val['order_process_num'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $val['order_desc'];?>
+                                                </td>
+				                                <td>
+		<?php echo date('Y-m-d', $val['create_time'])?>
 				                                </td>
+                                                <td>
+                                                    <?php echo $val['order_end_date'];?>
+                                                </td>
 				                                <td class="align-right">
 				                                    <ul class="actions" style=" float: left;">
 				                                        <a href="/User/Role/Edit?id=<?php echo $val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
