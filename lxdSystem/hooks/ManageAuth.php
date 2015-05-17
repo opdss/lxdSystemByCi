@@ -36,18 +36,18 @@ class ManageAuth {
         if(empty($_U)){
             $ajax ? $this->CI->jsonMsg(-1) : redirect('login');
         }
-        $this->createMenu($_U['privileges']);
+        $this->createMenu($_U['role_privileges']);
         if(!in_array($class.'/'.$method,$p)){
             return;
         }
 
-        if(!in_array($class.'/'.$method,$_U['privileges'])){
+        if(!in_array($class.'/'.$method,$_U['role_privileges'])){
             $ajax ? $this->CI->jsonMsg(2) : exit('no auth');
         }
     }
 
-    public function createMenu(array $privileges){
-        if(empty($privileges)){return false;}
+    public function createMenu($privileges){
+        if(empty($privileges)){$this->CI->MENU = array();return;}
         $this->CI->load->config('menu');
         $menu = $this->CI->config->item('manage_menu');
         $M = array();

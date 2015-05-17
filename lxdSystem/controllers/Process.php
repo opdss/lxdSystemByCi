@@ -12,64 +12,64 @@ class Process extends MY_Controller {
 		$p  = (int) $this->input->get('p');
 		$p  = $p?$p:1;
 		$this->load->model('process_model');
-		$count  = $this->process_model->getTotal($kw);
-		$offset = ($p-1)*$this->pageSize;
 
-		$data['list'] = $this->process_model->getList($offset, $this->pageSize, $kw);
+        $where = ' process_isdel=0 ';
+        $where .= empty($kw) ? ' ' : " and process_name like '%$kw%' ";
+
+		$count  = $this->process_model->getTotal($where);
+		$offset = ($p-1)*$this->pageSize;
+		$data['list'] = $this->process_model->getList($offset, $this->pageSize, $where);
 
 		$this->load->library('page', array('total' => $count, 'pageSize' => $this->pageSize));
 		$data['page_show'] = $this->page->pageShow();
-		$data['kw']        = $kw;
-		/*
-		echo '<pre>';
-		print_r($data['list']);
-		die();*/
+		$data['kw'] = $kw;
+
 		$this->view('process/index', $data);
 
 	}
 
 	public function add() {
 		if (!$this->input->is_ajax_request()) {
-			$this->load->model('order_model');
-			$count        = $this->order_model->getTotal();
-			$data['list'] = $this->order_model->getList(0, $count);
-			$this->view('process/add', $data);
+			$this->view('process/add');
 		} else {
 			$res = $this->input->post('data');
 			parse_str($res, $data);
-			if (empty($data['process_name'])) {
-				$this->jsonMsg(0, '请输入工序名字');
-			}
-			if (empty($data['process_price'])) {
-				$this->jsonMsg(0, '请输入工序价格');
-			}
-			if (empty($data['order_id'])) {
-				$this->jsonMsg(0, '请选择所属订单');
-			}
-			$data['create_time'] = TIMESTAMP;
-
-			$this->load->model('process_model');
-			$res = (int) $this->process_model->add($data);
-			$this->jsonMsg($res);
+            $errno = array();
+            $this->load->model('process_model');
+            foreach($data['process_desc'] as $k=>$v){
+                $process_arr['process_desc'] = trim($v);
+                $process_arr['process_name'] = trim($data['process_name'][$k]);
+                $process_arr['process_price'] = (float)$data['process_price'][$k];
+                if(empty($process_arr['process_name']) || $process_arr['process_price']<=0){
+                    $errno[] = $k+1;
+                    continue;
+                }
+                $process_arr['create_time'] = TIMESTAMP;
+                $process_arr['sign'] = md5($process_arr['process_name'].$process_arr['process_price']);
+                $process_arr['process_isdel'] = 0;
+                $where = "sign='".$process_arr['sign']."'";
+                $info = $this->process_model->getRow($where);
+                if(empty($info)){
+                    $this->process_model->add($process_arr) || $errno[]=$k+1;
+                }else{
+                    $info['process_isdel']==0 || $this->process_model->edit($info['id'],array('process_isdel'=>0,'process_desc'=>$process_arr['process_desc'])) || $errno[]=$k+1;
+                }
+            }
+            $status = count($data['process_desc'])==count($errno) ? 0 : 1;
+			$this->jsonMsg($status,(empty($errno)?'':'工序'.implode(',',$errno).'出错'));
 		}
 	}
 
-	public function edit() {
-
-		$this->load->model('order_model');
-		$id                 = $this->input->get('id');
-		$data['order_info'] = $this->user_model->getRow('id='.$id);
-
-		$this->view('order/add', $data);
-	}
-
 	public function del() {
-
-		$id = $this->input->post('id');
-		$this->db->where('id', $id);
-		$this->db->delete('order');
-
-		$this->jsonMsg($res);
+        if ($this->input->is_ajax_request()) {
+            $id = (int)$this->input->post('id');
+            if(!$id){
+                $this->jsonMsg(0);
+            }
+            $this->load->model('process_model');
+            $res = (int)$this->process_model->edit($id,array('process_isdel'=>1));
+            $this->jsonMsg($res);
+        }
 	}
 }
 

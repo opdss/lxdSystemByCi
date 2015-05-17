@@ -263,4 +263,5 @@ define('VIEWPATH', $view_folder);
  * And away we go...
  */
 define('TIMESTAMP', time());
+define('COPYRIGHT','隆鑫达后台管理系统');
 require_once BASEPATH.'core/CodeIgniter.php';

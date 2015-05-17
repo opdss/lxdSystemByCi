@@ -14,9 +14,13 @@ class User_model extends MY_Model {
 		if ($query->num_rows() > 0) {
 			$row = $query->row_array();
 			if (md5($password) === $row['pwd']) {
-				//$this->update_login_user($row['id']);
 				if ($type) {
-					return array_merge($row, $this->getUserAuth($row['id']));
+                    $privi = $this->getUserAuth($row['id']);
+                    if(!empty($privi)) {
+                        $privi['role_privileges'] = $privi['enabled']==0 ? unserialize($privi['role_privileges']) : '';
+                        return array_merge($row, $privi);
+                    }
+                    return array_merge($row,array('role_name'=>'','role_desc'=>'','role_privileges'));
 				}
 				return $row['id'];
 			}
@@ -25,20 +29,9 @@ class User_model extends MY_Model {
 	}
 
 	public function getUserAuth($id) {
-		$privileges = array();
-		$sql        = 'select b.role_name,b.role_privileges from '.$this->db->dbprefix('user_role').' as a ';
-		$sql .= ' left join '.$this->db->dbprefix('role').' as b ';
-		$sql .= ' on a.role_id=b.id ';
-		$sql .= ' where a.user_id="'.$id.'" ';
+		$sql = 'select role_name,role_desc,role_privileges,enabled from '.$this->db->dbprefix('role').' where id="'.$id.'" ';
 		$query = $this->db->query($sql);
-		$res   = $query->result_array();
-		if (!empty($res)) {
-			foreach ($res as $k => $v) {
-				$privileges = array_merge($privileges, unserialize($v['role_privileges']));
-			}
-		}
-		return array('role' => $res, 'privileges' => $privileges);
-
+		return $query->row_array();
 	}
 
 	public function getTotal($kw = null) {

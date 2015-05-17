@@ -13,8 +13,8 @@
 
             <div class="row filter-block">
                 <div class="pull-right">
-                    <input type="text" name="kw" class="search" <?php echo (empty($kw)?'placeholder="搜索..."':"value='{$kw}'");?> onkeydown="if(event.keyCode==13){location.href='/User/Role/Index?kw='+this.value}" />
-                    <a class="btn-flat success new-product" href="/User/Role/Add">+ 添加用户组</a>
+                    <input type="text" name="kw" class="search" <?php echo (empty($kw)?'placeholder="搜索..."':"value='{$kw}'");?> onkeydown="if(event.keyCode==13){location.href='<?php echo site_url('role/index')?>?kw='+this.value}" />
+                    <a class="btn-flat success new-product" href="<?php echo site_url('role/add')?>">+ 添加用户组</a>
                 </div>
             </div>
 
@@ -58,19 +58,19 @@
                                     <?php echo $val['role_desc'];?>
                                 </td>
                                 <td>
-                                    <?php if($val['enabled'] == 1){?>
-                                        <i class="icon-unlock" title="可用"></i>
+                                    <?php if($val['enabled'] == 0){?>
+                                        <i class="icon-unlock" title="有效"></i>
                                     <?php }else{?>
-                                        <i class="icon-lock" title="不可用"></i>
+                                        <i class="icon-lock" title="禁用"></i>
                                     <?php }?>
                                 </td>
                                 <td>
                                     <?php echo date('Y-m-d H:i',$val['create_time'])?>
                                 </td>
-                                <td class="align-right">
-                                    <ul class="actions" style=" float: left;">
-                                        <a href="/User/Role/Edit?id=<?php echo $val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
-                                        <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
+                                <td class="align-right" data-id="<?php echo $val['id'];?>">
+                                    <ul class="actions" style="float: left;">
+                                        <a href="javascript:void(0);" title="修改" class="edit"><li class="icon-wrench"></li></a>
+                                        <a href="javascript:void(0);" title="删除" class="delete"><li class="last icon-remove"></li></a>
                                     </ul>
                                 </td>
                             </tr>
@@ -93,25 +93,12 @@
 
 <!-- scripts -->
 <script type="text/javascript">
-    function del(id){
-        if(confirm('确定要删除吗？')){
-            $.ajax({
-                url: '/User/Role/Del',
-                type: "post",
-                dataType: 'json',
-                timeout: 50000,
-                data:{'id':id},
-                success: function (rs) {
-                    if(rs == 1){
-                        window.location.href = window.location.href;
-                    }else{
-                        alert(rs);
-                    }
-                },
-                error: function(xhr){
-                    alert("出现未知错误");
-                }
-            });
-        }
-    }
+    $('a.delete').click(function(){
+        var id = $(this).parents('td').attr('data-id');
+        W.del({'id':id},'<?php echo site_url('role/del');?>');
+    });
+    $('a.edit').click(function(){
+        var id = $(this).parents('td').attr('data-id');
+        location.href = "<?php echo site_url('role/edit');?>?id="+id;
+    });
 </script>
