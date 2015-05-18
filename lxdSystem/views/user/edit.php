@@ -5,7 +5,7 @@
     <div id="pad-wrapper" class="form-page">
         <div class="row header">
             <div class="col-md-12">
-                <h3>添加员工</h3>
+                <h3>修改员工</h3>
             </div>
         </div>
         <div class="row form-wrapper">
@@ -25,7 +25,7 @@
 
         if(JqValidate()){
             var options = {
-                url: '<?php echo site_url('user/add');?>',
+                url: '<?php echo site_url('user/edit');?>',
                 success : apply_callback,
                 dataType : 'json'
             };
@@ -34,5 +34,3 @@
     }
 
 </script>
-
-
