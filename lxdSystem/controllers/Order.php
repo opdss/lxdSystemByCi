@@ -102,8 +102,20 @@ class Order extends MY_Controller {
 		$this->db->where('id', $id);
 		$this->db->delete('order');
 
-		$this->jsonMsg($res);
+		$this->jsonMsg(1);
 	}
+
+    public function order_process(){
+        $o_id = (int)$this->input->get('order_id');
+        if(!$o_id){
+            exit('order_id error');
+        }
+        $this->load->model('order_model');
+        $data['order_info'] = $this->order_model->getRow(array('id'=>$o_id));
+        $data['list'] = $this->order_model->getOrderProcess($o_id);
+        //var_dump($data);exit;
+        $this->view('order/order_process', $data);
+    }
 }
 
 ?>
