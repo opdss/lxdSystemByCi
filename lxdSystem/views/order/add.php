@@ -26,15 +26,14 @@
                         <div style="width:800px;">
                         <div class="col-md-12 field-box" style="width:330px;">
                             <span style="font-size:13px;font-weight:700;width:84px;text-align: right; margin-right: 20px;">订单产品数量:</span>
-                            <input class="form-control" type="text" name="order_num" placeholder="订单产品数量" style="width:120px;" onkeyup="value=value.replace(/[^\d\.]/g,'')"/>
-                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_koubi.png" style="width:20px;" />填个数吧</span>
-                            <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_fadai.png" style="width:20px;" />好多点点</span>
+                            <input class="form-control" type="text" name="order_num" placeholder="订单产品数量" style="width:120px;" onkeyup="value=value.replace(/[^\d]/g,'')"/>
+                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_koubi.png" style="width:20px;" />给个数吧</span>
                         </div>
                             <div style="width:330px;float:left;">
                                 <span  style="font-size:13px;font-weight:700;width:84px;text-align: right; margin-right: 20px;">订单总金额:</span>
                             <input class="form-control" type="text" name="order_amount" placeholder="订单金额(单位:元)" style="width:120px;" onkeyup="value=value.replace(/[^\d\.]/g,'')"/>
                             <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_kelian.png" style="width:20px;" />给点吧</span>
-                            <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_liuhan.png" style="width:20px;" />小数点有点多啊</span>
+                            <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_liuhan.png" style="width:20px;" /></span>
                         </div>
                         </div>
                         <div class="col-md-6 field-box" style="width:800px;">
@@ -47,12 +46,13 @@
                         <div class="col-md-4 field-box" style="width:800px;">
                             <label style="width:84px;text-align: right;">订单相关工序:</label>
                             <div class="col-md-10 copy_process_div">
-                                <div class="clone_process_div">
+                                <div class="clone_process_div" style="width:800px;">
                                     <span style="font-size: 14px;margin-right: 20px;">NO.1</span>
-                                    <input type="text" class="small form-control" placeholder="工序名称" name="process[process_name][]">
-                                    <input type="text" class="small form-control" placeholder="工序价格（单位:元）" name="process[process_price][]" onkeyup="value=value.replace(/[^\d\.]/g,'')">
+                                    <input type="text" class="small form-control" placeholder="工序名称" name="process[process_name][]" style="width:176px;margin-right:20px;">
+                                    <input type="text" class="small form-control" placeholder="工序价格（单位:元）" name="process[process_price][]" style="width:176px;" onkeyup="value=value.replace(/[^\d\.]/g,'')">
                                     <span style="cursor:pointer;" title="删除工序" class="del_process_div"><i class="icon-remove-sign"></i></span>
                                     <span class="alert-msg validate_is_null validate_process" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_baituo.png" style="width:20px;" />把这个工序先填完吧</span>
+                                    <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_fadai.png" style="width:20px;" />我数学不好，不要骗我</span>
                                 </div>
                             </div>
                             <div class="col-md-5" style="text-align: center;margin-top: 10px;margin-right: 21%; float: right;"><span class="label label-success copy_process_div" style="cursor:pointer">增加工序</span></div>
@@ -124,38 +124,54 @@
             if($(item).val() == '') {
                 flag = false;
                 validate_process($(item));
+            } else {
+                if(Number($(item).val()+'' == "NaN")) {
+                    flag = false;
+                    validate_num($(item));
+                }
             }
         });
         if (flag) {
             F.createProcess();
         }
     });
+
     //删除工序节点
     $('div.copy_process_div').on('click','span.del_process_div',function(){$(this).parent('div.clone_process_div').remove();});
 
-    //工序节点
+    //校验工序节点
     $('div.copy_process_div').on('blur', 'input.small', function() {
         validate_process($(this));
+        validate_num($(this));
     });
 
     //校验工序为空的情况
     function validate_process(obj) {
-        if ($('.small').first().val()=='' || $('.small').last().val()=='') {
+        if (obj.val() == '') {
             obj.siblings('span.validate_is_null').removeAttr('hidden');
         } else {
             obj.siblings('span.validate_is_null').attr('hidden', 'hidden');
         }
     };
 
-    //校验每个输入框的值（除工序）
-    $('.form-control').on('blur', function() {validate_null($(this));
-        //检验是否为数字
-        if(Number($(this).val())+''=='NaN') {
-            $(this).siblings('span.validate_is_num').removeAttr('hidden');
-        } else {
-            $(this).siblings('span.validate_is_num').attr('hidden', 'hidden');
-        }
+    //校验每个输入框的值（除工序）-> 空值和数字
+    $('.form-control').on('blur', function() {
+        validate_null($(this));
+        validate_num($(this));
     });
+
+    //检验是否为数字
+    function validate_num(obj) {
+        var attr_name = obj.attr('name');
+        if (attr_name == 'process[process_name][]') {
+        } else {
+            if(obj.val() != '' && Number(obj.val())+''=='NaN') {
+                obj.siblings('span.validate_is_num').removeAttr('hidden');
+            } else {
+                obj.siblings('span.validate_is_num').attr('hidden', 'hidden');
+            }
+        }
+    }
 
     //校验空字符串
     function validate_null(obj) {
