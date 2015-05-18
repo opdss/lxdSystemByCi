@@ -74,15 +74,15 @@ class Order extends MY_Controller {
 			$data['order_no']    = date('YmdHis').mt_rand(10, 99);
 			$data['create_time'] = TIMESTAMP;
             //开始处理工序
-            $this->load->library('process');
-            $count = $this->process->createProcess($process);
+            $this->load->library('processes');
+            $count = $this->processes->createProcess($process);
 
-            if(empty($this->process->sucProcess)){
+            if(empty($this->processes->sucProcess)){
                 $this->jsonMsg(0, '插入工序失败');
             }
 
 			$this->load->model('order_model');
-			$res = (int) $this->order_model->addOrderProcess($data,$this->process->sucProcess);
+			$res = (int) $this->order_model->addOrderProcess($data,$this->processes->sucProcess);
 			$this->jsonMsg($res);
 		}
 	}

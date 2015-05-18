@@ -35,10 +35,10 @@ class Process extends MY_Controller {
 			$res = $this->input->post('data');
 			parse_str($res, $data);
             //开始处理工序
-            $this->load->library('process');
-            $count = $this->process->createProcess($data);
-            $status = $count==count($this->process->errProcess) ? 0 : 1;
-			$this->jsonMsg($status,(empty($this->process->errProcess)?'':'工序'.implode(',',$this->process->errProcess).'出错'));
+            $this->load->library('processes');
+            $count = $this->processes->createProcess($data);
+            $status = $count==count($this->processes->errProcess) ? 0 : 1;
+			$this->jsonMsg($status,(empty($this->processes->errProcess)?'':'工序'.implode(',',$this->processes->errProcess).'出错'));
 		}
 	}
 
