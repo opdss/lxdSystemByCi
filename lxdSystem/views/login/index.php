@@ -25,6 +25,7 @@
             mySubmit();
         }
     };
+
     $('a.login').click(mySubmit);
 
     function mySubmit() {
@@ -40,8 +41,8 @@
                     alert(msg.msg);
                 }
             },
-            'dataType': 'json'
-            //''
+            'dataType': 'json',
+            'error': function () {alert('网络错误，请稍后再试！');}
         });
     }
 </script>

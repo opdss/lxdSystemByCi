@@ -130,7 +130,7 @@
         <li>
             <a href="<?php echo site_url('welcome/index');?>">
                 <i class="icon-home"></i>
-                <span>Home</span>
+                <span>欢迎</span>
             </a>
         </li>
 

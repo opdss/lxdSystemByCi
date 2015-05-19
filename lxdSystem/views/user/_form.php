@@ -219,9 +219,49 @@
                 if (imgBeforeWords != undefined) {
                     spanNode += '<img src="'+ imgBeforeWords +'" style="width:50px;" />';
                 }
+<<<<<<< HEAD
                 //文本信息
                 if (required!=undefined ) {
                     spanNode += outLength['message'];
+=======
+            },
+            rules : {
+                username : {
+                    required : true
+                },
+                truename : {
+                    required :true
+                },
+                pwd : {
+                    required : true,
+                    rangelength:[6,18]
+                },
+                sex : {
+                    required : true,
+                    number : true
+                },
+                age : {
+                    required : true,
+                    number : true
+                },
+                dept_id:{
+                    required : true,
+                    number : true
+                },
+                begin_work_time : {
+                    required : true,
+                    date : true
+                },
+                mobile:{
+                    required : true,
+                    ismobile : true
+                },
+                isdel:{
+                    required:true
+                },
+                role_id:{
+                    required:true
+>>>>>>> 032da33624a5107a328a6694aa9b3c7893da47da
                 }
                 //输入文本信息之后放张图片
                 if (imgAfterWord != undefined) {
