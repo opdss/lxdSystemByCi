@@ -35,6 +35,7 @@ $config['manage_auth'] = array(
 			'order/edit'  => '修改订单信息',
 			'order/add'   => '添加订单',
 			'order/del'   => '删除订单',
+			'order/order_process'   => '订单工序管理',
 		)
 	),
 	'process'         => array(

@@ -34,30 +34,23 @@ class User_model extends MY_Model {
 		return $query->row_array();
 	}
 
-	public function getTotal($kw = null) {
-		$filter = ' 1 ';
-		$filter .= $kw?' and username like "%'.$kw.'%" ':'';
-		$sql   = "select id from ".$this->db->dbprefix('user')." where $filter ";
-		$query = $this->db->query($sql);
-		return $query->num_rows();
-	}
 
-	public function getList($offset, $number, $kw = null) {
-		$filter = ' 1 ';
-		$filter .= $kw?' and username like "%'.$kw.'%" or truename like "%'.$kw.'%" ':'';
-		$sql      = "select a.id,a.no,a.username,a.truename,a.age,a.sex,a.dept_id,a.begin_work_time,a.idcard,a.mobile,a.address,a.qq,a.weixin,a.isdel,a.bothday,b.dept_no,b.dept_name from ".$this->db->dbprefix('user')." as a left join ".$this->db->dbprefix('department')." as b on a.dept_id=b.id where $filter order by a.id asc limit $offset,$number";
+	public function getList($offset, $number,$where='1', $order=' id desc ') {
+        $where = $this->getWhereStr($where);
+		$sql      = "select a.id,a.no,a.username,a.truename,a.age,a.sex,a.dept_id,a.begin_work_time,a.idcard,a.mobile,a.address,a.qq,a.weixin,a.role_id,a.bothday,b.role_name,c.dept_no,c.dept_name from ".$this->db->dbprefix('user')." as a inner join ".$this->db->dbprefix('role')." as b on a.role_id=b.id left join ".$this->db->dbprefix('department')." as c on a.dept_id=c.id where $where order by $order limit $offset,$number";
 		$query    = $this->db->query($sql);
 		$userList = $query->result_array();
 
-		foreach ($userList as $k => $v) {
-			$sql2 = 'select b.role_name from '.$this->db->dbprefix('user_role').' as a inner join '.$this->db->dbprefix('role').' as b on a.role_id=b.id where a.user_id='.$v['id'];
-
-			$query                     = $this->db->query($sql2);
-			$roleList                  = $query->result_array();
-			$userList[$k]['role_name'] = $roleList;
-		}
 		return $userList;
 	}
+
+    public function getTotal($where='1') {
+        $where = $this->getWhereStr($where);
+        $sql = "select id from ".$this->db->dbprefix('user')." where $where ";
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
+
 
 	/**
 	 * username唯一
@@ -92,22 +85,12 @@ class User_model extends MY_Model {
 	}
 
 	public function getRow($where) {
-		$role_arr = array();
 		if (empty($where)) {
 			return false;
 		}
-		$sql            = 'select * from '.$this->db->dbprefix('user').' where '.$where.' order by id desc limit 0,1';
+		$sql            = 'select * from '.$this->db->dbprefix('user').' where '.$where.' limit 0,1';
 		$query          = $this->db->query($sql);
 		$user           = $query->row_array();
-		$sql2           = 'select * from '.$this->db->dbprefix('user_role').' where user_id='.$user['id'];
-		$query          = $this->db->query($sql2);
-		$user_role_list = $query->result_array();
-		if (!empty($user_role_list)) {
-			foreach ($user_role_list as $key => $value) {
-				$role_arr[] = $value['role_id'];
-			}
-		}
-		$user['role_id'] = $role_arr;
 		return $user;
 	}
 

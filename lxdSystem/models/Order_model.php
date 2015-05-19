@@ -25,10 +25,8 @@ class Order_model extends MY_Model {
 		return $this->db->insert('order', $data) ? $this->db->insert_id() : 0;
 	}
 
-	public function getRow($where) {
-		if (empty($where)) {
-			return false;
-		}
+	public function getRow($where=' 1 ') {
+		$where = $this->getWhereStr($where);
 		$sql   = 'select * from '.$this->db->dbprefix('order').' where '.$where.' order by id desc limit 0,1';
 		$query = $this->db->query($sql);
 		$order = $query->row_array();
@@ -56,5 +54,11 @@ class Order_model extends MY_Model {
         $query = $this->db->query($sql);
         $res = $query->row_array();
         return $res['total'];
+    }
+    //获取某订单的相关工序
+    public function getOrderProcess($oid){
+        $sql = " select a.id,a.process_id,b.process_name,b.process_price,b.process_desc from ".$this->db->dbprefix('order_process')." as a left join ".$this->db->dbprefix('process')." as b on b.id=a.process_id where order_id='$oid'";
+        $query = $this->db->query($sql);
+        return $query->result_array();
     }
 }
