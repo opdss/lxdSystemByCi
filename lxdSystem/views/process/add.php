@@ -17,12 +17,12 @@
                         <div class="col-md-12 field-box clone_process_div" style="width:800px;">
                             <label>工序NO.1</label>
                             <div class="address-fields"">
-                                <input class="small form-control" type="text" name="process_name[]" placeholder="工序名称" style="width:190px;" />
-                                <input class="small last form-control" type="text" name="process_price[]" placeholder="工序价钱(单位:元)" onkeyup="value=value.replace(/[^\d\.]/g,'')" style="width:190px;" />
+                                <input class="small form-control" type="text" name="process_name[]" placeholder="工序名称(必填)" style="width:190px;" />
+                                <input class="small last form-control" type="text" name="process_price[]" placeholder="工序价钱(单位:元)(必填)" onkeyup="value=value.replace(/[^\d\.]/g,'')" style="width:190px;" />
                                 <span style="cursor:pointer; margin-left:20px;" title="删除工序" class="del_process_div"><i class="icon-remove-sign"></i></span>
                                 <span class="alert-msg validate_is_null validate_process" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_baituo.png" style="width:20px;" />把这个工序先填完吧</span>
                                 <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_fadai.png" style="width:20px;" />写错了吧？？</span>
-                                <input class="form-control" type="text" name="process_desc[]" placeholder="工序简介(可以不填)" style="margin-top: 10px;width:404px;" />
+                                <input class="form-control" type="text" name="process_desc[]" placeholder="工序简介(选填)" style="margin-top: 10px;width:404px;" />
                             </div>
                         </div>
                         <div class="col-md-11 field-box actions">
