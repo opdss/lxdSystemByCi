@@ -43,8 +43,8 @@
                                 <div class="clone_process_div">
                                     <span style="font-size: 14px;margin-right: 20px;">NO.1:</span>
                                     <span>工序名称:  <input type="text" class="small form-control" name="process[process_name][]"></span>
-                                    <span>工序价格:  <input type="text" class="small form-control" name="process[process_price][]></span>
-                                    <span style="cursor: pointer" title="去除" class="del_process_div"><i class="icon-remove-sign"></i></span>
+                                    <span>工序价格:  <input type="text" class="small form-control" name="process[process_price][]"><input type="text" class="small form-control  process_desc" name="process[process_desc][]"></span>
+                                    <span  class="del_process_div" style="cursor: pointer" title="去除"><i class="icon-remove-sign"></i></span>
                                 </div>
                             </div>
                             <div class="col-md-5" style="text-align: center;margin-top: 10px;margin-left: 10px"><span class="label label-success copy_process_div" style="cursor:pointer">增加</span></div>
@@ -87,6 +87,8 @@
     $('span.copy_process_div').click(function(){F.createProcess();});
     $('div.copy_process_div').on('click','span.del_process_div',function(){$(this).parent('div.clone_process_div').remove();});
     $('#add_btn').click(function(){
+        //用订单名称去填冲process_desc
+        $('input.process_desc').val($('input[name=order_name]').val());
         var data = $('form.new_user_form').serialize();
         W.ajax({'data':data},'<?php echo site_url('order/add');?>',function(msg){
             alert(msg.msg);

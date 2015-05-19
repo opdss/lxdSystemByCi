@@ -14,7 +14,7 @@
             <div class="row filter-block">
                 <div class="pull-right" style="margin: 10px;">
                     <span style="margin-right: 12px"><?php echo $order_info['order_name'];?></span>
-                    <a class="btn-flat success new-product" href="<?php echo site_url('order/add')?>">添加该订单工序</a>
+                    <a class="btn-flat success new-product add_order_pricess" href="javascript:void(0)">添加该订单工序</a>
                 </div>
             </div>
 
@@ -63,10 +63,9 @@
                                 <td>
                                     <?php echo round($val['process_price']*$order_info['order_num'],2);?>
                                 </td>
-                                <td class="align-right">
+                                <td class="align-right" data-id="<?php echo $val['id'];?>">
                                     <ul class="actions" style=" float: left;">
-                                        <a href="/User/Role/Edit?id=<?php echo $val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
-                                        <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
+                                        <a href="javascript:void(0);" title="删除" class="delete"><li class="last icon-remove"></li></a>
                                     </ul>
                                 </td>
                             </tr>
@@ -76,8 +75,38 @@
                     ?>
                     </tbody>
                 </table>
-                <ul class="pagination pull-right">
-                </ul>
+                <div id="add_process_div" style="display: none">
+                <form>
+                    <input type="hidden" name="order_id" value="<?php echo $order_info['id'];?>">
+                    <div class="col-md-12 field-box process_box">
+                        <div class="col-md-10 copy_process_div">
+                            <h4>追加工序-<?php echo $order_info['order_name'];?>：</h4>
+                            <div class="clone_process_div" style="padding-left: 40px;margin:2px 0px">
+                                <span style="font-size: 14px;margin-right: 20px;">NO.1:</span>
+                                    <span>
+                                    工序名称:
+                                    <input class="small form-control" type="text" name="process[process_name][]" style="width: 120px;display: inline-block">
+                                    </span>
+                                    <span>
+                                    工序价格:
+                                    <input class="small form-control" type="text" name="process[process_price][]" style="width: 120px;display: inline-block">
+                                    </span>
+                                    <span>
+                                    工序简介:
+                                    <input class="small form-control" type="text" name="process[process_desc][]" value="<?php echo $order_info['order_name'];?>" style="width: 200px;display: inline-block">
+                                    </span>
+                                    <span class="del_process_div" title="去除" style="cursor: pointer">
+                                    <i class="icon-remove-sign"></i>
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="text-align: center;margin-top: 10px;margin-left: 10px">
+                            <span class="label label-success copy_process_div" style="cursor:pointer">+增加</span>
+                            <span class="label label-success add_process_btn" style="cursor:pointer">确认完成</span>
+                        </div>
+                    </div>
+                </form>
+                </div>
             </div>
         </div>
         <!-- end users table -->
@@ -87,25 +116,27 @@
 
 <!-- scripts -->
 <script type="text/javascript">
-    function del(id){
-        if(confirm('确定要删除吗？')){
-            $.ajax({
-                url: '/User/Role/Del',
-                type: "post",
-                dataType: 'json',
-                timeout: 50000,
-                data:{'id':id},
-                success: function (rs) {
-                    if(rs == 1){
-                        window.location.href = window.location.href;
-                    }else{
-                        alert(rs);
-                    }
-                },
-                error: function(xhr){
-                    alert("出现未知错误");
-                }
-            });
+    var F = {
+        num : 1,
+        process_div : $('div.clone_process_div').clone(),
+        createProcess : function(){
+            F.num++;
+            F.process_div.find('span:eq(0)').text('NO.'+ F.num);
+            $('div.copy_process_div').append(F.process_div.clone());
         }
     }
+    $('span.copy_process_div').click(function(){F.createProcess();});
+    $('div.copy_process_div').on('click','span.del_process_div',function(){$(this).parent('div.clone_process_div').remove();});
+    $('a.add_order_pricess').click(function(){
+        $('#add_process_div').css('display','block');
+        location.href = '#add_process_div';
+    });
+    $('span.add_process_btn').click(function(){
+        var data = $(this).parents('form').serialize();
+        W.ajax({'data':data},"<?php echo site_url('order/order_process');?>");
+    });
+    $('a.delete').click(function(){
+        var id = $(this).parents('td').attr('data-id');
+        W.del({'id':id},'<?php echo site_url('order/del_order_process');?>');
+    });
 </script>

@@ -76,7 +76,7 @@ if (!empty($list)) {
                                                     <?php echo $val['order_mate_amount'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $val['order_process_num'];?>
+                                                    <a class="label label-success copy_process_div" href="<?php echo site_url('order/order_process?order_id=').$val['id'];?>" title="点击查看详细"><?php echo $val['order_process_num'];?></a>
                                                 </td>
                                                 <td>
                                                     <?php echo $val['order_desc'];?>

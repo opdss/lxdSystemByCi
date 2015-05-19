@@ -61,4 +61,40 @@ class Order_model extends MY_Model {
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+    //追加订单工序
+    public function addProcessForOrder($order_id,array $order_process_id) {
+        if(!$order_id || empty($order_process_id)){
+            return false;
+        }
+        $this->db->trans_start();
+        foreach($order_process_id as $k=>$v){
+            $this->db->insert('order_process',array('order_id'=>$order_id,'process_id'=>$v,'create_time'=>TIMESTAMP));
+        }
+        $this->updateOrderMateAmount($order_id);
+        return !($this->db->trans_complete()===false);
+    }
+    //更新订单据工序的预估成本
+    public function updateOrderMateAmount($order_id){
+        $sql = "select sum(process_price) as price from ".$this->db->dbprefix('process')." where id in (select process_id as id from ".$this->db->dbprefix('order_process')." where order_id=$order_id) ";
+        $query = $this->db->query($sql);
+        $process = $query->row_array();
+        //$sql = "select order_num from ".$this->db->dbprefix('order')." where id=$order_id ";
+        //$query = $this->db->query($sql);
+        //$order = $query->row_array();
+        //$price = $order*$process;
+        $sql = "update t_order set order_mate_amount=(order_num*".$process['price'].") where id=$order_id";
+        return $this->db->query($sql);
+    }
+    //删除order_process记录
+    public function delOrderProcess($id){
+        $this->db->trans_start();
+        $sql = "select order_id from ".$this->db->dbprefix('order_process')." where id=$id ";
+        $query = $this->db->query($sql);
+        $order = $query->row_array();
+        $order_id = $order['order_id'];
+        $sql = "delete from ".$this->db->dbprefix('order_process')." where id=$id";
+        $this->db->query($sql);
+        $this->updateOrderMateAmount($order_id);
+        return !($this->db->trans_complete()===false);
+    }
 }

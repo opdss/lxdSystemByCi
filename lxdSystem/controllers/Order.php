@@ -106,15 +106,47 @@ class Order extends MY_Controller {
 	}
 
     public function order_process(){
-        $o_id = (int)$this->input->get('order_id');
-        if(!$o_id){
-            exit('order_id error');
+        if(!$this->input->is_ajax_request()) {
+            $o_id = (int)$this->input->get('order_id');
+            if (!$o_id) {
+                exit('order_id error');
+            }
+            $this->load->model('order_model');
+            $data['order_info'] = $this->order_model->getRow(array('id' => $o_id));
+            $data['list'] = $this->order_model->getOrderProcess($o_id);
+            //var_dump($data);exit;
+            $this->view('order/order_process', $data);
+        }else{
+            $res = $this->input->post('data');
+            parse_str($res, $data);
+
+            if(empty($data['order_id'])){
+                $this->jsonMsg(0,'订单错误');
+            }
+            if(empty($data['process'])){
+                $this->jsonMsg(0,'请填写工序');
+            }
+            $this->load->library('processes');
+            $count = $this->processes->createProcess($data['process']);
+            $this->load->model('order_model');
+            if($count){
+                $res = (int)$this->order_model->addProcessForOrder($data['order_id'],$this->processes->sucProcess);
+                $this->jsonMsg($res);
+            }
+            $this->jsonMsg(0);
         }
-        $this->load->model('order_model');
-        $data['order_info'] = $this->order_model->getRow(array('id'=>$o_id));
-        $data['list'] = $this->order_model->getOrderProcess($o_id);
-        //var_dump($data);exit;
-        $this->view('order/order_process', $data);
+    }
+
+    public function del_order_process(){
+        if ($this->input->is_ajax_request()) {
+            $id = (int)$this->input->post('id');
+            if(!$id){
+                $this->jsonMsg(0);
+            }
+            $this->load->model('order_model');
+            $res = (int)$this->order_model->delOrderProcess($id);
+            $this->jsonMsg($res);
+        }
     }
 }
 
