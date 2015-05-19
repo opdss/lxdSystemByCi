@@ -46,21 +46,14 @@
                         <div class="col-md-4 field-box" style="width:800px;">
                             <label style="width:84px;text-align: right;">订单相关工序:</label>
                             <div class="col-md-10 copy_process_div">
-<<<<<<< HEAD
-                                <div class="clone_process_div">
-                                    <span style="font-size: 14px;margin-right: 20px;">NO.1:</span>
-                                    <span>工序名称:  <input type="text" class="small form-control" name="process[process_name][]"></span>
-                                    <span>工序价格:  <input type="text" class="small form-control" name="process[process_price][]"><input type="text" class="small form-control  process_desc" name="process[process_desc][]"></span>
-                                    <span  class="del_process_div" style="cursor: pointer" title="去除"><i class="icon-remove-sign"></i></span>
-=======
                                 <div class="clone_process_div" style="width:800px;">
                                     <span style="font-size: 14px;margin-right: 20px;">NO.1</span>
                                     <input type="text" class="small form-control" placeholder="工序名称(必填)" name="process[process_name][]" style="width:176px;margin-right:20px;">
-                                    <input type="text" class="small form-control" placeholder="工序价格（单位:元）(必填)" name="process[process_price][]" style="width:176px;" onkeyup="value=value.replace(/[^\d\.]/g,'')">
+                                    <input type="text" class="small form-control" placeholder="工序价格（单位:元）(必填)" name="process[process_price][]" style="width:176px;" onkeyup="value=value.replace(/[^\d\.]/g,'')"><input type="text" class="small form-control  process_desc" placeholder="工序简介" name="process[process_desc][]">
                                     <span style="cursor:pointer;" title="删除工序" class="del_process_div" hidden="hidden"><i class="icon-remove-sign"></i></span>
                                     <span class="alert-msg validate_is_null validate_process" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_baituo.png" style="width:20px;" />把这个工序先填完吧</span>
                                     <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_fadai.png" style="width:20px;" />我数学不好，不要骗我</span>
->>>>>>> 452ffa692afb1a8c55eaecb6f136f43237ce5ab4
+
                                 </div>
                             </div>
                             <div class="col-md-5" style="text-align: center;margin-top: 10px;margin-right: 21%; float: right;"><span class="label label-success copy_process_div" style="cursor:pointer">增加工序</span></div>
@@ -129,18 +122,17 @@
             });
         }
     }
-<<<<<<< HEAD
-    $('span.copy_process_div').click(function(){F.createProcess();});
-    $('div.copy_process_div').on('click','span.del_process_div',function(){$(this).parent('div.clone_process_div').remove();});
     $('#add_btn').click(function(){
         //用订单名称去填冲process_desc
         $('input.process_desc').val($('input[name=order_name]').val());
         var data = $('form.new_user_form').serialize();
-        W.ajax({'data':data},'<?php echo site_url('order/add');?>',function(msg){
+        W.ajax({'data':data},'<?php echo site_url('order/add');?>',function(msg) {
             alert(msg.msg);
-            if(msg.code==1){
+            if (msg.code == 1) {
                 location.href = '<?php echo site_url('order/index');?>';
-=======
+            }
+        });
+    });
 
     //添加工序节点
     $('span.copy_process_div').click(function(){
@@ -155,7 +147,6 @@
                     flag = false;
                     validate_num($(item));
                 }
->>>>>>> 452ffa692afb1a8c55eaecb6f136f43237ce5ab4
             }
         });
         if (flag) {
@@ -183,6 +174,9 @@
 
     //校验每个输入框的值（除工序）-> 空值和数字
     $('.form-control').on('blur', function() {
+        if($(this).attr('name')=='order_name'){
+            $('input.process_desc').val($(this).val());
+        }
         validate_null($(this));
         validate_num($(this));
     });
