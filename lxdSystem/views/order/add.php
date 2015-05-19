@@ -50,7 +50,7 @@
                                     <span style="font-size: 14px;margin-right: 20px;">NO.1</span>
                                     <input type="text" class="small form-control" placeholder="工序名称(必填)" name="process[process_name][]" style="width:176px;margin-right:20px;">
                                     <input type="text" class="small form-control" placeholder="工序价格（单位:元）(必填)" name="process[process_price][]" style="width:176px;" onkeyup="value=value.replace(/[^\d\.]/g,'')">
-                                    <span style="cursor:pointer;" title="删除工序" class="del_process_div"><i class="icon-remove-sign"></i></span>
+                                    <span style="cursor:pointer;" title="删除工序" class="del_process_div" hidden="hidden"><i class="icon-remove-sign"></i></span>
                                     <span class="alert-msg validate_is_null validate_process" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_baituo.png" style="width:20px;" />把这个工序先填完吧</span>
                                     <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_fadai.png" style="width:20px;" />我数学不好，不要骗我</span>
                                 </div>
@@ -113,6 +113,12 @@
             F.num++;
             F.process_div.find('span:eq(0)').text('NO.'+ F.num);
             $('div.copy_process_div').append(F.process_div.clone());
+            //第一个工序不能删除
+            $('span.del_process_div').each(function(index, item) {
+                if (index > 0) {
+                    $(item).removeAttr('hidden');
+                }
+            });
         }
     }
 
