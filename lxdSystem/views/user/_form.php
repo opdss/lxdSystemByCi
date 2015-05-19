@@ -199,7 +199,8 @@
                     date : true
                 },
                 mobile:{
-                    required : true
+                    required : true,
+                    ismobile : true
                 },
                 isdel:{
                     required:true
