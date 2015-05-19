@@ -60,8 +60,8 @@
                         <div class="col-md-12 field-box textarea" style="width:800px;">
                             <label style="width:84px;text-align: right;margin-right:20px;">订单说明:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" rows="4" name="order_desc" placeholder="订单说明(必填)"></textarea>
-                                <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_woshou.png" style="width:20px;" />介绍下订单吧，以后订单多了可是会省去不少功夫的!<img src="../../source/img/myimg_mojing.png" style="width:20px;" /></span>
+                                <textarea class="form-control" rows="4" name="order_desc" style="width:422px;" placeholder="订单说明(必填)"></textarea>
+                                <span class="alert-msg validate_is_null" style="color:red;font-weight:700;float:right;" hidden="hidden"><img src="../../source/img/myimg_woshou.png" style="width:20px;" />介绍下订单吧，以后订单多了可是会省去不少功夫的!<img src="../../source/img/gif/11.gif" style="margin-top:5px;width:80px;" /></span>
                             </div>
                         </div>
                         <div class="col-md-11 field-box actions">
