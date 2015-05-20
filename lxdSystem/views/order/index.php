@@ -87,10 +87,10 @@ if (!empty($list)) {
                                                 <td>
                                                     <?php echo $val['order_end_date'];?>
                                                 </td>
-				                                <td class="align-right">
+				                                <td class="align-right" data-id="<?php echo $val['id'];?>">
 				                                    <ul class="actions" style=" float: left;">
-				                                        <a href="/User/Role/Edit?id=<?php echo $val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
-				                                        <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
+				                                        <a href="javascript:void(0);" title="编辑" class="edit"><li class="icon-wrench"></li></a>
+				                                        <a href="javascript:void(0);" title="删除" class="delete"><li class="last icon-remove"></li></a>
 				                                    </ul>
 				                                </td>
 				                            </tr>
@@ -112,25 +112,12 @@ if (!empty($list)) {
 
 <!-- scripts -->
 <script type="text/javascript">
-    function del(id){
-        if(confirm('确定要删除吗？')){
-            $.ajax({
-                url: '/User/Role/Del',
-                type: "post",
-                dataType: 'json',
-                timeout: 50000,
-                data:{'id':id},
-                success: function (rs) {
-                    if(rs == 1){
-                        window.location.href = window.location.href;
-                    }else{
-                        alert(rs);
-                    }
-                },
-                error: function(xhr){
-                    alert("出现未知错误");
-                }
-            });
-        }
-    }
+    $('a.delete').click(function(){
+        var id = $(this).parents('td').attr('data-id');
+        W.del({'id':id},'<?php echo site_url('order/del');?>');
+    });
+    $('a.edit').click(function(){
+        var id = $(this).parents('td').attr('data-id');
+        location.href = "<?php echo site_url('order/edit');?>?id="+id;
+    });
 </script>
