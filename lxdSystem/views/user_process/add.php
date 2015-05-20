@@ -59,14 +59,12 @@
                         <div class="col-md-12 field-box textarea">
                             <label>描述信息:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" rows="4" name="desc" style="width:250px;"></textarea>
+                                <textarea class="form-control" placeholder="描述信息（选填）" rows="4" name="desc" style="width:250px;"></textarea>
                             </div>
                         </div>
 
-                        <div class="col-md-11 field-box actions">
+                        <div class="col-md-11 field-box actions" style="width:400px;">
                             <input type="button" class="btn-glow primary" value="完成创建" id="add_btn">
-                            <span>OR</span>
-                            <input type="reset" value="Cancel" class="reset">
                         </div>
                     </form>
                 </div>
