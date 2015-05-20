@@ -54,4 +54,11 @@ $config['manage_menu'] = array(
 			'add'        => '添加个人工序',
 		)
 	),
+    'user_salary' => array(
+        'style'       => "icon-code-fork",
+        'desc'        => '员工薪资',
+        'submenu'     => array(
+            'index' => '薪资单列表',
+        )
+    ),
 );

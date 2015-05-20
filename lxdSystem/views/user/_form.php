@@ -48,7 +48,7 @@
 
         <div class="col-lg-8">
             <div class="ui-select" style="width:250px;">
-                <select id="validate_select_dept" name="role_id">
+                <select id="validate_select_dept" name="dept_id">
                     <?php foreach ($dep_list as $k => $v):?>
                         <option value="<?php echo $v['id']?>"
                             <?php if(isset($user_info['dept_id']) && $v['id']==$user_info['dept_id']) {?>
@@ -219,12 +219,12 @@
                 if (imgBeforeWords != undefined) {
                     spanNode += '<img src="'+ imgBeforeWords +'" style="width:50px;" />';
                 }
-<<<<<<< HEAD
+
                 //文本信息
                 if (required!=undefined ) {
                     spanNode += outLength['message'];
-=======
-            },
+                }
+            /*
             rules : {
                 username : {
                     required : true
@@ -261,8 +261,8 @@
                 },
                 role_id:{
                     required:true
->>>>>>> 032da33624a5107a328a6694aa9b3c7893da47da
                 }
+                */
                 //输入文本信息之后放张图片
                 if (imgAfterWord != undefined) {
                     spanNode += '<img src="'+ imgAfterWord +'" style="width:50px;" />';

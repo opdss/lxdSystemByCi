@@ -25,28 +25,25 @@
                         <th class="col-md-1">
                             ID
                         </th>
-                        <th class="col-md-2">
-                            <span class="line"></span>员工用户名
-                        </th>
-                        <th class="col-md-2">
+                        <th class="col-md-1">
                             <span class="line"></span>员工姓名
                         </th>
-                        <th class="col-md-2">
+                        <th class="col-md-1">
                             <span class="line"></span>订单名称
                         </th>
-                        <th class="col-md-2">
+                        <th class="col-md-1">
                             <span class="line"></span>工序名称
                         </th>
-                        <th class="col-md-2">
+                        <th class="col-md-1">
                             <span class="line"></span>工序价格
                         </th>
-                        <th class="col-md-2">
+                        <th class="col-md-1">
                             <span class="line"></span>工序数量
                         </th>
-                        <th class="col-md-2">
+                        <th class="col-md-1">
                             <span class="line"></span>添加时间
                         </th>
-                         <th class="col-md-2">
+                        <th class="col-md-1">
                             <span class="line"></span>该道工序总金额
                         </th>
                         <th class="col-md-1">
@@ -64,9 +61,6 @@ if (!empty($list)) {
 		<tr <?php echo ($i == 0?'class="first"':'');?>>
 		    <td><?php echo $val['id'];?></td>
 		    <td>
-		<?php echo $val['username'];?>
-		</td>
-		    <td>
 		<?php echo $val['truename'];?>
 		</td>
 		    <td>
@@ -82,13 +76,13 @@ if (!empty($list)) {
 		<?php echo $val['process_num'];?>
 		</td>
 		    <td>
-		<?php echo date('Y-m-d H:i', $val['create_time'])?>
+		<?php echo date('Y-m-d', $val['create_time'])?>
 		</td>
 		    <td>
 		<?php echo $val['process_num']*$val['process_price']?>
 		    </td>
 		    <td class="align-right">
-		        <ul class="actions" style=" float: left;">
+		        <ul class="actions" style="...">
 		            <a href="/User/Role/Edit?id=<?php echo $val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
 		            <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
 		        </ul>

@@ -97,4 +97,10 @@ class Order_model extends MY_Model {
         $this->updateOrderMateAmount($order_id);
         return !($this->db->trans_complete()===false);
     }
+
+    //更新该订单当前花费成本
+    public function update($totle,$where){
+        $sql = "update t_order set order_curr_amount=(order_curr_amount+".$totle.") where ".$where;
+        return $this->db->query($sql);
+    }
 }

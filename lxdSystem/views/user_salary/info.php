@@ -4,7 +4,7 @@
     <div id="pad-wrapper" class="new-user">
         <div class="row header">
             <div class="col-md-12">
-                <h3>新建菜单</h3>
+                <h3>工资详情单</h3>
             </div>
         </div>
 
@@ -14,58 +14,54 @@
                 <div class="container">
                     <form class="new_user_form">
                         <div class="col-md-4 field-box">
-                            <label>部门名称:</label>
-                            <select name="dept_id" id="dept_id">
-                                <option value="">--请选择--</option>
-                                <?php foreach ($dept_list as $k => $v):?>
-                                    <option value="<?php echo $v['id']?>"><?php echo str_repeat('　　',$v['level']-1).$v['dept_name'];?></option>
-                                <?php endforeach;?>
-                            </select>
+                            <label>姓名:</label>
+                            <span><?php echo $salary_info['truename'];?></span>
                         </div>
                         <div class="col-md-12 field-box">
-                            <label>员工名称:</label>
-                            <select name="user_id" id="user_id">
-                                <option value="">--请选择--</option>
-                            </select>
+                            <label>月份:</label>
+                            <span><?php echo $salary_info['work_month'];?></span>
                         </div>
                         <div class="col-md-12 field-box">
-                            <label>添加订单工序数量:</label>
+                            <label>订单工序详情:</label>
 
                             <div class="col-md-10 copy_process_div">
                                 <div class="order_list_div">
-                                    <select name="order_id[]" onchange="getProcessList(this)">
-                                        <option value="">--请选择--</option>
-                                        <?php foreach ($order_list as $k => $v):?>
-                                            <option value="<?php echo $v['id']?>"><?php echo $v['order_name'];?></option>
-                                        <?php endforeach;?>
-                                    </select>
+                                    <span><?php echo $salary_info['order_name'];?></span>
                                     <div class="process_list_div">
+                                        <?php
+                                        $salary = 0;
+                                        foreach($salary_info as $v):
+                                            if(is_array($v)){
+                                                foreach($v as $k=>$process){
 
+                                        ?>
+                                        <div class="clone_process_div">
+                                            <span style="font-size: 14px;margin-right: 20px;">NO.<?php echo $k+1;?>:</span>
+                                            <span>工序名称:  <?php echo $process['process_name'];?></span>
+                                            <span>工序数量:  <?php echo $process['process_num'];?></span>
+                                            <span>工序价格:  <?php echo $process['process_price'];?></span>
+                                            <span>小计:  <?php echo $process['process_price']*$process['process_num'];?></span>
+                                        </div>
+                                        <?php
+                                                    $salary += $process['process_price']*$process['process_num'];
+                                                }
+                                            }
+                                        endforeach;?>
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div class="col-md-5" style="text-align: center;margin-top: 10px;margin-left: 10px"><span class="label label-success copy_process_div" style="cursor:pointer">增加</span></div>
+
                         </div>
 
-                        <div class="col-md-12 field-box textarea">
-                            <label>工作月份:</label>
-                            <input class="form-control input-datepicker validate_start_date" style="width: 120px; color:black;" readonly="readonly" type="text" name="work_month" value="<?php echo date('Y-m');?>">
-                        </div>
-
-                        <div class="col-md-12 field-box textarea">
-                            <label>描述信息:</label>
-                            <div class="col-md-7">
-                                <textarea class="form-control" rows="4"  name="desc"></textarea>
-                            </div>
+                        <div class="col-md-12 field-box">
+                            <label>应发放薪资:</label>
+                            <span><?php echo $salary;?></span>
                         </div>
 
                         <div class="col-md-11 field-box actions">
-                            <input type="button" class="btn-glow primary" value="完成创建" id="add_btn">
-                            <input type="button" class="btn-glow primary" value="完成结算" id="pay_btn">
-                            <span>OR</span>
-                            <input type="reset" value="Cancel" class="reset">
+                            <input type="button" class="btn-glow primary" value="打印详情单" id="add_btn">
                         </div>
                     </form>
                 </div>

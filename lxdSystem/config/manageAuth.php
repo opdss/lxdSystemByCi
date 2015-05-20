@@ -67,4 +67,12 @@ $config['manage_auth'] = array(
             'user_process/edit'  => '修改员工工序',
 		)
 	),
+    'user_salary'         => array(
+        'name'                => '员工薪资',
+        'sub'                 => array(
+            'user_salary/index' => '薪资单列表',
+            'user_salary/info'   => '薪资详情',
+            'user_salary/edit'  => '修改员工工序',
+        )
+    ),
 );
