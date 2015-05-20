@@ -4,6 +4,7 @@
 	<title><?php echo $title;?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="<?php echo base_url();?>">
     <?php
         if(!empty($css)) {
             foreach ($css as $k=>$v) {
