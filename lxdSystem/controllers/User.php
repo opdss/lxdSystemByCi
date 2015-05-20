@@ -36,6 +36,8 @@ class User extends MY_Controller {
 
 		//访问页面
 		if (!$this->input->is_ajax_request()) {
+            $this->restyle['js'][] = 'bootstrap.datepicker.js';
+            $this->restyle['css'][] = 'lib/bootstrap.datepicker.css';
 			$this->load->model('department_model');
 			$count            = $this->department_model->getTotal();
 			$dept_list = $this->department_model->getList(0, $count);

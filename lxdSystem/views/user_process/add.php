@@ -57,14 +57,20 @@
                         </div>
 
                         <div class="col-md-12 field-box textarea">
+                            <label>工作月份:</label>
+                            <input class="form-control input-datepicker validate_start_date" style="width: 120px; color:black;" readonly="readonly" type="text" name="work_month" value="<?php echo date('Y-m');?>">
+                        </div>
+
+                        <div class="col-md-12 field-box textarea">
                             <label>描述信息:</label>
-                            <div class="col-md-7">
+                            <div class="col-md-7" style="margin:-24px -14px;">
                                 <textarea class="form-control" placeholder="描述信息（选填）" rows="4" name="desc" style="width:250px;"></textarea>
                             </div>
                         </div>
 
                         <div class="col-md-11 field-box actions" style="width:400px;">
-                            <input type="button" class="btn-glow primary" value="完成创建" id="add_btn">
+                            <input type="button" class="btn-glow primary" value="存档" id="add_btn">
+                            <input type="button" class="btn-glow primary" value="结算" id="pay_btn">
                         </div>
                     </form>
                 </div>
@@ -97,6 +103,13 @@
 
 </style>
 <script>
+
+    $(function () {
+        // datepicker plugin
+        $('.input-datepicker').datepicker({format: "yyyy-mm"}).on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        });
+    });
 
     $("#username").bind('input propertychange', function() {
         var username = $(this).val();
@@ -159,8 +172,8 @@
                     for (var i = msg.data.length - 1,j=0; i >= 0; i--,j++) {
                         html += '<div class="clone_process_div">';
                         html += '<span style="font-size: 14px;margin-right: 20px;">NO.'+(j+1)+':</span>';
-                        html += '<span>工序名称:  '+msg.data[i].process_name+'</span><input type="hidden" name="process_id['+orderid+'][]" value="'+msg.data[i].id+'">';
-                        html += '<span>工序数量:  <input type="text" class="small form-control" placeholder="0" style="height:24px;width:80px;margin-top:0;" onkeyup="value=value.replace(/[^\\d]/g,\'\')" name="process_num['+orderid+'][]"></span>';
+                        html += '<span>工序名称:  '+msg.data[i].process_name+'</span><input type="hidden" name="process_id['+orderid+'][]" value="'+msg.data[i].order_process_id+'"><input type="hidden" name="process_price['+orderid+'][]" value="'+msg.data[i].process_price+'">';
+                        html += '<span>工序数量:  <input type="text" class="small form-control" name="process_num['+orderid+'][]" value="0" style="height:24px;width:80px;margin-top:0;" onkeyup="value=value.replace(/[^\\d]/g,\'\')" name="process_num['+orderid+'][]"></span>';
                         html += '</div>';
                     }
                     $(obj).parent().siblings('div.process_list_div').html(html);
@@ -240,7 +253,7 @@
         }
         var user = $('#user_id').children('option:selected').val();
         if (user == '') {
-            alert('请选择部门！');
+            alert('请选择员工！');
             return false;
         }
         var flag = true;

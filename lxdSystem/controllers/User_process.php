@@ -28,6 +28,8 @@ class User_process extends MY_Controller {
 
 	public function add() {
 		if (!$this->input->is_ajax_request()) {
+            $this->restyle['js'][] = 'bootstrap.datepicker.js';
+            $this->restyle['css'][] = 'lib/bootstrap.datepicker.css';
             $this->load->model('department_model');
             $dep_sum = $this->department_model->getTotal();
             $dept_list = $this->department_model->getList(0, $dep_sum);
@@ -49,30 +51,64 @@ class User_process extends MY_Controller {
 			if (count($data['process_num'])==0) {
 				$this->jsonMsg(0, '请填写工序数量');
 			}
+            $this->load->model('user_process_model');
+            $sign = md5($data['user_id'].$data['work_month']);
+            $sum = $this->user_process_model->checkUserProcess(' sign="'.$sign.'" ');
+            if($sum>0){
+                $this->jsonMsg(0, '已添加过该员工工序');
+            }
 
             $arr = array();
             $arr['user_id'] = $data['user_id'];
             $arr['desc'] = $data['desc'];
             $arr['create_time'] = TIMESTAMP;
-            $this->load->model('user_process_model');
+            $arr['work_month'] = $data['work_month'];
+            $arr['sign'] = md5($arr['user_id'].$arr['work_month']);
 
             $flag = true;
+            $totle = 0;
+
+            //开始事务
             $this->db->query('BEGIN');
 
             foreach($data['order_id'] as $k=>$v){
+                //根据订单id循环插入该订单的每一道工序
                 foreach($data['process_id'][$v] as $key=>$val){
 
-                    $arr['order_id'] = $v;
-                    $arr['process_id'] = $val;
+                    $arr['order_process_id'] = $val;
                     $arr['process_num'] = $data['process_num'][$v][$key];
-
-                    $res = (int) $this->user_process_model->add($arr);
-                    if(!$res){
-                        $flag = false;
+                    $totle += $data['process_num'][$v][$key]*$data['process_price'][$v][$key];
+                    if($arr['process_num']>0) {
+                        $res = (int)$this->user_process_model->add($arr);
+                        if(!$res){
+                            $flag = false;
+                        }
                     }
 
                 }
+                //更新订单当前花费的金额
+                $this->load->model('order_model');
+                if(!$this->order_model->update($totle,'id='.$v)){
+                    $flag = false;
+                }
             }
+
+            //向员工薪资表中插入一条记录
+            $salary_data['sign'] = $arr['sign'];
+            $this->load->model('user_model');
+            $user_info = $this->user_model->getRow('id='.$arr['user_id']);
+            $salary_data['username'] = $user_info['truename'];
+            $salary_data['work_month'] = $arr['work_month'];
+            $salary_data['salary'] = $totle;
+            $salary_data['create_time'] = TIMESTAMP;
+            $this->load->model('user_salary_model');
+            $result = (int) $this->user_salary_model->add($salary_data);
+            if(!$result){
+                $flag = false;
+            }
+
+
+
             if($flag){
                 $this->db->query('COMMIT');
                 $this->jsonMsg(1);
@@ -118,7 +154,7 @@ class User_process extends MY_Controller {
         }
 		$this->load->model('process_model');
         $where = ' process_isdel=0 and order_id='.$res;
-        $sql = 'select a.id,a.process_name,a.process_price,a.process_desc from '.$this->db->dbprefix('process').' as a right join '.$this->db->dbprefix('order_process').' as b on a.id=b.process_id where b.order_id='.$res.' and a.process_isdel=0';
+        $sql = 'select a.id,a.process_name,a.process_price,a.process_desc,b.id as order_process_id from '.$this->db->dbprefix('process').' as a right join '.$this->db->dbprefix('order_process').' as b on a.id=b.process_id where b.order_id='.$res.' and a.process_isdel=0';
         $query = $this->db->query($sql);
         $process_list = $query->result_array();
 		$this->jsonMsg(1, $process_list);

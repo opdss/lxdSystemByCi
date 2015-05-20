@@ -49,11 +49,18 @@ class Order_model extends MY_Model {
         return !($this->db->trans_complete()===false);
     }
 
-    public function getProcessNum($order_id){
-        $sql = "select count(id) as total from ".$this->db->dbprefix('order_process')." where order_id='$order_id' ";
+    public function editOrder($order_id,$data){
+        $price = $this->order_model->getProcessNum($order_id,'price');
+        $data['order_mate_amount'] = round($data['order_num']*$price,2);
+        $this->db->where('id',$order_id);
+        return $this->db->update('order',$data);
+    }
+
+    public function getProcessNum($order_id,$k=null){
+        $sql = "select count(a.id) as total,sum(b.process_price) as price from ".$this->db->dbprefix('order_process')." as a left join ".$this->db->dbprefix('process')." as b on b.id=a.process_id where a.order_id='$order_id' ";
         $query = $this->db->query($sql);
         $res = $query->row_array();
-        return $res['total'];
+        return $k && isset($res[$k]) ? $res[$k] : $res;
     }
     //获取某订单的相关工序
     public function getOrderProcess($oid){

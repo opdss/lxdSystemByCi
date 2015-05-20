@@ -48,7 +48,7 @@
 
         <div class="col-lg-8">
             <div class="ui-select" style="width:250px;">
-                <select id="validate_select_dept" name="role_id">
+                <select id="validate_select_dept" name="dept_id">
                     <?php foreach ($dep_list as $k => $v):?>
                         <option value="<?php echo $v['id']?>"
                             <?php if(isset($user_info['dept_id']) && $v['id']==$user_info['dept_id']) {?>
@@ -224,6 +224,46 @@
                 if (required!=undefined ) {
                     spanNode += outLength['message'];
                 }
+            /*
+            rules : {
+                username : {
+                    required : true
+                },
+                truename : {
+                    required :true
+                },
+                pwd : {
+                    required : true,
+                    rangelength:[6,18]
+                },
+                sex : {
+                    required : true,
+                    number : true
+                },
+                age : {
+                    required : true,
+                    number : true
+                },
+                dept_id:{
+                    required : true,
+                    number : true
+                },
+                begin_work_time : {
+                    required : true,
+                    date : true
+                },
+                mobile:{
+                    required : true,
+                    ismobile : true
+                },
+                isdel:{
+                    required:true
+                },
+                role_id:{
+                    required:true
+>>>>>>> 9445c50efa4d764bf3fa5cbdc480b07f9d320670
+                }
+                */
                 //输入文本信息之后放张图片
                 if (imgAfterWord != undefined) {
                     spanNode += '<img src="'+ imgAfterWord +'" style="width:50px;" />';
