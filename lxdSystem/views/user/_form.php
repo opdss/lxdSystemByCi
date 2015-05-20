@@ -157,14 +157,14 @@
         var messages = {
             username : {
                 required : '就用人家名称的拼音吧，怎么样？',
-                imgAfterWord: '../../source/img/gif/17.gif'
+                imgAfterWord: '<?php echo base_url('source/img/gif/17.gif'); ?>'
             },
             truename : {
-                imgBeforeWord: '../../source/img/gif/03.gif',
+                imgBeforeWord: '<?php echo base_url('source/img/gif/03.gif'); ?>',
                 required : ' 职员是一定会有名字滴...'
             },
             pwd : {
-                imgBeforeWord: '../../source/img/gif/10.gif',
+                imgBeforeWord: '<?php echo base_url('source/img/gif/10.gif'); ?>',
                 required : '密码一定要帅气',
                 outLength: {'length': [6,16], 'message': '密码长度要在6-16位之间'}
             }

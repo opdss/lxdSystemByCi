@@ -16,24 +16,24 @@
                         <div class="col-md-4 field-box" style="width:800px;">
                             <label style="width:84px;text-align: right; margin-right: 20px;">订单名称:</label>
                             <input class="form-control" type="text" style="width: 422px;" placeholder="订单名称(必填)" name="order_name" />
-                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_deyi.png" style="width:20px;" />别忘了填订单名称</span>
+                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_deyi.png'); ?>" style="width:20px;" />别忘了填订单名称</span>
                         </div>
                         <div class="col-md-12 field-box" style="width:800px;">
                             <label style="width:84px;text-align: right; margin-right: 20px;">订单委托商:</label>
                             <input class="form-control" type="text" style="width: 422px;" placeholder="订单委托商(必填)" name="order_jiafang"/>
-                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;width:100px;" hidden="hidden"><img src="../../source/img/myimg_baituo.png" style="width:20px;" />填一下委托商吧，以后用得着</span>
+                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;width:100px;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_baituo.png'); ?>" style="width:20px;" />填一下委托商吧，以后用得着</span>
                         </div>
                         <div style="width:800px;">
                         <div class="col-md-12 field-box" style="width:330px;">
                             <span style="font-size:13px;font-weight:700;width:84px;text-align: right; margin-right: 20px;">订单产品数量:</span>
                             <input class="form-control" type="text" name="order_num" placeholder="产品数量(必填)" style="width:120px;" onkeyup="value=value.replace(/[^\d]/g,'')"/>
-                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_koubi.png" style="width:20px;" />给个数吧</span>
+                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_koubi.png'); ?>" style="width:20px;" />给个数吧</span>
                         </div>
                             <div style="width:330px;float:left;">
                                 <span  style="font-size:13px;font-weight:700;width:84px;text-align: right; margin-right: 20px;">订单总金额:</span>
                             <input class="form-control" type="text" name="order_amount" placeholder="金额(元)(必填)" style="width:120px;" onkeyup="value=value.replace(/[^\d\.]/g,'')"/>
-                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_kelian.png" style="width:20px;" />给点吧</span>
-                            <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_liuhan.png" style="width:20px;" /></span>
+                            <span class="alert-msg validate_is_null" style="color:red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_kelian.png'); ?>" style="width:20px;" />给点吧</span>
+                            <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_liuhan.png'); ?>" style="width:20px;" /></span>
                         </div>
                         </div>
                         <div class="col-md-6 field-box" style="width:800px;">
@@ -41,7 +41,7 @@
                             <input class="form-control input-datepicker validate_start_date" style="width: 120px; color:black;" readonly="readonly" type="text" name="order_start_date" value="<?php echo date('Y-m-d');?>">
                             <span  style="font-size:13px;font-weight:700;width:84px;text-align: right; margin:0 20px 0 75px;">预计完成时间:</span>
                             <input class="form-control input-datepicker validate_end_date" style="width: 120px; color:black;" readonly="readonly" type="text" name="order_end_date" value="<?php echo date('Y-m-d');?>">
-                            <span class="alert-msg validate_date" style="color: red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_question.png" style="width:20px;" />完成时间比开始时间还要早么？</span>
+                            <span class="alert-msg validate_date" style="color: red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_question.png'); ?>" style="width:20px;" />完成时间比开始时间还要早么？</span>
                         </div>
                         <div class="col-md-4 field-box" style="width:800px;">
                             <label style="width:84px;text-align: right;">订单相关工序:</label>
@@ -51,8 +51,8 @@
                                     <input type="text" class="small form-control" placeholder="工序名称(必填)" name="process[process_name][]" style="width:176px;margin-right:20px;">
                                     <input type="text" class="small form-control" placeholder="工序价格（单位:元）(必填)" name="process[process_price][]" style="width:176px;" onkeyup="value=value.replace(/[^\d\.]/g,'')"><input type="text" class="small form-control  process_desc" placeholder="工序简介" name="process[process_desc][]">
                                     <span style="cursor:pointer;" title="删除工序" class="del_process_div" hidden="hidden"><i class="icon-remove-sign"></i></span>
-                                    <span class="alert-msg validate_is_null validate_process" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_baituo.png" style="width:20px;" />把这个工序先填完吧</span>
-                                    <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="../../source/img/myimg_fadai.png" style="width:20px;" />我数学不好，不要骗我</span>
+                                    <span class="alert-msg validate_is_null validate_process" style="color:red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_baituo.png'); ?>" style="width:20px;" />把这个工序先填完吧</span>
+                                    <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_fadai.png'); ?>" style="width:20px;" />我数学不好，不要骗我</span>
 
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                             <label style="width:84px;text-align: right;margin-right:20px;">订单说明:</label>
                             <div class="col-md-7">
                                 <textarea class="form-control" rows="4" name="order_desc" style="width:422px;" placeholder="订单说明(必填)"></textarea>
-                                <span class="alert-msg validate_is_null" style="color:red;font-weight:700;float:right;" hidden="hidden"><img src="../../source/img/myimg_woshou.png" style="width:20px;" />介绍下订单吧，以后订单多了可是会省去不少功夫的!<img src="../../source/img/gif/11.gif" style="margin-top:5px;width:80px;" /></span>
+                                <span class="alert-msg validate_is_null" style="color:red;font-weight:700;float:right;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_woshou.png'); ?>" style="width:20px;" />介绍下订单吧，以后订单多了可是会省去不少功夫的!<img src="<?php echo base_url('source/img/gif/11.gif'); ?>" style="margin-top:5px;width:80px;" /></span>
                             </div>
                         </div>
                         <div class="col-md-11 field-box actions">
