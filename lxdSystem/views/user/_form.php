@@ -44,7 +44,7 @@
         </div>
     </div>
     <div class="field-box">
-        <label style="width:84px;text-align: right; margin-right: 20px;">所属部门:</label>
+        <label style="width:84px;text-align: right; margin-right: 34px;">所属部门:</label>
 
         <div class="col-lg-8">
             <div class="ui-select" style="width:250px;">
@@ -63,7 +63,7 @@
     </div>
     <div class="field-box">
         <div class="form-group">
-            <label style="width:84px;text-align: right; margin-right: 20px;">所属角色:</label>
+            <label style="width:84px;text-align: right; margin-right: 34px;">所属角色:</label>
             <div class="col-lg-8">
                 <div class="ui-select" style="width:250px;">
                     <select id="validate_select_role" name="role_id">
@@ -192,7 +192,7 @@
             //拼一个节点
             //<span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden">
             //<img src="../../source/img/myimg_liuhan.png" style="width:20px;" /></span>
-            var spanNode = '<span class="alert-msg" style="color:red;font-weight:700;width:600px;float:right;margin-top:5px;">';
+            var spanNode = '<span class="alert-msg" style="color:red;font-weight:700;margin-top:5px;">';
             //输入文本信息之前放张图片
             if (imgBeforeWords != undefined) {
                 spanNode += '<img src="'+ imgBeforeWords +'" style="width:50px;" />';
@@ -214,54 +214,15 @@
                 //拼一个节点
                 //<span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden">
                 //<img src="../../source/img/myimg_liuhan.png" style="width:20px;" /></span>
-                var spanNode = '<span class="alert-msg" style="color:red;font-weight:700;width:600px;float:right;margin-top:5px;">';
+                var spanNode = '<span class="alert-msg" style="color:red;font-weight:700;margin-top:5px;">';
                 //输入文本信息之前放张图片
                 if (imgBeforeWords != undefined) {
                     spanNode += '<img src="'+ imgBeforeWords +'" style="width:50px;" />';
                 }
-<<<<<<< HEAD
+
                 //文本信息
                 if (required!=undefined ) {
                     spanNode += outLength['message'];
-=======
-            },
-            rules : {
-                username : {
-                    required : true
-                },
-                truename : {
-                    required :true
-                },
-                pwd : {
-                    required : true,
-                    rangelength:[6,18]
-                },
-                sex : {
-                    required : true,
-                    number : true
-                },
-                age : {
-                    required : true,
-                    number : true
-                },
-                dept_id:{
-                    required : true,
-                    number : true
-                },
-                begin_work_time : {
-                    required : true,
-                    date : true
-                },
-                mobile:{
-                    required : true,
-                    ismobile : true
-                },
-                isdel:{
-                    required:true
-                },
-                role_id:{
-                    required:true
->>>>>>> 032da33624a5107a328a6694aa9b3c7893da47da
                 }
                 //输入文本信息之后放张图片
                 if (imgAfterWord != undefined) {

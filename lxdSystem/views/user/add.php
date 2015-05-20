@@ -20,10 +20,8 @@
 <!-- end main container -->
 
 <script type="text/javascript">
-
     function submitBtn(type){
-
-        if(JqValidate()){
+        if(isSuccess()){
             var options = {
                 url: '<?php echo site_url('user/add');?>',
                 success : apply_callback,
