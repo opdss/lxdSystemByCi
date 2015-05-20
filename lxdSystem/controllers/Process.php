@@ -53,6 +53,21 @@ class Process extends MY_Controller {
             $this->jsonMsg($res);
         }
 	}
+
+    public function searchProcess(){
+        $kw = $this->input->get('kw');
+        $p  = (int) $this->input->get('p');
+        $p  = $p?$p:1;
+        $this->load->model('process_model');
+
+        $where = ' process_isdel=0 ';
+        $where .= empty($kw) ? ' ' : " and process_name like '%$kw%' ";
+
+        $count  = $this->process_model->getTotal($where);
+        $offset = ($p-1)*$this->pageSize;
+        $list = $this->process_model->getList($offset, $this->pageSize, $where);
+        $this->jsonMsg(1,$list);
+    }
 }
 
 ?>
