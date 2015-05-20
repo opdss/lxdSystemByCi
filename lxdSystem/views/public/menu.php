@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><img src="<?php echo base_url('source/img/logo.png');?>"></a>
+        <a class="navbar-brand" href="index.html"><img src="source/img/logo.png"></a>
     </div>
     <ul class="nav navbar-nav pull-right hidden-xs">
         <li class="hidden-xs hidden-sm">
