@@ -112,7 +112,7 @@
             </ul>
         </li>
         <li class="settings hidden-xs hidden-sm">
-            <a href="personal-info.html" role="button">
+            <a href="<?php echo site_url('setting/index');?>" role="button">
                 <i class="icon-cog"></i>
             </a>
         </li>

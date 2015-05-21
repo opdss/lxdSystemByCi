@@ -75,4 +75,10 @@ $config['manage_auth'] = array(
             'user_salary/edit'  => '修改员工工序',
         )
     ),
+    'setting'         => array(
+        'name'                => '系统设置',
+        'sub'                 => array(
+            'setting/edit'  => '系统设置修改',
+        )
+    ),
 );
