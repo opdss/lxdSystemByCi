@@ -96,4 +96,27 @@ class MY_Controller extends CI_Controller {
         $setting = new SimpleXMLElement($str);
         return $setting;
     }
+
+    /**
+     * 输出头部为xls
+     */
+    protected function xlsHeader($file_name = "export")
+    {
+        $ua = $_SERVER["HTTP_USER_AGENT"];
+        if (preg_match("/MSIE/", $ua)) {
+            $file_name = urlencode($file_name);
+            $file_name = str_replace("+", "%20", $file_name);
+        }
+        header ( "Expires: 0" );
+        header ( 'Content-Type: application/vnd.ms-excel');
+        header ( 'Content-Disposition: attachment;filename="' . $file_name . date('Y-m-d',time()). '.xls"' );
+        header ( 'Cache-Control: max-age=0' );
+        // If you're serving to IE 9, then the following may be needed
+        header ( 'Cache-Control: max-age=1' );
+        // If you're serving to IE over SSL, then the following may be needed
+        header ( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' ); // Date in the past
+        header ( 'Last-Modified: ' . gmdate ( 'D, d M Y H:i:s' ) . ' GMT' ); // always modified
+        header ( 'Cache-Control: cache, must-revalidate' ); // HTTP/1.1
+        header ( 'Pragma: public' ); 						// HTTP/1.0
+    }
 }

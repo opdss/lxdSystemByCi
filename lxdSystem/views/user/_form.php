@@ -23,7 +23,7 @@
     <div class="field-box" style="width:800px;">
         <label style="width:84px;text-align: right; margin-right: 20px;">入职时间:</label>
         <div class="col-md-7">
-            <input class="form-control input-datepicker1" type="text" name="begin_work_time" readonly="readonly" style="width:300px;cursor:pointer;color:black;" value="<?php echo isset($user_info['begin_work_time'])?date('d/m/Y', $user_info['begin_work_time']):'';?> <?php echo date('d/m/Y');?>"/>
+            <input class="form-control input-datepicker" type="text" name="begin_work_time" readonly="readonly" style="width:300px;cursor:pointer;color:black;" value="<?php echo isset($user_info['begin_work_time'])?date('Y-m-d', $user_info['begin_work_time']):date('Y-m-d');?>"/>
         </div>
     </div>
     <div class="field-box" style="width:800px;">
@@ -86,13 +86,7 @@
             <input class="form-control" type="text" name="age" style="width:300px;" placeholder="职员年龄（选填）" maxlength="3" onkeyup="value=value.replace(/[^\d]/g,'')" value="<?php echo isset($user_info['age'])?$user_info['age']:0;?>"/>
         </div>
     </div>
-<!--    <div class="field-box">-->
-<!--        <label>离职时间:</label>-->
-<!--        <div class="col-md-7">-->
-<!--            <input class="form-control input-datepicker2" type="text" name="end_work_time" value="--><?php //echo isset($user_info['end_work_time'])&&$user_info['end_work_time']!=0?date('m/d/Y', $user_info['end_work_time']):'';?><!--"/>-->
-<!--            <span style="color:red" class="field_message"></span>-->
-<!--        </div>-->
-<!--    </div>-->
+
     <div class="field-box">
         <label style="width:84px;text-align: right; margin-right: 20px;">身份证号:</label>
         <div class="col-md-7">
@@ -299,12 +293,11 @@
         }
     }
 
-    // datepicker plugin
-    $('.input-datepicker1').datepicker().on('changeDate', function (ev) {
-        $(this).datepicker('hide');
+    $(function () {
+        // datepicker plugin
+        $('.input-datepicker').datepicker({format: "yyyy-mm-dd"}).on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        });
     });
-//    $('.input-datepicker2').datepicker().on('changeDate', function (ev) {
-//        $(this).datepicker('hide');
-//    });
 
 </script>

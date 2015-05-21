@@ -28,7 +28,9 @@ class User_salary extends MY_Controller {
     }
 
     public function info(){
-
+        $this->restyle['js'][] = 'jquery.min.js';
+        $this->restyle['js'][] = 'jquery.jqprint-0.3.js';
+        $this->restyle['js'][] = 'jquery-migrate-1.1.0.js';
         $sign = $this->input->get('sign');
         $this->load->model('user_process_model');
         $where = ' t_user_process.sign="'.$sign.'" ';
@@ -162,6 +164,60 @@ class User_salary extends MY_Controller {
             }
 
 
+        }
+
+    }
+
+    public function exportUserSalaryList() {
+
+        $id           = isset($_GET['id'])?(int) $_GET['id']:0;
+        $keyword      = isset($_GET['keyword'])?trim($_GET['keyword']):'';
+        $pay_status   = isset($_GET['pay_status'])?(int) $_GET['pay_status']:0;
+        $order_status = isset($_GET['order_status'])?(int) $_GET['order_status']:0;
+
+        $where = '';
+        $where .= 'actid = '.$id;
+        if ($keyword != "") {
+            $where .= " and (username like '%".$keyword."%' or consignee like '%".$keyword."%' or consignee_phone like '%".$keyword."%')";
+        }
+        if ($pay_status != 0) {
+            $where .= ' and pay_status='.$pay_status;
+        }
+        if ($order_status != 0) {
+            $where .= ' and order_status='.$order_status;
+        }
+        $order       = 'id desc';
+        $count       = $this->gorder->get_count('actid = '.$id);
+        $gorder_list = $this->gorder->get_list($where, 1, $count, $order);
+
+        xls_header('用户列表');
+
+        $title = array('ID', '用户名', '联系方式', '报名人数', '报名时间', '订单备注', '付款状态', '确认状态');
+
+        $xls_str = '';
+        foreach ($title as $key => $val) {
+            $xls_str .= $val."\t";
+        }
+
+        $xls_str .= " \n";
+
+        foreach ($gorder_list as $key => $r) {
+            $xls_str .= "{$r['userid']} \t";
+            $xls_str .= "{$r['username']} \t";
+            $xls_str .= $r['consignee_phone']."\t";
+            $xls_str .= $r['goods_number']."\t";
+            $xls_str .= date('Y-m-d H:i:s', $r['inputtime'])."\t";
+            $xls_str .= $r['order_note']."\t";
+            $xls_str .= tag(35, 'pay_status', $r['pay_status'])."\t";
+            $xls_str .= tag(35, 'order_status', $r['order_status'])."\t";
+            $xls_str .= " \n";
+        }
+
+        $en = mb_detect_encoding($xls_str, array('UTF-8', 'GBK', 'gb2312'));
+        if ($en == 'UTF-8') {
+            echo $xls_str;
+        } else {
+            echo mb_convert_encoding($xls_str, $en, "utf-8");
         }
 
     }

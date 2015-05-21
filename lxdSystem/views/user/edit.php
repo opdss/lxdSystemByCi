@@ -23,7 +23,7 @@
 
     function submitBtn(type){
 
-        if(JqValidate()){
+        if(isSuccess()){
             var options = {
                 url: '<?php echo site_url('user/edit');?>',
                 success : apply_callback,
