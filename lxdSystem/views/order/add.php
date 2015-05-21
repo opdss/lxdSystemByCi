@@ -44,7 +44,7 @@
                             <span class="alert-msg validate_date" style="color: red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_question.png'); ?>" style="width:20px;" />完成时间比开始时间还要早么？</span>
                         </div>
                         <div class="col-md-4 field-box" style="width:800px;">
-                            <label style="width:84px;text-align: right;">订单相关工序:</label>
+                            <label style="width:84px;text-align: right;">相关工序:</label>
                             <div class="col-md-10 copy_process_div">
                                 <div class="clone_process_div" style="width:800px;">
                                     <span style="font-size: 14px;margin-right: 20px;">NO.1</span>
