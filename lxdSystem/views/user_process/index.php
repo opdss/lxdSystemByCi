@@ -7,7 +7,7 @@
         <div class="table-wrapper users-table section">
             <div class="row head">
                 <div class="col-md-12">
-                    <h4>角色列表</h4>
+                    <h4>员工工序列表</h4>
                 </div>
             </div>
 
@@ -57,39 +57,39 @@
 $i = 0;
 if (!empty($list)) {
 	foreach ($list as $val) {
-		?>
-		<tr <?php echo ($i == 0?'class="first"':'');?>>
-		    <td><?php echo $val['id'];?></td>
-		    <td>
-		<?php echo $val['truename'];?>
-		</td>
-		    <td>
-		<?php echo $val['order_name'];?>
-		</td>
-		<td>
-		<?php echo $val['process_name'];?>
-		</td>
-		<td>
-		<?php echo $val['process_price'];?>
-		</td>
-		<td>
-		<?php echo $val['process_num'];?>
-		</td>
-		    <td>
-		<?php echo date('Y-m-d', $val['create_time'])?>
-		</td>
-		    <td>
-		<?php echo $val['process_num']*$val['process_price']?>
-		    </td>
-		    <td class="align-right">
-		        <ul class="actions" style="...">
-		            <a href="/User/Role/Edit?id=<?php echo $val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
-		            <a href="javascript:void(0);" title="删除" onclick="del(<?php echo $val['id'];?>);"><li class="last icon-remove"></li></a>
-		        </ul>
-		    </td>
-		</tr>
-		<?php
-		$i++;}
+?>
+                    <tr <?php echo ($i == 0?'class="first"':'');?>>
+                        <td><?php echo $val['id'];?></td>
+                        <td>
+                            <?php echo $val['truename'];?>
+                        </td>
+                        <td>
+                            <?php echo $val['order_name'];?>
+                        </td>
+                        <td>
+                            <?php echo $val['process_name'];?>
+                        </td>
+                        <td>
+                            <?php echo $val['process_price'];?>
+                        </td>
+                        <td>
+                            <?php echo $val['process_num'];?>
+                        </td>
+                        <td>
+                            <?php echo date('Y-m-d', $val['create_time'])?>
+                        </td>
+                        <td>
+                            <?php echo $val['process_num']*$val['process_price']?>
+                        </td>
+                        <td class="align-right">
+                            <ul class="actions" style="...">
+                                <a href="<?php echo site_url('user_process/edit').'?id='.$val['id'];?>" title="编辑"><li class="icon-wrench"></li></a>
+                            </ul>
+                        </td>
+                    </tr>
+<?php
+		$i++;
+    }
 }
 ?>
 </tbody>
@@ -103,28 +103,3 @@ if (!empty($list)) {
     </div>
 </div>
 <!-- end main container -->
-
-<!-- scripts -->
-<script type="text/javascript">
-    function del(id){
-        if(confirm('确定要删除吗？')){
-            $.ajax({
-                url: '/User/Role/Del',
-                type: "post",
-                dataType: 'json',
-                timeout: 50000,
-                data:{'id':id},
-                success: function (rs) {
-                    if(rs == 1){
-                        window.location.href = window.location.href;
-                    }else{
-                        alert(rs);
-                    }
-                },
-                error: function(xhr){
-                    alert("出现未知错误");
-                }
-            });
-        }
-    }
-</script>

@@ -38,7 +38,6 @@ class User_salary extends MY_Controller {
 
             $new_list['username'] = $v['username']; unset($v['username']);
             $new_list['truename'] = $v['truename']; unset($v['truename']);
-            $new_list['order_name'] = $v['order_name']; unset($v['order_name']);
             $new_list['work_month'] = $v['work_month']; unset($v['work_month']);
             $new_list[$v['order_id']][] = $v;
         }
@@ -55,21 +54,30 @@ class User_salary extends MY_Controller {
             $where = ' t_user_process.sign="'.$sign.'" ';
             $count = $this->user_process_model->getTotal($where);
             $list = $this->user_process_model->getList(0,$count,' a.sign="'.$sign.'" ');
+            //判断是否结算，已结算不能修改
             foreach($list as $k=>$v){
-
+                if($v['ispay']==1){
+                    echo '<script>alert("请员工已结算，不能修改！");window.location.href="'.$_SERVER["HTTP_REFERER"].'";</script>';
+                }
                 $new_list['username'] = $v['username']; unset($v['username']);
+                $new_list['user_id'] = $v['user_id']; unset($v['user_id']);
                 $new_list['truename'] = $v['truename']; unset($v['truename']);
-                $new_list['order_name'] = $v['order_name']; unset($v['order_name']);
                 $new_list['work_month'] = $v['work_month']; unset($v['work_month']);
+                $new_list['desc'] = $v['desc']; unset($v['desc']);
                 $new_list[$v['order_id']][] = $v;
             }
             $data['salary_info'] = $new_list;
+            //echo '<pre>';print_r($new_list);die();
+            $this->load->model('order_model');
+            $count        = $this->order_model->getTotal();
+            $data['order_list'] = $this->order_model->getList(0, $count);
 
+            $data['sign'] = $sign;
             $this->view('user_salary/edit',$data);
         } else {
             $res = $this->input->post('data');
             parse_str($res, $data);
-
+            //echo '<pre>';print_r($data);die();
             if (count($data['order_id'])==0) {
                 $this->jsonMsg(0, '请选择所属订单');
             }
@@ -80,13 +88,14 @@ class User_salary extends MY_Controller {
                 $this->jsonMsg(0, '请填写工序数量');
             }
             $this->load->model('user_process_model');
-            $sign = md5($data['user_id'].$data['work_month']);
-            $sum = $this->user_process_model->checkUserProcess(' sign="'.$sign.'" ');
-            if($sum>0){
-                $this->jsonMsg(0, '已添加过该员工工序');
-            }
 
             $arr = array();
+            if($data['type']=='add_btn'){
+                $arr['ispay'] = 0;
+            }
+            elseif($data['type']=='pay_btn'){
+                $arr['ispay'] = 1;
+            }
             $arr['user_id'] = $data['user_id'];
             $arr['desc'] = $data['desc'];
             $arr['create_time'] = TIMESTAMP;
@@ -100,37 +109,44 @@ class User_salary extends MY_Controller {
             $this->db->query('BEGIN');
 
             foreach($data['order_id'] as $k=>$v){
-                //根据订单id循环插入该订单的每一道工序
-                foreach($data['process_id'][$v] as $key=>$val){
+                if(!empty($v)) {
+                    //根据订单id循环插入该订单的每一道工序
+                    foreach ($data['process_id'][$v] as $key => $val) {
 
-                    $arr['order_process_id'] = $val;
-                    $arr['process_num'] = $data['process_num'][$v][$key];
-                    $totle += $data['process_num'][$v][$key]*$data['process_price'][$v][$key];
-                    if($arr['process_num']>0) {
-                        $res = (int)$this->user_process_model->add($arr);
-                        if(!$res){
-                            $flag = false;
+                        $arr['process_num'] = $data['process_num'][$v][$key];
+                        $arr['order_process_id'] = $val;
+                        //判断添加过该道工序，有 更新  无 添加
+                        $sum = $this->user_process_model->checkUserProcess(' order_process_id="' . $val . '" ');
+                        if ($sum > 0) {
+                            //更新
+                            $ures = $this->user_process_model->edit($data['user_process_id'][$v][$key], array('process_num' => $arr['process_num'],'ispay' => $arr['ispay']));
+                            if (!$ures) {
+                                $flag = false;
+                            }
+                        } else {
+                            //添加
+                            $res = (int)$this->user_process_model->add($arr);
+                            if (!$res) {
+                                $flag = false;
+                            }
                         }
-                    }
 
-                }
-                //更新订单当前花费的金额
-                $this->load->model('order_model');
-                if(!$this->order_model->update($totle,'id='.$v)){
-                    $flag = false;
+                        $totle += $data['process_num'][$v][$key] * $data['process_price'][$v][$key];
+
+                    }
+                    //更新订单当前花费的金额
+                    $this->load->model('order_model');
+                    $diff_price = $data['salary'] - $totle;
+                    if (!$this->order_model->edit($v, $diff_price)) {
+                        $flag = false;
+                    }
                 }
             }
 
-            //向员工薪资表中插入一条记录
-            $salary_data['sign'] = $arr['sign'];
-            $this->load->model('user_model');
-            $user_info = $this->user_model->getRow('id='.$arr['user_id']);
-            $salary_data['username'] = $user_info['truename'];
-            $salary_data['work_month'] = $arr['work_month'];
+            //更新员工薪资表
             $salary_data['salary'] = $totle;
-            $salary_data['create_time'] = TIMESTAMP;
             $this->load->model('user_salary_model');
-            $result = (int) $this->user_salary_model->add($salary_data);
+            $result = (int) $this->user_salary_model->edit($data['sign'],$salary_data);
             if(!$result){
                 $flag = false;
             }

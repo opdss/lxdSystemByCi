@@ -23,15 +23,17 @@
                         </div>
                         <div class="col-md-12 field-box">
                             <label>订单工序详情:</label>
-
+                            <?php
+                            $salary = 0;
+                            foreach($salary_info as $v):
+                                if(is_array($v)){
+                            ?>
                             <div class="col-md-10 copy_process_div">
                                 <div class="order_list_div">
-                                    <span><?php echo $salary_info['order_name'];?></span>
+                                    <span><?php echo $v[0]['order_name'];?></span>
                                     <div class="process_list_div">
                                         <?php
-                                        $salary = 0;
-                                        foreach($salary_info as $v):
-                                            if(is_array($v)){
+
                                                 foreach($v as $k=>$process){
 
                                         ?>
@@ -45,13 +47,15 @@
                                         <?php
                                                     $salary += $process['process_price']*$process['process_num'];
                                                 }
-                                            }
-                                        endforeach;?>
+
+                                       ?>
                                     </div>
                                 </div>
 
                             </div>
-
+                            <?php
+                                }
+                            endforeach;?>
 
                         </div>
 

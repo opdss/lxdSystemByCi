@@ -26,5 +26,10 @@ class User_salary_model extends MY_Model {
         return $query->result_array();
     }
 
+    public function edit($sign,$data){
+        $this->db->where('sign', $sign);
+        return $this->db->update('user_salary', $data);
+    }
+
 
 }

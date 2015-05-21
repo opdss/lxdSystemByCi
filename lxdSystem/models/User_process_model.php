@@ -16,7 +16,7 @@ class User_process_model extends MY_Model {
 
 	public function getList($offset, $number,$where='1') {
         $where = $this->getWhereStr($where);
-		$sql   = "select a.id,a.process_num,a.create_time,a.work_month,b.username,b.truename,e.order_name,e.id as order_id,d.process_name,d.process_price from ".$this->db->dbprefix('user_process')." as a inner join ".$this->db->dbprefix('user')." as b on a.user_id=b.id inner join ".$this->db->dbprefix('order_process')." as c on a.order_process_id=c.id inner join ".$this->db->dbprefix('process')." as d on c.process_id=d.id inner join ".$this->db->dbprefix('order')." as e on c.order_id=e.id where $where order by b.username asc limit $offset,$number";
+		$sql   = "select a.id,a.user_id,a.process_num,a.ispay,a.create_time,a.work_month,a.order_process_id,a.desc,b.username,b.truename,e.order_name,e.id as order_id,d.process_name,d.process_price from ".$this->db->dbprefix('user_process')." as a inner join ".$this->db->dbprefix('user')." as b on a.user_id=b.id inner join ".$this->db->dbprefix('order_process')." as c on a.order_process_id=c.id inner join ".$this->db->dbprefix('process')." as d on c.process_id=d.id inner join ".$this->db->dbprefix('order')." as e on c.order_id=e.id where $where order by b.username asc limit $offset,$number";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -30,6 +30,21 @@ class User_process_model extends MY_Model {
         $sql = "select * from ".$this->db->dbprefix('user_process')." where $where ";
         $query = $this->db->query($sql);
         return $query->num_rows();
+    }
+
+    public function edit($id,$data){
+        $this->db->where('id', $id);
+        return $this->db->update('user_process', $data);
+    }
+
+    public function getRow($where) {
+        if (empty($where)) {
+            return false;
+        }
+        $sql   = "select a.id,a.user_id,a.process_num,a.ispay,a.create_time,a.work_month,a.order_process_id,a.desc,b.username,b.truename,e.order_name,e.id as order_id,d.process_name,d.process_price from ".$this->db->dbprefix('user_process')." as a inner join ".$this->db->dbprefix('user')." as b on a.user_id=b.id inner join ".$this->db->dbprefix('order_process')." as c on a.order_process_id=c.id inner join ".$this->db->dbprefix('process')." as d on c.process_id=d.id inner join ".$this->db->dbprefix('order')." as e on c.order_id=e.id where $where";
+        $query          = $this->db->query($sql);
+        $row           = $query->row_array();
+        return $row;
     }
 
 }

@@ -104,4 +104,9 @@ class Order_model extends MY_Model {
         $this->updateOrderMateAmount($order_id);
         return !($this->db->trans_complete()===false);
     }
+
+    public function edit($order_id,$data){
+        $sql = "update t_order set order_curr_amount=(order_curr_amount+".$data.") where id=$order_id";
+        return $this->db->query($sql);
+    }
 }

@@ -78,17 +78,15 @@ class User_process extends MY_Controller {
                     $arr['order_process_id'] = $val;
                     $arr['process_num'] = $data['process_num'][$v][$key];
                     $totle += $data['process_num'][$v][$key]*$data['process_price'][$v][$key];
-                    if($arr['process_num']>0) {
-                        $res = (int)$this->user_process_model->add($arr);
-                        if(!$res){
-                            $flag = false;
-                        }
+                    $res = (int)$this->user_process_model->add($arr);
+                    if(!$res){
+                        $flag = false;
                     }
 
                 }
                 //更新订单当前花费的金额
                 $this->load->model('order_model');
-                if(!$this->order_model->update($totle,'id='.$v)){
+                if(!$this->order_model->edit($v,$totle)){
                     $flag = false;
                 }
             }
@@ -122,12 +120,28 @@ class User_process extends MY_Controller {
 	}
 
 	public function edit() {
+        if (!$this->input->is_ajax_request()) {
+            $id = $this->input->get('id');
+            $this->load->model('user_process_model');
+            $data['user_process_info'] = $this->user_process_model->getRow('a.id=' . $id);
+            if($data['user_process_info']['ispay']==1){
+                echo '<script>alert("请员工已结算，不能修改！");window.location.href="'.$_SERVER["HTTP_REFERER"].'";</script>';
+            }
+            $this->view('user_process/edit', $data);
+        }else{
+            $res = $this->input->post('data');
+            parse_str($res, $data);
+            $this->load->model('user_process_model');
+            $id = $data['id'];
+            unset($data['id']);
+            $res = $this->user_process_model->edit($id,$data);
+            if($res){
+                $this->jsonMsg(1);
+            }else{
+                $this->jsonMsg(0);
+            }
 
-		$this->load->model('order_model');
-		$id                 = $this->input->get('id');
-		$data['order_info'] = $this->user_model->getRow('id='.$id);
-
-		$this->view('order/add', $data);
+        }
 	}
 
 	public function del() {

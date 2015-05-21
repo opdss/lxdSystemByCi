@@ -4,7 +4,7 @@
     <div id="pad-wrapper" class="new-user">
         <div class="row header">
             <div class="col-md-12">
-                <h3>新建菜单</h3>
+                <h3>修改员工工序</h3>
             </div>
         </div>
 
@@ -23,50 +23,79 @@
                         </div>
                         <div class="col-md-12 field-box">
                             <label>订单工序详情:</label>
+                            <?php
+                            $salary = 0;
+                            foreach($salary_info as $key=>$v):
 
-                            <div class="col-md-10 copy_process_div">
-                                <div class="order_list_div">
-                                    <span><?php echo $salary_info['order_name'];?></span>
-                                    <div class="process_list_div">
-                                        <?php
-                                        $salary = 0;
-                                        foreach($salary_info as $v):
-                                            if(is_array($v)){
+                                if(is_array($v)){
+
+                                    echo '<input type="hidden" name="order_id[]" value="'.$key.'"/>';
+                            ?>
+
+                            <div class="col-md-10">
+                                <div>
+                                    <span><?php echo $v[0]['order_name'];?></span>
+                                    <div>
+                                       <?php
+
                                                 foreach($v as $k=>$process){
 
                                                     ?>
-                                                    <div class="clone_process_div">
+                                                    <div class="old_process_div">
                                                         <span style="font-size: 14px;margin-right: 20px;">NO.<?php echo $k+1;?>:</span>
                                                         <span>工序名称:  <?php echo $process['process_name'];?></span>
-                                                        <span>工序数量:  <?php echo $process['process_num'];?></span>
                                                         <span>工序价格:  <?php echo $process['process_price'];?></span>
-                                                        <span>小计:  <?php echo $process['process_price']*$process['process_num'];?></span>
+                                                        <span>工序数量:  <input type="text" class="small form-control" name="process_num[<?php echo $process['order_id'];?>][]" value="<?php echo $process['process_num'];?>"/></span>
                                                     </div>
+                                                    <input type="hidden" name="process_id[<?php echo $process['order_id'];?>][]" value="<?php echo $process['order_process_id'];?>">
+                                                    <input type="hidden" name="process_price[<?php echo $process['order_id'];?>][]" value="<?php echo $process['process_price'];?>">
+                                                    <input type="hidden" name="user_process_id[<?php echo $process['order_id'];?>][]" value="<?php echo $process['id'];?>">
                                                     <?php
                                                     $salary += $process['process_price']*$process['process_num'];
                                                 }
-                                            }
-                                        endforeach;?>
+                                            ?>
                                     </div>
                                 </div>
 
                             </div>
+                           <?php
+                                }
+                           endforeach;?>
+                            <div class="col-md-10 copy_process_div" style="display: none;">
+                                <div class="order_list_div">
+                                    <div class="ui-select" style="margin-top:2px;margin-right:10px;">
+                                        <select class="mySelect" name="order_id[]" onchange="getProcessList(this)">
+                                            <option value="">--请选择订单--</option>
+                                            <?php foreach ($order_list as $k => $v):?>
+                                                <option value="<?php echo $v['id']?>"><?php echo $v['order_name'];?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <span style="cursor:pointer;" title="删除" class="del_process_div" style="" hidden="hidden" ><i class="icon-remove-sign"></i></span>
+                                    <div class="process_list_div">
 
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-5" style="text-align: center;margin-top: 10px;text-align:left;"><span class="label label-success copy_process_div" style="cursor:pointer">增加</span></div>
 
                         </div>
 
                         <div class="col-md-12 field-box textarea">
                             <label>描述信息:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" rows="4"  name="desc"></textarea>
+                                <textarea class="form-control" rows="4"  name="desc"><?php echo $salary_info['desc']?></textarea>
                             </div>
                         </div>
-
+                        <input type="hidden" name="sign" value="<?php echo $sign;?>"/>
+                        <input type="hidden" name="salary" value="<?php echo $salary;?>"/>
+                        <input type="hidden" name="user_id" value="<?php echo $salary_info['user_id'];?>"/>
+                        <input type="hidden" name="work_month" value="<?php echo $salary_info['work_month'];?>"/>
                         <div class="col-md-11 field-box actions">
-                            <input type="button" class="btn-glow primary" value="完成创建" id="add_btn">
-                            <input type="button" class="btn-glow primary" value="完成结算" id="pay_btn">
-                            <span>OR</span>
-                            <input type="reset" value="Cancel" class="reset">
+                            <input type="button" class="btn-glow primary" value="完成更新" onclick="ajaxSubmit(this,'add_btn');">
+                            <input type="button" class="btn-glow primary" value="完成结算" onclick="ajaxSubmit(this,'pay_btn');">
+
                         </div>
                     </form>
                 </div>
@@ -93,7 +122,7 @@
         line-height: 30px;
         list-style-type: none;
     }
-    .clone_process_div span{
+    .clone_process_div span,.old_process_div span{
         margin-left: 30px;
     }
 
@@ -131,22 +160,25 @@
         $(".sl").hide();
     });
 
-    $('#add_btn').click(function(){
-        var data = $(this).parents('form').serialize();
+
+    function ajaxSubmit(obj,type){
+        var data = $(obj).parents('form').serialize();
+        var param = '&type='+type;
+        data += param;
         $.ajax({
             'type':'post',
-            'url' : '<?php echo site_url('user_process/add');?>',
+            'url' : '<?php echo site_url('user_salary/edit');?>',
             'data' : {'data':data},
             'success' : function(msg){
                 if(msg.code==1){
-                    location.href = '<?php echo site_url('user_process/index');?>';
+                    location.href = '<?php echo site_url('user_salary/index');?>';
                 }else{
                     alert(msg.msg);
                 }
             },
             'dataType' : 'json'
         });
-    });
+    }
 
     function userNameHandle(name){
         $("#username").val(name);
@@ -167,10 +199,12 @@
                         html += '<div class="clone_process_div">';
                         html += '<span style="font-size: 14px;margin-right: 20px;">NO.'+(j+1)+':</span>';
                         html += '<span>工序名称:  '+msg.data[i].process_name+'</span><input type="hidden" name="process_id['+orderid+'][]" value="'+msg.data[i].order_process_id+'"><input type="hidden" name="process_price['+orderid+'][]" value="'+msg.data[i].process_price+'">';
+                        html += '<span>工序价格:  '+msg.data[i].process_price+'</span>';
                         html += '<span>工序数量:  <input type="text" class="small form-control" name="process_num['+orderid+'][]" value="0"></span>';
                         html += '</div>';
                     }
-                    $(obj).next().html(html);
+                    $(obj).parent().siblings('div.process_list_div').html(html);
+                    $(obj).children('option[value=""]').remove();
 
                 }else{
                     alert(msg.msg);
@@ -207,10 +241,28 @@
     var F = {
         order_div : $('div.order_list_div').clone(),
         orderProcess : function(){
-            $('div.copy_process_div').append(F.order_div.clone());
+            var new_div = F.order_div.clone()
+            $('div.copy_process_div').append(new_div);
+            $('div.copy_process_div').show();
+
+            //第一个订单不能删除
+            $('span.del_process_div').each(function(index, item) {
+                if (index > 0) {
+                    $(item).removeAttr('hidden');
+                }
+            });
+
         }
     }
-    $('span.copy_process_div').click(function(){F.orderProcess();});
 
+    $('span.copy_process_div').click(function(){
+        F.orderProcess();
+    });
+
+
+    //删除订单节点
+    $('div.copy_process_div').on('click','span.del_process_div',function(){
+        $(this).parent('div.order_list_div').remove();
+    });
 
 </script>

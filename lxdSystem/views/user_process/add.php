@@ -69,8 +69,8 @@
                         </div>
 
                         <div class="col-md-11 field-box actions" style="width:400px;">
-                            <input type="button" class="btn-glow primary" value="存档" id="add_btn">
-                            <input type="button" class="btn-glow primary" value="结算" id="pay_btn">
+                            <input type="button" class="btn-glow primary" value="存档" onclick="ajaxSubmit(this,'add_btn')">
+                            <input type="button" class="btn-glow primary" value="结算" onclick="ajaxSubmit(this,'pay_btn')">
                         </div>
                     </form>
                 </div>
@@ -135,9 +135,12 @@
         $(".sl").hide();
     });
 
-    $('#add_btn').click(function(){
+
+    function ajaxSubmit(obj,type){
         if (isSuccess()) {
-            var data = $(this).parents('form').serialize();
+            var data = $(obj).parents('form').serialize();
+            var param = '&type='+type;
+            data += param;
             $.ajax({
                 'type':'post',
                 'url' : '<?php echo site_url('user_process/add');?>',
@@ -152,7 +155,7 @@
                 'dataType' : 'json'
             });
         }
-    });
+    }
 
     function userNameHandle(name){
         $("#username").val(name);
@@ -195,7 +198,7 @@
             'data' : {'data':dept_id},
             'success' : function(msg){
                 if(msg.code==1){
-                    var html='<option value="">--请选择--</option>';
+                    var html='';
                     for (var i = msg.data.length - 1; i >= 0; i--) {
                         html += '<option value="'+msg.data[i].id+'">'+msg.data[i].truename+'</option>';
                     }
