@@ -37,6 +37,7 @@ class User_process extends MY_Controller {
 			$this->load->model('order_model');
 			$count        = $this->order_model->getTotal();
 			$data['order_list'] = $this->order_model->getList(0, $count);
+            //echo '<pre>';print_r($data['order_list']);die();
 			$this->view('user_process/add', $data);
 		} else {
 			$res = $this->input->post('data');
@@ -67,7 +68,6 @@ class User_process extends MY_Controller {
 
             $flag = true;
             $totle = 0;
-
             //开始事务
             $this->db->query('BEGIN');
 

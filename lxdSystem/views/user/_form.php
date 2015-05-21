@@ -83,7 +83,7 @@
     <div class="field-box">
         <label style="width:84px;text-align: right; margin-right: 20px;">职员年龄:</label>
         <div class="col-md-7">
-            <input class="form-control" type="text" name="age" style="width:300px;" placeholder="职员年龄（选填）" maxlength="3" onkeyup="value=value.replace(/[^\d]/g,'')" value="<?php echo isset($user_info['age'])?$user_info['age']:'';?>"/>
+            <input class="form-control" type="text" name="age" style="width:300px;" placeholder="职员年龄（选填）" maxlength="3" onkeyup="value=value.replace(/[^\d]/g,'')" value="<?php echo isset($user_info['age'])?$user_info['age']:0;?>"/>
         </div>
     </div>
 <!--    <div class="field-box">-->

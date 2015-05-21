@@ -63,8 +63,7 @@ class User extends MY_Controller {
 			if (preg_match("/^\s*$/", $data['sex'])) {$msg .= '请选择性别\r\n';}
 			if (preg_match("/^[a-zA-Z][a-zA-Z0-9_]{6,18}$/", $data['pwd'])) {$msg .= '密码在6-18位字符\r\n';}
 			if (preg_match("/^\s*$/", $data['dept_id'])) {$msg .= '请选择部门\r\n';}
-			if (!preg_match("/^(\d{2})\/(\d{2})\/(\d{4})$/", $data['begin_work_time'])) {$msg .= '时间格式不正确\r\n';}
-			if (preg_match("/^\s*$/", $data['mobile'])) {$msg .= '请填写手机号\r\n';}
+			//if (!preg_match("/^(\d{2})\/(\d{2})\/(\d{4})$/", $data['begin_work_time'])) {$msg .= '时间格式不正确\r\n';}
 			if (preg_match("/^\s*$/", $data['role_id'])) {$msg .= '请选择角色\r\n';}
 
 			if (!empty($msg)) {
@@ -75,7 +74,6 @@ class User extends MY_Controller {
 			$data['create_time']     = TIMESTAMP;
 			$data['pwd']             = md5($data['pwd']);
 			$data['begin_work_time'] = strtotime($data['begin_work_time']);
-			$data['end_work_time']   = $data['end_work_time']?strtotime($data['end_work_time']):0;
 
              unset($data['id']);
              $insertId = (int) $this->user_model->add($data);
@@ -113,7 +111,6 @@ class User extends MY_Controller {
             if (preg_match("/^\s*$/", $data['sex'])) {$msg .= '请选择性别\r\n';}
             if (preg_match("/^\s*$/", $data['dept_id'])) {$msg .= '请选择部门\r\n';}
             if (!preg_match("/^(\d{2})\/(\d{2})\/(\d{4})$/", $data['begin_work_time'])) {$msg .= '时间格式不正确\r\n';}
-            if (preg_match("/^\s*$/", $data['mobile'])) {$msg .= '请填写手机号\r\n';}
             if (preg_match("/^\s*$/", $data['role_id'])) {$msg .= '请选择角色\r\n';}
 
             if (!empty($msg)) {

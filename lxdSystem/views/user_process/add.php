@@ -41,7 +41,7 @@
                                         <select class="mySelect" name="order_id[]" onchange="getProcessList(this)">
                                             <option value="">--请选择订单--</option>
                                             <?php foreach ($order_list as $k => $v):?>
-                                                <option value="<?php echo $v['id']?>"><?php echo $v['order_name'];?></option>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['order_name'];?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
