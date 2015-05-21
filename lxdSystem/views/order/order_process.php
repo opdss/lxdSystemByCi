@@ -129,7 +129,7 @@
     $('div.copy_process_div').on('click','span.del_process_div',function(){$(this).parent('div.clone_process_div').remove();});
     $('a.add_order_pricess').click(function(){
         $('#add_process_div').css('display','block');
-        location.href = '#add_process_div';
+        location.href = '<?php echo site_url('order/order_process').'?order_id='.$order_info['id'];?>#add_process_div';
     });
     $('span.add_process_btn').click(function(){
         var data = $(this).parents('form').serialize();

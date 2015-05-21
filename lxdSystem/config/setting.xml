@@ -10,7 +10,7 @@
     </systemName>
     <pageSize>
         <name>分页大小</name>
-        <value>20</value>
+        <value>5</value>
     </pageSize>
     <developers class="disabled">
         <name>开发人员</name>
