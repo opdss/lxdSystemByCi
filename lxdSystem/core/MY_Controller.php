@@ -11,7 +11,10 @@ class MY_Controller extends CI_Controller {
 
     protected $settingXml;
 
-	protected $_U = array();
+	public $_G = array(
+        '_U'=>array(),//全局，用户登陆信息
+        '_SET'=>array(),//全局配置，一个对象
+    );
     protected $_SET = array();//全局配置，一个对象
 
 	protected $pageSize;
@@ -46,11 +49,11 @@ class MY_Controller extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
         $this->settingXml = APPPATH.'config/setting.xml';
-        $this->_SET = $this->getSetting();
-        $this->pageSize = $this->_SET->pageSize->value;
+        $this->_G['_SET'] = $this->getSetting();
+        $this->pageSize = $this->_G['_SET']->pageSize->value;
 	}
 
-	protected function view($page, $data = null) {
+	protected function view($page, $data = array()) {
 		if (!file_exists(VIEWPATH.$page.'.php')) {
 			exit('no template');
 			//show_404();
@@ -58,13 +61,13 @@ class MY_Controller extends CI_Controller {
 		$head = array(
 			'css'   => array_merge($this->style['css'], $this->restyle['css']),
 			'js'    => array_merge($this->style['js'], $this->restyle['js']),
-			'title' => isset($data['title'])?$data['title']:(isset($this->MENU[$this->router->class]['submenu'][$this->router->method])?$this->MENU[$this->router->class]['submenu'][$this->router->method].'-'.$this->_SET->systemName->value:$this->_SET->systemName->value)
+			'title' => isset($data['title'])?$data['title']:(isset($this->MENU[$this->router->class]['submenu'][$this->router->method])?$this->MENU[$this->router->class]['submenu'][$this->router->method].'-'.$this->_G['_SET']->systemName->value:$this->_G['_SET']->systemName->value)
 		);
 		$this->load->view('public/header', $head);
 		if (isset($this->MENU)) {
 			$this->load->view('public/menu', array('menu' => $this->MENU));
 		}
-		$this->load->view($page, $data);
+		$this->load->view($page, array_merge($data,$this->_G));
 		$this->load->view('public/footer');
 	}
 

@@ -15,7 +15,7 @@
                         <?php foreach($setting as $k=>$v){?>
                         <div class="col-md-4 field-box" style="width:800px;">
                             <label style="width:84px;text-align: right; margin-right: 20px;"><?php echo $v->name;?>:</label>
-                            <input class="form-control" type="text" style="width: 422px;" placeholder="<?php echo $v->name;?>" name="<?php echo $k;?>" value="<?php echo $v->value;?>"/>
+                            <input class="form-control" type="text" <?php echo $v->attributes()->class=='disabled'?'disabled':''; ?> style="width: 422px;" placeholder="<?php echo $v->name;?>" name="<?php echo $k;?>" value="<?php echo $v->value;?>"/>
                         </div>
                         <?php }?>
                         <div class="col-md-11 field-box actions">

@@ -8,7 +8,7 @@
 class Setting extends MY_Controller{
 
     public function index(){
-        $this->view('setting/index', array('setting'=>$this->_SET));
+        $this->view('setting/index', array('setting'=>$this->_G['_SET']));
     }
 
     public function edit(){
@@ -18,9 +18,9 @@ class Setting extends MY_Controller{
             array_map('trim',$data);
 
             foreach ($data as $k=>$v){
-                $this->_SET->$k->value = $v;
+                $this->_G['_SET']->$k->value = $v;
             }
-            $res = (int)$this->_SET->asXML($this->settingXml);
+            $res = (int)$this->_G['_SET']->asXML($this->settingXml);
             $this->jsonMsg($res);
         }
     }

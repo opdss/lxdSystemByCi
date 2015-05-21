@@ -12,4 +12,23 @@
         <name>分页大小</name>
         <value>20</value>
     </pageSize>
+    <developers class="disabled">
+        <name>开发人员</name>
+        <value>好人阿新:opdss@qq.com;  &lt;br/&gt;奇奇:vankizou@163.com;  &lt;br/&gt;金总:1441059672@qq.com;  &lt;br/&gt;小威:1109788528@qq.com</value>
+    </developers>
+    <!--
+    <shortcut>
+        <name>快捷操作</name>
+        <value class="item">
+            <item>
+                <name>分页大小</name>
+                <value>20</value>
+            </item>
+            <item>
+                <name>分页大小</name>
+                <value>20</value>
+            </item>
+        </value>
+    </shortcut>
+    -->
 </system>
