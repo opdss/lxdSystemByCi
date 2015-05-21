@@ -144,7 +144,7 @@
             <?php if(isset($v['submenu']) && !empty($v['submenu'])): ?>
             <ul class="submenu">
                 <?php foreach($v['submenu'] as $_k=>$_v):?>
-                <li><a href="<?php echo site_url($k.'/'.$_k);?>"><?php echo $_v;?></a></li>
+                <li><a href="<?php echo site_url($_k);?>"><?php echo $_v;?></a></li>
                 <?php endforeach;?>
             </ul>
             <?php endif;?>

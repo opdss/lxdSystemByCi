@@ -57,7 +57,7 @@ class ManageAuth {
                 if(isset($v['submenu'])){
                     $sM = array();
                     foreach($v['submenu'] as $_k=>$_v){
-                        if(in_array($k.'/'.$_k,$privileges)){
+                        if(in_array($_k,$privileges)){
                             $sM[$_k] = $_v;
                         }
                     }
