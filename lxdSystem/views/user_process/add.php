@@ -126,56 +126,56 @@
     });
 
     //订单id自动更新
-    $('select.mySelect').on('change',function() {
-        //当前选中的id
-        var thisOptVal = $(this).children('option:selected').val();
-        //向放选中的值的数组添加id
-        optionsSelcted_order.push(thisOptVal);
-        var len_selected = optionsSelcted_order.length;
-
-        $('select.mySelect').each(function(index,item){
-            /*
-             选中的数组不在选中的值中则要移除，如：
-             optionsSelcted_order = [1,2,3,4];
-             下拉框中选中的值 = [2,3,4];
-             那么则表明”1“为要替换下的值，即要删除的值
-             */
-            var flag = true;
-            //当前下拉框被选中的值
-            var val_selected = $(item).children('option:selected').val();
-            console.info(val_selected);
-
-            for (var i = 0; i < len_selected; i++) {
-                if (val_selected == optionsSelcted_order[i]) {
-                    flag = false;
-                }
-                //最后一个还没有找到匹配的则证明它为多余的
-                if (flag) {
-                    optionsSelcted_order.splice(i,1);
-                }
-            }
-        });
-
-        var optHtml = '';
-        var len_allOrdVal = optionsAll_order_value.length;
-        for (var i = 0; i < len_allOrdVal; i++) {
-            //假设不在选中的数组中
-            var flag = true;
-
-            for (var j = 0; j < len_selected; j++) {
-                if (optionsAll_order_value[i] == optionsSelcted_order[j]) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag) {
-                optHtml += '<option value="'+ i +'">'+ optionsAll_order_text[i] +'</option>';
-            }
-        }
-        $('select.mySelect option').remove();
-        $('select.mySelect').append(optHtml);
-        console.info(optionsSelcted_order);
-    });
+//    $('select.mySelect').on('change',function() {
+//        //当前选中的id
+//        var thisOptVal = $(this).children('option:selected').val();
+//        //向放选中的值的数组添加id
+//        optionsSelcted_order.push(thisOptVal);
+//        var len_selected = optionsSelcted_order.length;
+//
+//        $('select.mySelect').each(function(index,item){
+//            /*
+//             选中的数组不在选中的值中则要移除，如：
+//             optionsSelcted_order = [1,2,3,4];
+//             下拉框中选中的值 = [2,3,4];
+//             那么则表明”1“为要替换下的值，即要删除的值
+//             */
+//            var flag = true;
+//            //当前下拉框被选中的值
+//            var val_selected = $(item).children('option:selected').val();
+//            console.info(val_selected);
+//
+//            for (var i = 0; i < len_selected; i++) {
+//                if (val_selected == optionsSelcted_order[i]) {
+//                    flag = false;
+//                }
+//                //最后一个还没有找到匹配的则证明它为多余的
+//                if (flag) {
+//                    optionsSelcted_order.splice(i,1);
+//                }
+//            }
+//        });
+//
+//        var optHtml = '';
+//        var len_allOrdVal = optionsAll_order_value.length;
+//        for (var i = 0; i < len_allOrdVal; i++) {
+//            //假设不在选中的数组中
+//            var flag = true;
+//
+//            for (var j = 0; j < len_selected; j++) {
+//                if (optionsAll_order_value[i] == optionsSelcted_order[j]) {
+//                    flag = false;
+//                    break;
+//                }
+//            }
+//            if (flag) {
+//                optHtml += '<option value="'+ i +'">'+ optionsAll_order_text[i] +'</option>';
+//            }
+//        }
+//        $('select.mySelect option').remove();
+//        $('select.mySelect').append(optHtml);
+//        console.info(optionsSelcted_order);
+//    });
 
     $("#username").bind('input propertychange', function() {
         var username = $(this).val();
