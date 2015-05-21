@@ -31,17 +31,17 @@ class ManageAuth {
             }
         }
 //var_dump(serialize($p));exit;
-        $_U = $this->CI->session->userdata('USER_INFO');
+        $this->CI->_G['_U'] = $this->CI->session->userdata('USER_INFO');
         $ajax = $this->CI->input->is_ajax_request();
-        if(empty($_U)){
+        if(empty($this->CI->_G['_U'])){
             $ajax ? $this->CI->jsonMsg(-1) : redirect('login');
         }
-        $this->createMenu($_U['role_privileges']);
+        $this->createMenu($this->CI->_G['_U']['role_privileges']);
         if(!in_array($class.'/'.$method,$p)){
             return;
         }
 
-        if(!in_array($class.'/'.$method,$_U['role_privileges'])){
+        if(!in_array($class.'/'.$method,$this->CI->_G['_U']['role_privileges'])){
             $ajax ? $this->CI->jsonMsg(2) : exit('no auth');
         }
     }
@@ -57,7 +57,7 @@ class ManageAuth {
                 if(isset($v['submenu'])){
                     $sM = array();
                     foreach($v['submenu'] as $_k=>$_v){
-                        if(in_array($k.'/'.$_k,$privileges)){
+                        if(in_array($_k,$privileges)){
                             $sM[$_k] = $_v;
                         }
                     }

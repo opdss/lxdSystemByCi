@@ -14,7 +14,7 @@
             <div class="row filter-block">
                 <div class="pull-right">
                     <input type="text" name="kw" class="search" <?php echo (empty($kw)?'placeholder="搜索..."':"value='{$kw}'");?>onkeydown="if(event.keyCode==13){location.href='<?php echo site_url('user/index');?>?kw='+this.value}" />
-                    <a class="btn-flat success new-product" href="<?php echo site_url('user/add');?>">+ 添加用户组</a>
+                    <a class="btn-flat success new-product" href="<?php echo site_url('user/add');?>">+ 添加用户</a>
                 </div>
             </div>
 
