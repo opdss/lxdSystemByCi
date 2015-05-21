@@ -48,8 +48,9 @@
                             <div class="col-md-10 copy_process_div">
                                 <div class="clone_process_div" style="width:800px;">
                                     <span style="font-size: 14px;margin-right: 20px;">NO.1</span>
-                                    <input type="text" class="small form-control" placeholder="工序名称(必填)" name="process[process_name][]" style="width:176px;margin-right:20px;">
-                                    <input type="text" class="small form-control" placeholder="工序价格（单位:元）(必填)" name="process[process_price][]" style="width:176px;" onkeyup="value=value.replace(/[^\d\.]/g,'')"><input type="text" class="small form-control  process_desc" placeholder="工序简介" name="process[process_desc][]">
+                                    <input type="text" class="small form-control" placeholder="工序名称" name="process[process_name][]" style="width:120px;margin-right:5px;">
+                                    <input type="text" class="small form-control" placeholder="工序价格(元)" name="process[process_price][]" style="width:90px;margin-right:5px;" onkeyup="value=value.replace(/[^\d\.]/g,'')">
+                                    <input type="text" class="small form-control  process_desc" placeholder="工序简介" name="process[process_desc][]" style="width:150px;">
                                     <span style="cursor:pointer;" title="删除工序" class="del_process_div" hidden="hidden"><i class="icon-remove-sign"></i></span>
                                     <span class="alert-msg validate_is_null validate_process" style="color:red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_baituo.png'); ?>" style="width:20px;" />把这个工序先填完吧</span>
                                     <span class="alert-msg validate_is_num" style="color:red;font-weight:700;" hidden="hidden"><img src="<?php echo base_url('source/img/myimg_fadai.png'); ?>" style="width:20px;" />我数学不好，不要骗我</span>
@@ -185,6 +186,8 @@
     function validate_num(obj) {
         var attr_name = obj.attr('name');
         if (attr_name == 'process[process_name][]') {
+            //工序名称是不需要检验是否为数字的
+        } else if (attr_name == 'process[process_desc][]') {
         } else {
             if(obj.val() != '' && Number(obj.val())+''=='NaN') {
                 obj.siblings('span.validate_is_num').removeAttr('hidden');
