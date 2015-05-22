@@ -169,7 +169,7 @@
     //校验工序为空的情况
     function validate_process(obj) {
         //工序简介不需要判断
-        if (obj.attr('name')!='process[process_desc][]') {
+        if(!(obj.attr('name')=='process[process_desc][]')) {
             if ((obj.val() == '')) {
                 obj.siblings('span.validate_is_null').removeAttr('hidden');
             } else {
@@ -206,7 +206,7 @@
     function validate_null(obj) {
         //工序的是两个一起判断
         var attr_name = obj.attr('name');
-        if (attr_name == 'process[process_name][]' || attr_name == 'process[process_price][]') {
+        if (attr_name == 'process[process_name][]' || attr_name == 'process[process_price][]' || attr_name=='process[process_desc][]') {
         } else {
             if (obj.val()=='') {
                 obj.siblings('span.validate_is_null').removeAttr('hidden');
