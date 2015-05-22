@@ -107,21 +107,7 @@
 <!-- end main container -->
 
 <style type="text/css">
-    .sl{
-        width: 353px;
-        position: absolute;
-        top: 34px;
-        left: 170px;
-        z-index: 100;
-        background-color: #fff;
-        border: 1px solid #cccccc;
-        display: none;
-    }
-    .sl .ulist li{
-        cursor: pointer;
-        line-height: 30px;
-        list-style-type: none;
-    }
+
     .clone_process_div span,.old_process_div span{
         margin-left: 30px;
     }
@@ -134,30 +120,6 @@
         $('.input-datepicker').datepicker({format: "yyyy-mm"}).on('changeDate', function (ev) {
             $(this).datepicker('hide');
         });
-    });
-
-    $("#username").bind('input propertychange', function() {
-        var username = $(this).val();
-        $.ajax({
-            'type':'post',
-            'url' : '<?php echo site_url('user_process/getUserInfoByName');?>',
-            'data' : {'data':username},
-            'success' : function(msg){
-                if(msg.code==1){
-                    var html='';
-                    for (var i = msg.data.length - 1; i >= 0; i--) {
-                        html += "<li onclick='userNameHandle(\""+msg.data[i].truename+"\")'>"+msg.data[i].truename+"</li>";
-                    };
-                    $(".ulist").html(html);
-                    $(".sl").show();
-                }
-            },
-            'dataType' : 'json'
-        });
-    });
-
-    $("#username").blur(function(){
-        $(".sl").hide();
     });
 
 
@@ -178,11 +140,6 @@
             },
             'dataType' : 'json'
         });
-    }
-
-    function userNameHandle(name){
-        $("#username").val(name);
-        $(".sl").hide();
     }
 
 

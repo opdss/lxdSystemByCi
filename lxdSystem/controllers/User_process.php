@@ -45,7 +45,16 @@ class User_process extends MY_Controller {
 
 			if (count($data['order_id'])==0) {
 				$this->jsonMsg(0, '请选择所属订单');
-			}
+			}else{
+                $orders = $data['order_id'];
+                $num1 = count($orders);
+                $new_orders = array_unique($orders);//合并相同的元素
+                $num2 = count($new_orders);//提取合并后数组个数
+                if($num1>$num2)//判断下大小
+                {
+                    $this->jsonMsg(0, '相同的订单不可以选择多次');
+                }
+            }
 			if (count($data['process_id'])==0) {
 				$this->jsonMsg(0, '请选择工序');
 			}
@@ -60,6 +69,12 @@ class User_process extends MY_Controller {
             }
 
             $arr = array();
+            if($data['type']=='add_btn'){
+                $arr['ispay'] = 0;
+            }
+            elseif($data['type']=='pay_btn'){
+                $arr['ispay'] = 1;
+            }
             $arr['user_id'] = $data['user_id'];
             $arr['desc'] = $data['desc'];
             $arr['create_time'] = TIMESTAMP;

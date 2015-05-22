@@ -218,46 +218,7 @@
                 if (required!=undefined ) {
                     spanNode += outLength['message'];
                 }
-            /*
-            rules : {
-                username : {
-                    required : true
-                },
-                truename : {
-                    required :true
-                },
-                pwd : {
-                    required : true,
-                    rangelength:[6,18]
-                },
-                sex : {
-                    required : true,
-                    number : true
-                },
-                age : {
-                    required : true,
-                    number : true
-                },
-                dept_id:{
-                    required : true,
-                    number : true
-                },
-                begin_work_time : {
-                    required : true,
-                    date : true
-                },
-                mobile:{
-                    required : true,
-                    ismobile : true
-                },
-                isdel:{
-                    required:true
-                },
-                role_id:{
-                    required:true
->>>>>>> 9445c50efa4d764bf3fa5cbdc480b07f9d320670
-                }
-                */
+
                 //输入文本信息之后放张图片
                 if (imgAfterWord != undefined) {
                     spanNode += '<img src="'+ imgAfterWord +'" style="width:50px;" />';

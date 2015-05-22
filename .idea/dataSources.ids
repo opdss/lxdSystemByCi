@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - lxdSystem@localhost" uuid="ec833d25-0948-4396-a78c-8535eaef140e">
+    <database-info product="MySQL" version="5.6.24" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="lxdSystem"/>
+    <table name="t_category" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="57G75Yir5ZCN56ew"/>
+      <column name="code" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="57G75Yir57yW56CB"/>
+      <column name="remark" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="57G75Yir5o+P6L+w"/>
+      <column name="create_date" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5Yib5bu65pel5pyf"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_department" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="dept_no" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6YOo6Zeo57yW5Y+3"/>
+      <column name="dept_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6YOo6Zeo5ZCN56ew"/>
+      <column name="pid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="54i26YOo6Zeo57yW5Y+3"/>
+      <column name="dept_desc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6YOo6Zeo5o+P6L+w"/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5Yib5bu65pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_order" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="order_no" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" remarks="6K6i5Y2V57yW5Y+3"/>
+      <column name="order_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="6K6i5Y2V5ZCN56ew"/>
+      <column name="order_desc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6K6i5Y2V5o+P6L+w"/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="order_num" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ==" remarks="6K6i5Y2V6aKE5Lyw5pWw6YeP"/>
+      <column name="order_jiafang" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="6K6i5Y2V55Sf5Lqn5aeU5omY5ZWG"/>
+      <column name="order_start_date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" remarks="6K6i5Y2V55Sf5Lqn6aKE5Lyw5byA5aeL5pe26Ze0"/>
+      <column name="order_ent_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" remarks="6K6i5Y2V6aKE5Lyw57uT5p2f5pe26Ze0"/>
+      <column name="order_amount" sqlType="FLOAT" precision="12" scale="2" nullable="false" jdbcType="7" remarks="6K6i5Y2V5oC76YeR6aKd"/>
+      <column name="order_status" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ==" remarks="6K6i5Y2V54q25aSqIDHkuLrov5vooYzkuK3vvIww5Li65a6M5oiQ57uT5p2f77yM"/>
+      <column name="order_isdel" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="5piv5ZCm5Yig6ZmkIDDkuLrmnKrliKDpmaQgMeS4uuWIoOmZpA=="/>
+      <column name="order_curr_amount" sqlType="FLOAT" precision="12" scale="2" nullable="true" jdbcType="7" def="MC4wMA==" remarks="6K+l6K6i5Y2V5b2T5YmN6Iqx6LS55oiQ5pys"/>
+      <column name="order_mate_amount" sqlType="FLOAT" precision="12" scale="2" nullable="false" jdbcType="7" def="MC4wMA==" remarks="5b2T5YmN6K6i5Y2V6aKE5Lyw5oiQ5pys6YeR6aKd"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_order_process" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6K6i5Y2VaWQg"/>
+      <column name="process_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5bel5bqPaWQ="/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Yib5bu65pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_process" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="process_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5bel5bqP5ZCN56ew"/>
+      <column name="process_price" sqlType="FLOAT" precision="10" scale="2" nullable="false" jdbcType="7" remarks="5bel5bqP5Lu35qC8"/>
+      <column name="process_desc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6K6i5Y2V57yW5Y+3"/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="sign" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="process_isdel" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="MeS4uuWIoOmZpCAw5Li65Yig6Zmk"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="index1" unique="true" columns="sign"/>
+    </table>
+    <table name="t_role" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="role_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6KeS6Imy5ZCN56ew"/>
+      <column name="role_desc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6KeS6Imy5o+P6L+w"/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="role_privileges" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="enabled" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_spending" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5byA5pSv6aG555uu5ZCN56ew"/>
+      <column name="remark" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5byA5pSv6aG555uu5o+P6L+w"/>
+      <column name="create_date" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5Yib5bu65pel5pyf"/>
+      <column name="code" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5byA5pSv6aG555uu57yW56CB"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_spending_record" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="category_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="57G75Yir57yW5Y+3"/>
+      <column name="spending_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5byA5pSv6aG555uu57yW5Y+3"/>
+      <column name="spending_date" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5byA5pSv5pel5pyf"/>
+      <column name="spending_amount" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" remarks="5byA5pSv6YeR6aKd"/>
+      <column name="create_date" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5Yib5bu65pel5pyf"/>
+      <column name="remark" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5byA5pSv5o+P6L+w"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_user" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="no" sqlType="VARCHAR" precision="12" scale="0" nullable="false" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" remarks="55So5oi35ZCN"/>
+      <column name="pwd" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="truename" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="sex" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ==" remarks="5oCn5YirIDHnlLcgMOWlsw=="/>
+      <column name="age" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5bm06b6E"/>
+      <column name="dept_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6YOo6Zeo57yW5Y+3"/>
+      <column name="begin_work_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5YWl6IGM5pe26Ze0"/>
+      <column name="end_work_time" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="idcard" sqlType="VARCHAR" precision="18" scale="0" nullable="true" jdbcType="12" def="JzAn" remarks="6Lqr5Lu96K+B5Y+3"/>
+      <column name="mobile" sqlType="VARCHAR" precision="11" scale="0" nullable="true" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="qq" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12"/>
+      <column name="weixin" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="isdel" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="MeS4uuemu+iBjO+8jDDkuLrlnKjlgLw="/>
+      <column name="bothday" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="role_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6KeS6ImySUQ="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_user_process" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi357yW5Y+3"/>
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6K6i5Y2V57yW5Y+3"/>
+      <column name="process_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5bel5bqP57yW5Y+3"/>
+      <column name="process_num" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5bel5bqPIOWBmueahCDku7bmlbA="/>
+      <column name="desc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5aSH5rOo"/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="ispay" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="5piv5ZCm57uT566XIDHkuLrnu5PnrpcgMOS4uuacque7k+eulw=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_user_salary" schema="" catalog="lxdSystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="55So5oi357yW5Y+3"/>
+      <column name="user_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="55So5oi35ZCN56ew"/>
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="6K6i5Y2V57yW5Y+3"/>
+      <column name="work_month" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5bel5L2c55qE5pyI5Lu9IOWmgu+8mjLmnIjku70g5a2Y5YKoICAgMjAxNS0wMg=="/>
+      <column name="salary" sqlType="FLOAT" precision="10" scale="2" nullable="true" jdbcType="7" remarks="5pys5pyI55qE6Jaq5rC0"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="54q25oCBIDAg5bey55Sf5Lqn6Jaq6LWE5Y2V77yMIDEg5bey5Y+R5pS+6Jaq6LWE"/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5Yib5bu65pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+  </data-source>
+</component>
