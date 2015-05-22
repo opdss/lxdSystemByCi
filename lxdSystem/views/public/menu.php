@@ -10,8 +10,8 @@
         </button>
 <!--        <a class="navbar-brand" href="index.html">鑫达鞋业信息管理系统</a>-->
         <h3 style="color:white; margin: 5px 30px;" >鑫达鞋业信息管理系统</h3>
-<!--    </div>-->
-<!--    <ul class="nav navbar-nav pull-right hidden-xs">-->
+    </div>
+    <ul class="nav navbar-nav pull-right hidden-xs">
 <!--        <li class="hidden-xs hidden-sm">-->
 <!--            <input class="search" type="text" />-->
 <!--        </li>-->
@@ -56,49 +56,49 @@
 <!--                </div>-->
 <!--            </div>-->
 <!--        </li>-->
-<!--        <li class="notification-dropdown hidden-xs hidden-sm">-->
+        <li class="notification-dropdown hidden-xs hidden-sm">
 <!--            <a href="#" class="trigger">-->
 <!--                <i class="icon-envelope"></i>-->
 <!--            </a>-->
-<!--            <div class="pop-dialog">-->
-<!--                <div class="pointer right">-->
-<!--                    <div class="arrow"></div>-->
-<!--                    <div class="arrow_border"></div>-->
-<!--                </div>-->
-<!--                <div class="body">-->
-<!--                    <a href="#" class="close-icon"><i class="icon-remove-sign"></i></a>-->
-<!--                    <div class="messages">-->
-<!--                        <a href="#" class="item">-->
-<!--                            <img src="--><?php //echo base_url('source/img/contact-img.png');?><!--" class="display" />-->
-<!--                            <div class="name">Alejandra Galván</div>-->
-<!--                            <div class="msg">-->
-<!--                                There are many variations of available, but the majority have suffered alterations.-->
-<!--                            </div>-->
-<!--                            <span class="time"><i class="icon-time"></i> 13 min.</span>-->
-<!--                        </a>-->
-<!--                        <a href="#" class="item">-->
-<!--                            <img src="--><?php //echo base_url('source/img/contact-img2.png');?><!--" class="display" />-->
-<!--                            <div class="name">Alejandra Galván</div>-->
-<!--                            <div class="msg">-->
-<!--                                There are many variations of available, have suffered alterations.-->
-<!--                            </div>-->
-<!--                            <span class="time"><i class="icon-time"></i> 26 min.</span>-->
-<!--                        </a>-->
-<!--                        <a href="#" class="item last">-->
-<!--                            <img src="--><?php //echo base_url('source/img/contact-img.png');?><!--" class="display" />-->
-<!--                            <div class="name">Alejandra Galván</div>-->
-<!--                            <div class="msg">-->
-<!--                                There are many variations of available, but the majority have suffered alterations.-->
-<!--                            </div>-->
-<!--                            <span class="time"><i class="icon-time"></i> 48 min.</span>-->
-<!--                        </a>-->
-<!--                        <div class="footer">-->
-<!--                            <a href="#" class="logout">View all messages</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </li>-->
+            <div class="pop-dialog">
+                <div class="pointer right">
+                    <div class="arrow"></div>
+                    <div class="arrow_border"></div>
+                </div>
+                <div class="body">
+                    <a href="#" class="close-icon"><i class="icon-remove-sign"></i></a>
+                    <div class="messages">
+                        <a href="#" class="item">
+                            <img src="<?php echo base_url('source/img/contact-img.png');?>" class="display" />
+                            <div class="name">Alejandra Galván</div>
+                            <div class="msg">
+                                There are many variations of available, but the majority have suffered alterations.
+                            </div>
+                            <span class="time"><i class="icon-time"></i> 13 min.</span>
+                        </a>
+                        <a href="#" class="item">
+                            <img src="<?php echo base_url('source/img/contact-img2.png');?>" class="display" />
+                            <div class="name">Alejandra Galván</div>
+                            <div class="msg">
+                                There are many variations of available, have suffered alterations.
+                            </div>
+                            <span class="time"><i class="icon-time"></i> 26 min.</span>
+                        </a>
+                        <a href="#" class="item last">
+                            <img src="<?php echo base_url('source/img/contact-img.png');?>" class="display" />
+                            <div class="name">Alejandra Galván</div>
+                            <div class="msg">
+                                There are many variations of available, but the majority have suffered alterations.
+                            </div>
+                            <span class="time"><i class="icon-time"></i> 48 min.</span>
+                        </a>
+                        <div class="footer">
+                            <a href="#" class="logout">View all messages</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
 <!--        <li class="dropdown">-->
 <!--            <a href="#" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">-->
 <!--                Your account-->
@@ -112,17 +112,17 @@
 <!--                <li><a href="#">Send feedback</a></li>-->
 <!--            </ul>-->
 <!--        </li>-->
-<!--        <li class="settings hidden-xs hidden-sm">-->
-<!--            <a href="--><?php //echo site_url('setting/index');?><!--" role="button">-->
-<!--                <i class="icon-cog"></i>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        <li class="settings hidden-xs hidden-sm">-->
-<!--            <a href="--><?php //echo site_url('login/loginOut');?><!--" role="button">-->
-<!--                <i class="icon-share-alt"></i>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--    </ul>-->
+        <li class="settings hidden-xs hidden-sm">
+            <a href="<?php echo site_url('setting/index');?>" role="button">
+                <i class="icon-cog"></i>
+            </a>
+        </li>
+        <li class="settings hidden-xs hidden-sm">
+            <a href="<?php echo site_url('login/loginOut');?>" role="button">
+                <i class="icon-share-alt"></i>
+            </a>
+        </li>
+    </ul>
 </header>
 <!-- end navbar -->
 <!-- sidebar -->
