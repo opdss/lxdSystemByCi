@@ -140,13 +140,15 @@
         var flag = true;
         //判断已有的工序中是否有空的情况
         $('input.small').each(function(index, item) {
-            if($(item).val() == '') {
-                flag = false;
-                validate_process($(item));
-            } else {
-                if(Number($(item).val()+'' == "NaN")) {
+            if ($(item).attr('name')!='process[process_desc][]') {
+                if($(item).val() == '') {
                     flag = false;
-                    validate_num($(item));
+                    validate_process($(item));
+                } else {
+                    if(Number($(item).val()+'' == "NaN")) {
+                        flag = false;
+                        validate_num($(item));
+                    }
                 }
             }
         });
@@ -166,10 +168,13 @@
 
     //校验工序为空的情况
     function validate_process(obj) {
-        if (obj.val() == '') {
-            obj.siblings('span.validate_is_null').removeAttr('hidden');
-        } else {
-            obj.siblings('span.validate_is_null').attr('hidden', 'hidden');
+        //工序简介不需要判断
+        if (obj.attr('name')!='process[process_desc][]') {
+            if ((obj.val() == '')) {
+                obj.siblings('span.validate_is_null').removeAttr('hidden');
+            } else {
+                obj.siblings('span.validate_is_null').attr('hidden', 'hidden');
+            }
         }
     };
 
