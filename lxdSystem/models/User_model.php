@@ -15,7 +15,7 @@ class User_model extends MY_Model {
 			$row = $query->row_array();
 			if (md5($password) === $row['pwd']) {
 				if ($type) {
-                    $privi = $this->getUserAuth($row['id']);
+                    $privi = $this->getUserAuth($row['role_id']);
                     if(!empty($privi)) {
                         $privi['role_privileges'] = $privi['enabled']==0 ? unserialize($privi['role_privileges']) : '';
                         return array_merge($row, $privi);
