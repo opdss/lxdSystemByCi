@@ -82,6 +82,9 @@ if (!empty($list)) {
             </div>
         </div>
         <!-- end users table -->
+        <div class="col-md-11 field-box actions">
+            <input type="button" class="btn-glow primary" onclick="window.location.href='<?php echo site_url('user_salary/exportUserSalaryList');?>';" value="导出xls">
+        </div>
     </div>
 </div>
 <!-- end main container -->

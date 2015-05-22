@@ -170,29 +170,27 @@ class User_salary extends MY_Controller {
 
     public function exportUserSalaryList() {
 
-        $id           = isset($_GET['id'])?(int) $_GET['id']:0;
-        $keyword      = isset($_GET['keyword'])?trim($_GET['keyword']):'';
-        $pay_status   = isset($_GET['pay_status'])?(int) $_GET['pay_status']:0;
-        $order_status = isset($_GET['order_status'])?(int) $_GET['order_status']:0;
-
-        $where = '';
-        $where .= 'actid = '.$id;
-        if ($keyword != "") {
-            $where .= " and (username like '%".$keyword."%' or consignee like '%".$keyword."%' or consignee_phone like '%".$keyword."%')";
+        $kw = trim($this->input->get('kw'));
+        $month = $this->input->get('month');
+        $where = 'status=0 ';
+        if(!empty($kw)){
+            $where .= ' and username like "%'.$kw.'%" ';
         }
-        if ($pay_status != 0) {
-            $where .= ' and pay_status='.$pay_status;
+        if(!empty($month)){
+            $where .= " and work_month='{$month}' ";
+        }else{
+            $month = date('Y-m');
+            $where .= " and work_month='{$month}' ";
         }
-        if ($order_status != 0) {
-            $where .= ' and order_status='.$order_status;
-        }
-        $order       = 'id desc';
-        $count       = $this->gorder->get_count('actid = '.$id);
-        $gorder_list = $this->gorder->get_list($where, 1, $count, $order);
 
-        xls_header('用户列表');
+        $this->load->model('user_salary_model');
+        $count  = $this->user_salary_model->getTotal($where);
 
-        $title = array('ID', '用户名', '联系方式', '报名人数', '报名时间', '订单备注', '付款状态', '确认状态');
+        $salary_list = $this->user_salary_model->getList(0, $count, $where);
+
+        $this->xlsHeader('用户薪资列表');
+
+        $title = array('序号', '姓名', '月份', '工资');
 
         $xls_str = '';
         foreach ($title as $key => $val) {
@@ -201,15 +199,11 @@ class User_salary extends MY_Controller {
 
         $xls_str .= " \n";
 
-        foreach ($gorder_list as $key => $r) {
-            $xls_str .= "{$r['userid']} \t";
+        foreach ($salary_list as $key => $r) {
+            $xls_str .= ($key+1)."\t";
             $xls_str .= "{$r['username']} \t";
-            $xls_str .= $r['consignee_phone']."\t";
-            $xls_str .= $r['goods_number']."\t";
-            $xls_str .= date('Y-m-d H:i:s', $r['inputtime'])."\t";
-            $xls_str .= $r['order_note']."\t";
-            $xls_str .= tag(35, 'pay_status', $r['pay_status'])."\t";
-            $xls_str .= tag(35, 'order_status', $r['order_status'])."\t";
+            $xls_str .= $r['work_month']."\t";
+            $xls_str .= $r['salary']."\t";
             $xls_str .= " \n";
         }
 
