@@ -71,8 +71,8 @@ class User_salary extends MY_Controller {
             $data['salary_info'] = $new_list;
             //echo '<pre>';print_r($new_list);die();
             $this->load->model('order_model');
-            $count        = $this->order_model->getTotal();
-            $data['order_list'] = $this->order_model->getList(0, $count);
+            $count        = $this->order_model->getTotal('order_status=1');
+            $data['order_list'] = $this->order_model->getList(0, $count,'order_status=1');
 
             $data['sign'] = $sign;
             $this->view('user_salary/edit',$data);

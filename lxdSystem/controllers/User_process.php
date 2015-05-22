@@ -35,8 +35,8 @@ class User_process extends MY_Controller {
             $dept_list = $this->department_model->getList(0, $dep_sum);
             $data['dept_list'] = $this->department_model->generateTree($dept_list);
 			$this->load->model('order_model');
-			$count        = $this->order_model->getTotal();
-			$data['order_list'] = $this->order_model->getList(0, $count);
+			$count        = $this->order_model->getTotal('order_status=1');
+			$data['order_list'] = $this->order_model->getList(0, $count, 'order_status=1');
             //echo '<pre>';print_r($data['order_list']);die();
 			$this->view('user_process/add', $data);
 		} else {
