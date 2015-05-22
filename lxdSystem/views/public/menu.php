@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
         </button>
 <!--        <a class="navbar-brand" href="index.html">鑫达鞋业信息管理系统</a>-->
-        <h3 style="color:white; margin: 5px 30px;" >鑫达鞋业信息管理系统</h3>
+        <h3 style="color:white; margin: 5px 30px;" ><?php echo $_SET->systemName->value;?></h3>
     </div>
     <ul class="nav navbar-nav pull-right hidden-xs">
 <!--        <li class="hidden-xs hidden-sm">-->

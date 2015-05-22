@@ -36,7 +36,7 @@ class Login extends MY_Controller {
         $this->jsonMsg(1);
     }
 
-    public function checkOut(){
+    public function loginOut(){
         redirect('login');
     }
 }

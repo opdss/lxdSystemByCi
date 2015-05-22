@@ -123,32 +123,19 @@
             });
         }
     }
-    $('#add_btn').click(function(){
-        //用订单名称去填冲process_desc
-        $('input.process_desc').val($('input[name=order_name]').val());
-        var data = $('form.new_user_form').serialize();
-        W.ajax({'data':data},'<?php echo site_url('order/add');?>',function(msg) {
-            alert(msg.msg);
-            if (msg.code == 1) {
-                location.href = '<?php echo site_url('order/index');?>';
-            }
-        });
-    });
 
     //添加工序节点
     $('span.copy_process_div').click(function(){
         var flag = true;
         //判断已有的工序中是否有空的情况
         $('input.small').each(function(index, item) {
-            if ($(item).attr('name')!='process[process_desc][]') {
-                if($(item).val() == '') {
+            if($(item).val() == '') {
+                flag = false;
+                validate_process($(item));
+            } else {
+                if(Number($(item).val()+'' == "NaN")) {
                     flag = false;
-                    validate_process($(item));
-                } else {
-                    if(Number($(item).val()+'' == "NaN")) {
-                        flag = false;
-                        validate_num($(item));
-                    }
+                    validate_num($(item));
                 }
             }
         });
@@ -168,13 +155,10 @@
 
     //校验工序为空的情况
     function validate_process(obj) {
-        //工序简介不需要判断
-        if(!(obj.attr('name')=='process[process_desc][]')) {
-            if ((obj.val() == '')) {
-                obj.siblings('span.validate_is_null').removeAttr('hidden');
-            } else {
-                obj.siblings('span.validate_is_null').attr('hidden', 'hidden');
-            }
+        if (obj.val() == '') {
+            obj.siblings('span.validate_is_null').removeAttr('hidden');
+        } else {
+            obj.siblings('span.validate_is_null').attr('hidden', 'hidden');
         }
     };
 
@@ -206,7 +190,7 @@
     function validate_null(obj) {
         //工序的是两个一起判断
         var attr_name = obj.attr('name');
-        if (attr_name == 'process[process_name][]' || attr_name == 'process[process_price][]' || attr_name=='process[process_desc][]') {
+        if (attr_name == 'process[process_name][]' || attr_name == 'process[process_price][]') {
         } else {
             if (obj.val()=='') {
                 obj.siblings('span.validate_is_null').removeAttr('hidden');
