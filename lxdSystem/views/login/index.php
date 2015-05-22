@@ -1,7 +1,8 @@
 <div class="login-wrapper">
-    <a href="#">
-        <img class="logo" src="<?php echo base_url('source/img/logo-white.png'); ?>">
-    </a>
+<!--    <a href="#">-->
+<!--        <img class="logo" src="--><?php //echo base_url('source/img/logo-white.png'); ?><!--">-->
+<!--    </a>-->
+    <h3 style="color:white; margin-bottom: 50px;">鑫达鞋业信息管理系统</h3>
 
     <div class="box">
         <div class="content-wrap">
