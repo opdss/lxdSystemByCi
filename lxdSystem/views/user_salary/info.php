@@ -39,9 +39,7 @@
                                             if ($process['process_num'] > 0) {
                                                 ?>
                                                 <div class="clone_process_div">
-                                                    <span
-                                                        style="font-size: 14px;margin-right: 20px;">NO.<?php echo $i + 1;?>
-                                                        :</span>
+                                                    <span style="font-size: 14px;margin-right: 20px;">NO.<?php echo $i + 1;?>:</span>
                                                     <span>工序名称:  <?php echo $process['process_name'];?></span>
                                                     <span>工序数量:  <?php echo $process['process_num'];?></span>
                                                     <span>工序价格:  <?php echo $process['process_price'];?></span>
