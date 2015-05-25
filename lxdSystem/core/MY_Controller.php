@@ -51,6 +51,7 @@ class MY_Controller extends CI_Controller {
         $this->settingXml = APPPATH.'config/setting.xml';
         $this->_G['_SET'] = $this->getSetting();
         $this->pageSize = $this->_G['_SET']->pageSize->value;
+        $this->chenkRePost();
 	}
 
 	protected function view($page, $data = array()) {
@@ -65,7 +66,7 @@ class MY_Controller extends CI_Controller {
 		);
 		$this->load->view('public/header', $head);
 		if (isset($this->MENU)) {
-			$this->load->view('public/menu', array('menu' => $this->MENU));
+			$this->load->view('public/menu', array_merge(array('menu' => $this->MENU),$this->_G));
 		}
 		$this->load->view($page, array_merge($data,$this->_G));
 		$this->load->view('public/footer');
@@ -118,5 +119,16 @@ class MY_Controller extends CI_Controller {
         header ( 'Last-Modified: ' . gmdate ( 'D, d M Y H:i:s' ) . ' GMT' ); // always modified
         header ( 'Cache-Control: cache, must-revalidate' ); // HTTP/1.1
         header ( 'Pragma: public' ); 						// HTTP/1.0
+    }
+
+    private function chenkRePost($t=3){
+        if($this->input->is_ajax_request()){
+            $re = md5(serialize($_POST));
+            $re_val = $this->session->userdata($re);
+            $this->session->set_userdata($re,TIMESTAMP);
+            if($re_val && (TIMESTAMP-$re_val<$t)){
+                $this->jsonMsg(0,'请不要重复提交请求相同的数据');
+            }
+        }
     }
 }
