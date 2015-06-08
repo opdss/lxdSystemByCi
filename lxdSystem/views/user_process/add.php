@@ -127,6 +127,7 @@
                         location.href = '<?php echo site_url('user_process/index');?>';
                     }else{
                         alert(msg.msg);
+                        location.href = '<?php echo $_SERVER['HTTP_REFERER'];?>';
                     }
                 },
                 'dataType' : 'json'

@@ -99,19 +99,16 @@
                 </div>
             </div>
         </li>
-<!--        <li class="dropdown">-->
-<!--            <a href="#" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">-->
-<!--                Your account-->
-<!--                <b class="caret"></b>-->
-<!--            </a>-->
-<!--            <ul class="dropdown-menu">-->
-<!--                <li><a href="personal-info.html">Personal info</a></li>-->
-<!--                <li><a href="#">Account settings</a></li>-->
-<!--                <li><a href="#">Billing</a></li>-->
-<!--                <li><a href="#">Export your data</a></li>-->
-<!--                <li><a href="#">Send feedback</a></li>-->
-<!--            </ul>-->
-<!--        </li>-->
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">
+                账户信息
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="<?php echo site_url('user/edit');?>?id=<?php echo $this->session->userdata('uid').'&type=info';?>">个人信息</a></li>
+                <li><a href="<?php echo site_url('setting/editPwd');?>">密码修改</a></li>
+            </ul>
+        </li>
         <li class="settings hidden-xs hidden-sm">
             <a href="<?php echo site_url('setting/index');?>" role="button">
                 <i class="icon-cog"></i>
