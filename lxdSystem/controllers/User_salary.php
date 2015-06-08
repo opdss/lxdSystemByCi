@@ -126,6 +126,7 @@ class User_salary extends MY_Controller {
 
                         $arr['process_num'] = $data['process_num'][$v][$key];
                         $arr['order_process_id'] = $val;
+
                         //判断添加过该道工序，有 更新  无 添加
                         $sum = $this->user_process_model->checkUserProcess(' order_process_id="' . $val . '" ');
                         if ($sum > 0) {

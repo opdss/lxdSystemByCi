@@ -127,7 +127,7 @@
                         location.href = '<?php echo site_url('user_process/index');?>';
                     }else{
                         alert(msg.msg);
-                        location.href = '<?php echo $_SERVER['HTTP_REFERER'];?>';
+                        //location.href = '<?php echo $_SERVER['HTTP_REFERER'];?>';
                     }
                 },
                 'dataType' : 'json'
@@ -150,6 +150,7 @@
                         html += '<div class="clone_process_div">';
                         html += '<span style="font-size: 14px;margin-right: 20px;">NO.'+(j+1)+':</span>';
                         html += '<span>工序名称:  '+msg.data[i].process_name+'</span><input type="hidden" name="process_id['+orderid+'][]" value="'+msg.data[i].order_process_id+'"><input type="hidden" name="process_price['+orderid+'][]" value="'+msg.data[i].process_price+'">';
+                        html += '<input type="hidden" name="process_name['+orderid+'][]" value="'+msg.data[i].process_name+'">';
                         html += '<span>工序数量:  <input type="text" class="small form-control" name="process_num['+orderid+'][]" value="0" style="height:24px;width:80px;margin-top:0;" onkeyup="value=value.replace(/[^\\d]/g,\'\')" name="process_num['+orderid+'][]"></span>';
                         html += '</div>';
                     }

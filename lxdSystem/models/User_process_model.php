@@ -47,4 +47,13 @@ class User_process_model extends MY_Model {
         return $row;
     }
 
+    //判断某道工序添加的数量超出了
+    public function checkProcessNum($where){
+        $sql = "select sum(process_num) as sum from ".$this->db->dbprefix('user_process')." where ".$where;
+        $query          = $this->db->query($sql);
+        $row           = $query->row_array();
+        return $row['sum'];
+
+    }
+
 }

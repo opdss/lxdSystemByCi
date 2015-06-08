@@ -87,11 +87,21 @@ class User_process extends MY_Controller {
             $this->db->query('BEGIN');
 
             foreach($data['order_id'] as $k=>$v){
+                $this->load->model('order_model');
+                $order_info = $this->order_model->getRow('id='.$v);
                 //根据订单id循环插入该订单的每一道工序
                 foreach($data['process_id'][$v] as $key=>$val){
 
                     $arr['order_process_id'] = $val;
                     $arr['process_num'] = $data['process_num'][$v][$key];
+                    //判断该道工序的数量是否超标了
+                    $process_sum = $this->user_process_model->checkProcessNum('order_process_id='.$val." and work_month='".$arr['work_month']."'");
+                    $process_sum += $arr['process_num'];
+                    if($process_sum > $order_info['order_num']){
+                        //$flag = false;
+                        $this->db->query('ROLLBACK');
+                        $this->jsonMsg(0, $order_info['order_name'].'--'.$data['process_name'][$v][$key].'已超出了总工序数量');
+                    }
                     $totle += $data['process_num'][$v][$key]*$data['process_price'][$v][$key];
                     $res = (int)$this->user_process_model->add($arr);
                     if(!$res){
@@ -100,7 +110,6 @@ class User_process extends MY_Controller {
 
                 }
                 //更新订单当前花费的金额
-                $this->load->model('order_model');
                 if(!$this->order_model->edit($v,$totle)){
                     $flag = false;
                 }
